@@ -1,0 +1,31 @@
+# Stratos Consulting Crew LLC
+
+## What We Do
+Analytics consulting for small distributors and manufacturers — we turn operational data into decisions that cut costs, free up inventory cash, and improve margins.
+
+## Who We Serve
+Small distributors and manufacturers (1–50 employees) in the Dallas–Fort Worth metroplex who lack an in-house analytics team.
+
+## Services
+- Executive Dashboards (Power BI, KPI reporting, automated weekly reports)
+- Demand & Sales Forecasting (by product line, customer, season)
+- Inventory Optimization (safety stock, reorder points, excess & slow-mover analysis)
+- Cost Reduction & Profitability (spend analysis, vendor benchmarking, margin optimization)
+- Automation (data pipelines, process automation)
+- Fractional Analytics Support (monthly retainer, ongoing analytics team)
+
+## Location
+Dallas–Fort Worth, Texas, USA
+
+## Contact
+Email: hparker6@stratosconsultingcrew.com
+Website: https://www.stratosconsultingcrew.com
+
+## Founder
+Houston Parker, BS Data Science — data scientist specializing in supply-chain analytics, Power BI, SQL, and Python.
+
+## Pricing
+- Discovery Assessment: $299–$499
+- Dashboard Package: $1k–$2.5k
+- Forecasting Project: $2.5k–$5k
+- Monthly Retainer: $500–$1.5k/mo
