@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Logo({ size = 36 }: { size?: number }) {
+function Logo({ size = 44 }: { size?: number }) {
   return (
     <div className="flex items-center gap-3">
       <div
@@ -32,8 +32,8 @@ function Logo({ size = 36 }: { size?: number }) {
         </svg>
       </div>
       <div>
-        <div className="font-heading font-bold text-[15px] text-text-base leading-none tracking-tight">Stratos</div>
-        <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted leading-none mt-[3px]">
+        <div className="font-heading font-bold text-[18px] text-text-base leading-none tracking-tight">Stratos</div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted leading-none mt-[4px]">
           Consulting Crew
         </div>
       </div>
@@ -64,25 +64,25 @@ export default function Nav() {
         borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}
     >
-      <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-16">
+      <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-[72px]">
         <a href="#" aria-label="Stratos Consulting Crew home">
           <Logo />
         </a>
 
         {/* Desktop links */}
-        <nav className="hidden md:flex items-center gap-7" aria-label="Main navigation">
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
           {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="font-body text-sm text-muted hover:text-text-base transition-colors"
+              className="font-body font-medium text-[15px] text-muted hover:text-text-base transition-colors"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        <a href="#contact" className="hidden md:inline-flex btn-primary text-sm">
+        <a href="#contact" className="hidden md:inline-flex btn-primary">
           Book a Free Call
         </a>
 
@@ -110,7 +110,7 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <nav
-          className="md:hidden border-t hairline px-5 py-4 flex flex-col gap-4"
+          className="md:hidden border-t px-5 py-5 flex flex-col gap-5"
           style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(10,15,28,0.97)' }}
           aria-label="Mobile navigation"
         >
@@ -118,13 +118,13 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="font-body text-sm text-muted hover:text-text-base transition-colors"
+              className="font-body font-medium text-[15px] text-muted hover:text-text-base transition-colors"
               onClick={() => setOpen(false)}
             >
               {l.label}
             </a>
           ))}
-          <a href="#contact" className="btn-primary text-sm w-fit mt-1" onClick={() => setOpen(false)}>
+          <a href="#contact" className="btn-primary w-fit mt-1" onClick={() => setOpen(false)}>
             Book a Free Call
           </a>
         </nav>

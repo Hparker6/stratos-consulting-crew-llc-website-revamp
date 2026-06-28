@@ -1,6 +1,4 @@
 function PreviewMock() {
-  // Inline SVG area+line chart: actual (blue solid) vs forecast (green dashed)
-  // 5-bar inventory chart
   const actualPoints = [38, 42, 35, 48, 44, 52, 56, 50, 60, 65, 58, 70]
   const forecastPoints = [40, 44, 42, 46, 50, 54, 58, 56, 62, 68, 65, 72]
   const w = 280
@@ -42,7 +40,6 @@ function PreviewMock() {
         maxWidth: 420,
       }}
     >
-      {/* Window header */}
       <div
         className="flex items-center justify-between px-4 py-3"
         style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(0,0,0,0.2)' }}
@@ -66,11 +63,10 @@ function PreviewMock() {
       </div>
 
       <div className="p-4 space-y-3">
-        {/* KPI row */}
         <div className="grid grid-cols-2 gap-3">
           {[
-            { label: 'INVENTORY TURNS', value: '6.4', delta: '▲0.8', pos: true },
-            { label: 'FILL RATE', value: '97.2%', delta: '▲1.4%', pos: true },
+            { label: 'INVENTORY TURNS', value: '6.4', delta: '▲0.8' },
+            { label: 'FILL RATE', value: '97.2%', delta: '▲1.4%' },
           ].map((k) => (
             <div
               key={k.label}
@@ -88,7 +84,6 @@ function PreviewMock() {
           ))}
         </div>
 
-        {/* Area + line chart */}
         <div
           className="rounded-[10px] p-3"
           style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
@@ -124,7 +119,6 @@ function PreviewMock() {
           </svg>
         </div>
 
-        {/* Inventory health bars */}
         <div
           className="rounded-[10px] p-3"
           style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
@@ -149,41 +143,39 @@ function PreviewMock() {
 
 export default function DashboardPreview() {
   return (
-    <section id="dashboard" className="py-20 lg:py-28 bg-bg">
+    <section id="dashboard" className="py-16 lg:py-20 bg-bg">
       <div className="max-w-6xl mx-auto px-5">
         <div
-          className="rounded-[24px] p-8 lg:p-12 flex flex-col lg:flex-row gap-12 lg:items-center"
+          className="rounded-[24px] p-8 lg:p-10 flex flex-col lg:flex-row gap-10 lg:items-center"
           style={{
             background: '#101a2e',
             border: '1px solid rgba(255,255,255,0.08)',
             boxShadow: '0 0 80px rgba(47,143,255,0.06)',
           }}
         >
-          {/* Text */}
           <div className="flex-1 max-w-md">
-            <p className="eyebrow text-primary mb-4">What you get</p>
-            <h2 className="font-heading font-bold text-[28px] md:text-[36px] tracking-[-0.02em] leading-tight">
+            <p className="eyebrow text-primary mb-3">What you get</p>
+            <h2 className="font-heading font-bold text-[32px] md:text-[42px] tracking-[-0.02em] leading-tight">
               A single screen that runs your whole operation.
             </h2>
-            <p className="mt-4 text-muted text-[15px] leading-relaxed">
+            <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed">
               Inventory turns, fill rate, margin by product line, demand forecast — live, automated, and
               refreshed without anyone touching a spreadsheet.
             </p>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-5 space-y-3">
               {[
                 'Connects to your ERP, accounting & inventory',
                 'Weekly reports land in your inbox automatically',
                 'Drill from company-wide down to a single SKU',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="text-secondary mt-[2px] font-bold text-sm">✓</span>
-                  <span className="text-[14px] text-muted leading-snug">{item}</span>
+                  <span className="text-secondary mt-[2px] font-bold text-sm flex-shrink-0">✓</span>
+                  <span className="text-muted font-medium text-[16px] leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Preview mock */}
           <div className="flex-1 flex justify-center lg:justify-end">
             <PreviewMock />
           </div>

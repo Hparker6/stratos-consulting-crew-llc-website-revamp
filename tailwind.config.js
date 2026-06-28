@@ -13,7 +13,7 @@ export default {
         primary: '#2f8fff',
         secondary: '#27e0a0',
         'text-base': '#eaf0fa',
-        muted: '#93a3bc',
+        muted: '#a8b8cc',
         faint: '#5e6a7e',
         'btn-dark': '#04102a',
       },

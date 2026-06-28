@@ -24,10 +24,10 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-bg">
+    <section id="contact" className="py-16 lg:py-20 bg-bg">
       <div className="max-w-6xl mx-auto px-5">
         <div
-          className="rounded-[24px] p-8 lg:p-12 flex flex-col lg:flex-row gap-12"
+          className="rounded-[24px] p-8 lg:p-10 flex flex-col lg:flex-row gap-10"
           style={{
             background: 'linear-gradient(135deg, rgba(47,143,255,0.08) 0%, rgba(39,224,160,0.05) 100%)',
             border: '1px solid rgba(255,255,255,0.1)',
@@ -36,28 +36,24 @@ export default function Contact() {
         >
           {/* Left */}
           <div className="flex-1 max-w-sm">
-            <p className="eyebrow text-secondary mb-4">Let's talk</p>
-            <h2 className="font-heading font-bold text-[28px] md:text-[36px] tracking-[-0.02em] leading-tight">
+            <p className="eyebrow text-secondary mb-3">Let's talk</p>
+            <h2 className="font-heading font-bold text-[30px] md:text-[40px] tracking-[-0.02em] leading-tight">
               Book your free discovery call.
             </h2>
-            <p className="mt-4 text-muted text-[14px] leading-relaxed">
+            <p className="mt-4 text-muted font-medium text-[16px] leading-relaxed">
               30 minutes, no pitch. Tell us where it hurts and we'll tell you — honestly — whether we can
               help and what it'd take.
             </p>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-5 space-y-3">
               {[
                 { label: 'hparker6@stratosconsultingcrew.com', href: 'mailto:hparker6@stratosconsultingcrew.com' },
                 { label: 'Serving the Dallas–Fort Worth metroplex' },
                 { label: 'Replies within one business day' },
               ].map((item) => (
-                <li key={item.label} className="flex items-center gap-2 text-[13px] text-muted">
+                <li key={item.label} className="flex items-center gap-2 text-[15px] text-muted font-medium">
                   <span className="text-primary font-bold">✦</span>
                   {item.href ? (
-                    <a
-                      href={item.href}
-                      className="text-primary hover:underline"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={item.href} className="text-primary hover:underline" rel="noopener noreferrer">
                       {item.label}
                     </a>
                   ) : (
@@ -77,7 +73,7 @@ export default function Contact() {
               >
                 <div>
                   <p className="text-secondary font-bold text-lg font-heading mb-2">Message sent.</p>
-                  <p className="text-muted text-[14px]">We'll get back to you within one business day.</p>
+                  <p className="text-muted font-medium text-[16px]">We'll get back to you within one business day.</p>
                 </div>
               </div>
             ) : (
@@ -93,59 +89,33 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="name" className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint block mb-2">
+                    <label htmlFor="name" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Name
                     </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="Jane Doe"
-                      className="input-dark"
-                    />
+                    <input id="name" name="name" type="text" required placeholder="Jane Doe" className="input-dark" />
                   </div>
                   <div>
-                    <label htmlFor="company" className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint block mb-2">
+                    <label htmlFor="company" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Company
                     </label>
-                    <input
-                      id="company"
-                      name="company"
-                      type="text"
-                      placeholder="Acme Supply Co."
-                      className="input-dark"
-                    />
+                    <input id="company" name="company" type="text" placeholder="Acme Supply Co." className="input-dark" />
                   </div>
                   <div>
-                    <label htmlFor="email" className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint block mb-2">
+                    <label htmlFor="email" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Email
                     </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="jane@acme.com"
-                      className="input-dark"
-                    />
+                    <input id="email" name="email" type="email" required placeholder="jane@acme.com" className="input-dark" />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint block mb-2">
+                    <label htmlFor="phone" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Phone
                     </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="(214) 555-0142"
-                      className="input-dark"
-                    />
+                    <input id="phone" name="phone" type="tel" placeholder="(214) 555-0142" className="input-dark" />
                   </div>
                 </div>
 
                 <div className="mb-5">
-                  <label htmlFor="challenge" className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint block mb-2">
+                  <label htmlFor="challenge" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                     What's your biggest challenge?
                   </label>
                   <textarea

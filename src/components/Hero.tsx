@@ -10,7 +10,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden bg-grid"
+      className="relative overflow-hidden"
       style={{ background: '#0a0f1c' }}
       aria-label="Hero"
     >
@@ -39,20 +39,23 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-5 py-20 lg:py-28">
+      <div className="relative max-w-6xl mx-auto px-5 py-16 lg:py-24">
         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 gap-12">
           {/* Text column */}
           <div className="flex-1 max-w-[540px]">
-            <h1 className="font-heading font-extrabold text-[38px] md:text-[52px] lg:text-[62px] leading-[1.05] tracking-[-0.03em] text-text-base">
-              Your data should be
-              <br />
-              <span className="gradient-text">making you money.</span>
+            {/*
+              Using display:block spans so the break always falls after "be"
+              regardless of viewport — no dangling word.
+            */}
+            <h1 className="font-heading font-extrabold text-[40px] md:text-[54px] lg:text-[60px] leading-[1.06] tracking-[-0.03em] text-text-base">
+              <span className="block">Your data should be</span>
+              <span className="block gradient-text">making you money.</span>
             </h1>
 
-            <p className="mt-6 text-muted text-[16px] md:text-[17px] leading-relaxed max-w-[480px]">
-              We help small distributors and manufacturers across DFW cut costs, free up cash stuck in
-              inventory, and make smarter decisions — with dashboards and forecasting built for how you
-              actually run.
+            <p className="mt-6 text-muted font-medium text-[17px] leading-relaxed max-w-[490px]">
+              Dashboards, forecasting, and inventory analytics for small distributors across
+              Dallas-Fort Worth. No enterprise price tag. No buzzwords. Just clear numbers that
+              help you make better decisions.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -65,11 +68,14 @@ export default function Hero() {
             </div>
 
             {/* Category badges */}
-            <div className="mt-8 flex flex-wrap gap-5">
+            <div className="mt-8 flex flex-wrap gap-6">
               {badges.map((b) => (
-                <span key={b.label} className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+                <span
+                  key={b.label}
+                  className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted font-medium"
+                >
                   <span
-                    className="inline-block w-[7px] h-[7px] rounded-sm"
+                    className="inline-block w-[7px] h-[7px] rounded-sm flex-shrink-0"
                     style={{ background: b.color }}
                   />
                   {b.label}

@@ -81,34 +81,84 @@ const services = [
   {
     icon: <IconDonut />,
     tileClass: 'icon-tile-green',
-    title: 'Fractional Analytics Support',
-    body: 'A monthly retainer that gives you an analytics team — without the headcount or the overhead.',
+    title: 'Ongoing Analytics Partner',
+    body: 'A monthly partnership that gives you an analytics team — without the headcount or the overhead.',
   },
 ]
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 lg:py-28 bg-bg">
-      <div className="max-w-6xl mx-auto px-5 text-center">
-        <p className="eyebrow text-secondary mb-4">What we do</p>
-        <h2 className="font-heading font-bold text-[32px] md:text-[42px] tracking-[-0.02em]">
+    <section
+      id="services"
+      className="relative overflow-hidden py-16 lg:py-20"
+      style={{
+        background: '#101a2e',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
+      }}
+    >
+      {/* Faint data dot-grid texture */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(47,143,255,0.07) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+
+      {/* Faint large watermark bar-chart in the background */}
+      <div className="pointer-events-none absolute right-0 bottom-0 w-1/2 h-full overflow-hidden opacity-[0.035]">
+        <svg
+          viewBox="0 0 480 320"
+          preserveAspectRatio="xMaxYMax meet"
+          className="absolute right-0 bottom-0 w-full h-full"
+          aria-hidden="true"
+        >
+          {[
+            { x: 20,  h: 160 }, { x: 80,  h: 220 }, { x: 140, h: 140 },
+            { x: 200, h: 280 }, { x: 260, h: 180 }, { x: 320, h: 260 },
+            { x: 380, h: 200 }, { x: 440, h: 300 },
+          ].map((b) => (
+            <rect key={b.x} x={b.x} y={320 - b.h} width={40} height={b.h} rx={4} fill="#2f8fff" />
+          ))}
+        </svg>
+      </div>
+
+      <div className="relative max-w-6xl mx-auto px-5 text-center">
+        <p className="eyebrow text-secondary mb-3">What we do</p>
+        <h2 className="font-heading font-bold text-[36px] md:text-[48px] tracking-[-0.02em]">
           Six ways we turn data into dollars.
         </h2>
-        <p className="mt-4 text-muted max-w-lg mx-auto leading-relaxed">
+        <p className="mt-4 text-muted font-medium text-[17px] max-w-lg mx-auto leading-relaxed">
           Mix and match, or hand us the whole problem. Everything's built around your numbers, your systems, your team.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
           {services.map((s) => (
-            <article key={s.title} className="card p-7 hover:border-white/[0.14] transition-colors">
-              <div className={`${s.tileClass} mb-5`} aria-hidden="true">
+            <article
+              key={s.title}
+              className="p-6 rounded-[14px] hover:border-white/[0.14] transition-colors"
+              style={{ background: 'rgba(10,15,28,0.55)', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              <div className={`${s.tileClass} mb-4`} aria-hidden="true">
                 {s.icon}
               </div>
-              <h3 className="font-heading font-bold text-[16px] text-text-base mb-2">{s.title}</h3>
-              <p className="text-muted text-[14px] leading-relaxed">{s.body}</p>
+              <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{s.title}</h3>
+              <p className="text-muted font-medium text-[16px] leading-relaxed">{s.body}</p>
             </article>
           ))}
         </div>
+      </div>
+
+      {/* Wave divider into How It Works */}
+      <div className="absolute bottom-0 left-0 right-0" style={{ lineHeight: 0 }}>
+        <svg
+          viewBox="0 0 1440 20"
+          preserveAspectRatio="none"
+          style={{ width: '100%', height: 20, display: 'block' }}
+          aria-hidden="true"
+        >
+          <path d="M0,0 C360,20 1080,0 1440,20 L1440,20 L0,20 Z" fill="#0c1a30" />
+        </svg>
       </div>
     </section>
   )
