@@ -65,7 +65,7 @@ export default function About() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {['BS, Data Science', 'Power BI · SQL · Python', 'DFW, Texas'].map((chip) => (
+              {['BS, Data Science', 'Power BI · SQL · Python', 'Remote-Friendly'].map((chip) => (
                 <span
                   key={chip}
                   className="font-mono text-[10px] uppercase tracking-[0.1em] font-medium px-3 py-[6px] rounded-full"

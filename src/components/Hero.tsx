@@ -4,7 +4,7 @@ import { BOOK_CALL_MAILTO } from '../lib/site'
 const badges = [
   { label: 'Cost Reduction', color: '#2f8fff' },
   { label: 'Inventory Optimization', color: '#27e0a0' },
-  { label: 'DFW Based', color: '#2f8fff' },
+  { label: 'Remote-Friendly', color: '#2f8fff' },
 ]
 
 export default function Hero() {
@@ -54,8 +54,8 @@ export default function Hero() {
             </h1>
 
             <p className="mt-6 text-muted font-medium text-[17px] leading-relaxed max-w-[490px] rise rise-2">
-              Dashboards, forecasting, and inventory analytics for small distributors across
-              Dallas-Fort Worth. No enterprise price tag. No buzzwords. Just clear numbers that
+              Dashboards, forecasting, and inventory analytics for small distributors.
+              No enterprise price tag. No buzzwords. Just clear numbers that
               help you make better decisions.
             </p>
 

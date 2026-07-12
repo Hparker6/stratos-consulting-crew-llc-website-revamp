@@ -74,7 +74,7 @@ export default function Contact() {
             <ul className="mt-5 space-y-3">
               {[
                 { label: 'hparker6@stratosconsultingcrew.com', href: 'mailto:hparker6@stratosconsultingcrew.com' },
-                { label: 'Serving the Dallas–Fort Worth metroplex' },
+                { label: 'Serving distributors nationwide' },
                 { label: 'Replies within one business day' },
               ].map((item) => (
                 <li key={item.label} className="flex items-center gap-2 text-[15px] text-muted font-medium">

@@ -17,7 +17,7 @@ export default function usePageMeta(title: string, description: string, opts: Pa
   useEffect(() => {
     const fullTitle = title
       ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} | Analytics & Dashboards for Distributors | Dallas-Fort Worth`
+      : `${SITE_NAME} | Analytics & Dashboards for Distributors`
     applyMeta({ title: fullTitle, description, path: pathname })
 
     const cleanups: (() => void)[] = []
