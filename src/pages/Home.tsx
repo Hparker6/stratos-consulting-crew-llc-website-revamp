@@ -11,15 +11,7 @@ import FAQ from '../components/FAQ'
 import Contact from '../components/Contact'
 
 function GradientDivider() {
-  return (
-    <div
-      style={{
-        height: 2,
-        background:
-          'linear-gradient(90deg, transparent 0%, rgba(47,143,255,0.4) 30%, rgba(39,224,160,0.4) 70%, transparent 100%)',
-      }}
-    />
-  )
+  return <div className="divider-shimmer" style={{ height: 2 }} />
 }
 
 export default function Home() {

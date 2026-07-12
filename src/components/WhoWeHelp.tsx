@@ -77,11 +77,13 @@ interface Props {
 export default function WhoWeHelp({ variant = 'section' }: Props) {
   const cards = (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
-      {audiences.map((a) => (
+      {audiences.map((a, i) => (
         <article
           key={a.title}
-          className="p-6 rounded-[14px] hover:border-white/[0.14] transition-colors"
+          className="p-6 rounded-[14px] card-lift hover:border-white/[0.14]"
           style={{ background: 'rgba(16,26,46,0.7)', border: '1px solid rgba(255,255,255,0.08)' }}
+          data-reveal
+          data-reveal-delay={i * 70}
         >
           <div className={`${a.tileClass} mb-4`} aria-hidden="true">
             {a.icon}

@@ -83,17 +83,15 @@ export default function Pricing() {
         </p>
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
-          {tiers.map((t) => (
+          {tiers.map((t, i) => (
             <article
               key={t.name}
-              className="flex flex-col p-6 rounded-[18px] transition-shadow"
+              data-reveal
+              data-reveal-delay={i * 70}
+              className={`flex flex-col p-6 rounded-[18px] card-lift ${t.featured ? 'gradient-ring' : ''}`}
               style={
                 t.featured
-                  ? {
-                      background: 'rgba(47,143,255,0.07)',
-                      border: '1.5px solid #2f8fff',
-                      boxShadow: '0 0 40px rgba(47,143,255,0.18)',
-                    }
+                  ? { boxShadow: '0 0 44px rgba(47,143,255,0.2)' }
                   : {
                       background: '#101a2e',
                       border: '1px solid rgba(255,255,255,0.08)',

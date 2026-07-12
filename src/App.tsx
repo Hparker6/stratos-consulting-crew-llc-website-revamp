@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import CookieConsent from './components/CookieConsent'
 import { resetPageTracking, trackPageView } from './lib/analytics'
+import useRevealObserver from './hooks/useRevealObserver'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
 import SolutionsPage from './pages/SolutionsPage'
@@ -22,6 +23,7 @@ function ProblemRedirect() {
 /** SPA page_view events for GA4 (Enhanced Measurement can't see route changes). */
 function PageViewTracker() {
   const { pathname } = useLocation()
+  useRevealObserver()
   useEffect(() => {
     resetPageTracking(pathname)
     // Let usePageMeta set the title first, then report.

@@ -14,18 +14,18 @@ export default function Hero() {
       style={{ background: '#0a0f1c' }}
       aria-label="Hero"
     >
-      {/* Ambient glows */}
+      {/* Ambient glows — slow cinematic drift */}
       <div
-        className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full"
+        className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full drift-a"
         style={{
-          background: 'radial-gradient(circle, rgba(47,143,255,0.13) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(47,143,255,0.16) 0%, transparent 65%)',
           filter: 'blur(40px)',
         }}
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full"
+        className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full drift-b"
         style={{
-          background: 'radial-gradient(circle, rgba(39,224,160,0.1) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(39,224,160,0.12) 0%, transparent 65%)',
           filter: 'blur(50px)',
         }}
       />
@@ -48,17 +48,17 @@ export default function Hero() {
               regardless of viewport — no dangling word.
             */}
             <h1 className="font-heading font-extrabold text-[40px] md:text-[54px] lg:text-[60px] leading-[1.06] tracking-[-0.03em] text-text-base">
-              <span className="block">Your data should be</span>
-              <span className="block gradient-text">making you money.</span>
+              <span className="block rise">Your data should be</span>
+              <span className="block gradient-text rise rise-1">making you money.</span>
             </h1>
 
-            <p className="mt-6 text-muted font-medium text-[17px] leading-relaxed max-w-[490px]">
+            <p className="mt-6 text-muted font-medium text-[17px] leading-relaxed max-w-[490px] rise rise-2">
               Dashboards, forecasting, and inventory analytics for small distributors across
               Dallas-Fort Worth. No enterprise price tag. No buzzwords. Just clear numbers that
               help you make better decisions.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3 rise rise-3">
               <a href="#contact" className="btn-primary" data-track="cta_click" data-track-label="hero_book_call">
                 Book a Free Discovery Call →
               </a>
@@ -68,7 +68,7 @@ export default function Hero() {
             </div>
 
             {/* Category badges */}
-            <div className="mt-8 flex flex-wrap gap-6">
+            <div className="mt-8 flex flex-wrap gap-6 rise rise-4">
               {badges.map((b) => (
                 <span
                   key={b.label}
@@ -85,7 +85,7 @@ export default function Hero() {
           </div>
 
           {/* Dashboard mock column */}
-          <div className="flex-1 flex justify-center lg:justify-end">
+          <div className="flex-1 flex justify-center lg:justify-end rise rise-3">
             <HeroDashboardMock />
           </div>
         </div>

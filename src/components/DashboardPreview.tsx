@@ -155,7 +155,7 @@ export default function DashboardPreview() {
             boxShadow: '0 0 80px rgba(47,143,255,0.06)',
           }}
         >
-          <div className="flex-1 max-w-md">
+          <div className="flex-1 max-w-md" data-reveal>
             <p className="eyebrow text-primary mb-3">What you get</p>
             <h2 className="font-heading font-bold text-[32px] md:text-[42px] tracking-[-0.02em] leading-tight">
               A single screen that runs your whole operation.
@@ -186,7 +186,7 @@ export default function DashboardPreview() {
             </Link>
           </div>
 
-          <div className="flex-1 flex justify-center lg:justify-end">
+          <div className="flex-1 flex justify-center lg:justify-end" data-reveal data-reveal-delay={120}>
             <PreviewMock />
           </div>
         </div>

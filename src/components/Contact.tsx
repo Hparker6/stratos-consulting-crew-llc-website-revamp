@@ -37,6 +37,7 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto px-5">
         <div
           className="rounded-[24px] p-8 lg:p-10 flex flex-col lg:flex-row gap-10"
+          data-reveal
           style={{
             background: 'linear-gradient(135deg, rgba(47,143,255,0.08) 0%, rgba(39,224,160,0.05) 100%)',
             border: '1px solid rgba(255,255,255,0.1)',

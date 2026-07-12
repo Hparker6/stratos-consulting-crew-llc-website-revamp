@@ -15,6 +15,7 @@ export default function CTABand({
       <div className="max-w-6xl mx-auto px-5">
         <div
           className="rounded-[24px] p-8 lg:p-12 text-center"
+          data-reveal
           style={{
             background: 'linear-gradient(135deg, rgba(47,143,255,0.09) 0%, rgba(39,224,160,0.06) 100%)',
             border: '1px solid rgba(255,255,255,0.1)',

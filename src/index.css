@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Motion tokens — one rhythm everywhere (expo-out) */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-fast: 200ms;
+    --dur: 350ms;
+    --dur-slow: 600ms;
+  }
   html {
     scroll-behavior: smooth;
   }
@@ -153,5 +160,204 @@
 
   .input-dark:focus {
     border-color: rgba(47, 143, 255, 0.5);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Motion & effect system                                            */
+  /* ---------------------------------------------------------------- */
+
+  /* Load-time entrance for hero content (pure CSS — works without JS) */
+  .rise {
+    opacity: 0;
+    animation: rise 0.8s var(--ease) both;
+  }
+  .rise-1 { animation-delay: 60ms; }
+  .rise-2 { animation-delay: 140ms; }
+  .rise-3 { animation-delay: 220ms; }
+  .rise-4 { animation-delay: 300ms; }
+  .rise-5 { animation-delay: 380ms; }
+
+  /* Ambient glow blobs — slow cinematic drift (transform-only) */
+  .drift-a { animation: drift-a 22s ease-in-out infinite alternate; }
+  .drift-b { animation: drift-b 28s ease-in-out infinite alternate; }
+
+  /* Interactive card: hover lift + shadow expansion, press scale */
+  .card-lift {
+    transition:
+      transform var(--dur-fast) var(--ease),
+      box-shadow var(--dur) var(--ease),
+      border-color var(--dur-fast) var(--ease);
+    will-change: transform;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px) scale(1.015);
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.45),
+      0 0 32px rgba(47, 143, 255, 0.12);
+  }
+  .card-lift:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+
+  /* Cursor spotlight for bento cards — driven by --mx/--my CSS vars */
+  .spotlight {
+    position: relative;
+    overflow: hidden;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(47, 143, 255, 0.1),
+      rgba(39, 224, 160, 0.04) 45%,
+      transparent 70%
+    );
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* Primary button: glow + shine sweep on hover */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -80%;
+    width: 55%;
+    transform: skewX(-22deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transition: left 0.55s var(--ease);
+  }
+  .btn-primary:hover::after {
+    left: 130%;
+  }
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .btn-secondary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Animated shimmer for the gradient section dividers */
+  .divider-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(47, 143, 255, 0.45) 30%,
+      rgba(39, 224, 160, 0.55) 50%,
+      rgba(47, 143, 255, 0.45) 70%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 7s linear infinite;
+  }
+
+  /* Rotating conic gradient border for the featured pricing card */
+  .gradient-ring {
+    position: relative;
+    background: rgba(47, 143, 255, 0.07);
+    border: 1.5px solid transparent;
+    background-clip: padding-box;
+  }
+  .gradient-ring::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    z-index: -1;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--ring-angle, 0deg),
+      #2f8fff,
+      #27e0a0 30%,
+      #2f8fff 55%,
+      rgba(47, 143, 255, 0.35) 75%,
+      #2f8fff
+    );
+    animation: ring-spin 6s linear infinite;
+  }
+
+  /* Smooth expand/collapse (FAQ) via grid-rows transition */
+  .expandable {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--dur) var(--ease);
+  }
+  .expandable.open {
+    grid-template-rows: 1fr;
+  }
+  .expandable > div {
+    overflow: hidden;
+  }
+}
+
+@property --ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(70px, 46px) scale(1.15); }
+}
+
+@keyframes drift-b {
+  from { transform: translate(0, 0) scale(1.1); }
+  to { transform: translate(-60px, -40px) scale(0.95); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes ring-spin {
+  to { --ring-angle: 360deg; }
+}
+
+/* Reduced motion: kill every decorative animation and reveal instantly */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .drift-a,
+  .drift-b,
+  .divider-shimmer,
+  .gradient-ring::before,
+  .animate-float {
+    animation: none !important;
+  }
+  .rise {
+    opacity: 1;
+  }
+  .card-lift,
+  .spotlight::before,
+  .btn-primary::after,
+  .expandable {
+    transition: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

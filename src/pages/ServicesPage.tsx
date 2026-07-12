@@ -136,6 +136,7 @@ export default function ServicesPage() {
               key={s.id}
               id={s.id}
               className="card-lg p-7 lg:p-9 flex flex-col lg:flex-row gap-7 lg:gap-12"
+              data-reveal
             >
               <div className="lg:w-[42%] flex-shrink-0">
                 <div className="flex items-center gap-3 mb-3">

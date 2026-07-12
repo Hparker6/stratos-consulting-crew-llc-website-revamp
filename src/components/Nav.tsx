@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 function Logo({ size = 44 }: { size?: number }) {
@@ -60,18 +60,39 @@ function linkClass(isActive: boolean): string {
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 8)
+        ticking = false
+      })
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <header
       className="sticky top-0 z-50"
       style={{
-        background: 'rgba(10,15,28,0.85)',
+        background: scrolled ? 'rgba(8,12,22,0.92)' : 'rgba(10,15,28,0.85)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        borderBottom: scrolled ? '1px solid rgba(47,143,255,0.18)' : '1px solid rgba(255,255,255,0.08)',
+        boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.35)' : 'none',
+        transition: 'background 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease)',
       }}
     >
-      <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-[72px]">
+      <div
+        className="max-w-6xl mx-auto px-5 flex items-center justify-between"
+        style={{ height: scrolled ? 62 : 72, transition: 'height 0.3s var(--ease)' }}
+      >
         <Link to="/" onClick={() => setOpen(false)}>
           <Logo />
         </Link>

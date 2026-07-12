@@ -114,7 +114,7 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
       style={{ scrollMarginTop: 90 }}
     >
                 {/* Text column */}
-                <div className="flex-1 lg:max-w-[460px]">
+                <div className="flex-1 lg:max-w-[460px]" data-reveal>
                   <div className="flex items-center gap-3 mb-3">
                     <span className="font-mono text-[13px] font-bold text-primary tracking-[0.1em]">
                       {String(i + 1).padStart(2, '0')}
@@ -160,7 +160,7 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
                 </div>
 
                 {/* Dashboard column */}
-                <div className="flex-1 w-full max-w-[620px]">
+                <div className="flex-1 w-full max-w-[620px]" data-reveal data-reveal-delay={140}>
                   {dashboard && (
                     <>
                       {dashboard.mock}

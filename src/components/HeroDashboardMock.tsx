@@ -1,3 +1,12 @@
+import CountUp from './CountUp'
+
+const kpis = [
+  { label: 'INVENTORY TURNS', value: 6.4, format: (n: number) => n.toFixed(1), delta: '▲0.8', positive: true },
+  { label: 'FILL RATE', value: 97.2, format: (n: number) => `${n.toFixed(1)}%`, delta: '▲1.4%', positive: true },
+  { label: 'GROSS MARGIN', value: 24.8, format: (n: number) => `${n.toFixed(1)}%`, delta: '▲2.1%', positive: true },
+  { label: 'EXCESS STOCK', value: 182, format: (n: number) => `$${Math.round(n)}K`, delta: '▼$41K', positive: false },
+]
+
 export default function HeroDashboardMock() {
   const bars = [42, 55, 38, 62, 48, 53, 72]
 
@@ -22,14 +31,9 @@ export default function HeroDashboardMock() {
       </div>
 
       <div className="p-5 space-y-4">
-        {/* 2×2 KPI grid */}
+        {/* 2×2 KPI grid — values count up when first seen */}
         <div className="grid grid-cols-2 gap-3">
-          {[
-            { label: 'INVENTORY TURNS', value: '6.4',   delta: '▲0.8',  positive: true },
-            { label: 'FILL RATE',        value: '97.2%', delta: '▲1.4%', positive: true },
-            { label: 'GROSS MARGIN',     value: '24.8%', delta: '▲2.1%', positive: true },
-            { label: 'EXCESS STOCK',     value: '$182K', delta: '▼$41K', positive: false },
-          ].map((kpi) => (
+          {kpis.map((kpi) => (
             <div
               key={kpi.label}
               className="rounded-[10px] p-4"
@@ -39,8 +43,8 @@ export default function HeroDashboardMock() {
                 {kpi.label}
               </p>
               <div className="flex items-end gap-2">
-                <span className="font-heading font-bold text-[28px] leading-none text-text-base">
-                  {kpi.value}
+                <span className="font-heading font-bold text-[28px] leading-none text-text-base tabular-nums">
+                  <CountUp value={kpi.value} format={kpi.format} />
                 </span>
                 <span
                   className="font-mono text-[13px] font-bold mb-[3px]"

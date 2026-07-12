@@ -68,8 +68,8 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
-            {values.map((v) => (
-              <article key={v.title} className="card p-6">
+            {values.map((v, i) => (
+              <article key={v.title} className="card card-lift p-6" data-reveal data-reveal-delay={(i % 2) * 80}>
                 <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{v.title}</h3>
                 <p className="text-muted font-medium text-[15px] leading-relaxed">{v.body}</p>
               </article>

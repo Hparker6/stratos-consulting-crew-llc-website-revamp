@@ -101,7 +101,7 @@ export default function ProcessPage() {
             />
             <div className="space-y-8">
               {phases.map((ph) => (
-                <article key={ph.num} className="relative md:pl-24">
+                <article key={ph.num} className="relative md:pl-24" data-reveal>
                   <div
                     className="hidden md:flex absolute left-0 top-1 w-[62px] h-[62px] rounded-full items-center justify-center font-heading font-bold text-[18px] text-primary"
                     style={{ border: '2px solid #2f8fff', background: '#0a0f1c', zIndex: 1 }}

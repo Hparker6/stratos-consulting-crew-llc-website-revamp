@@ -67,9 +67,19 @@ try {
   for (const route of ROUTES) {
     await page.goto(`http://localhost:${PORT}${route}`, { waitUntil: 'networkidle0', timeout: 45000 })
     await page.waitForSelector('h1', { timeout: 15000 })
+    // Let entrance animations & count-ups settle so captured text is final.
+    await new Promise((r) => setTimeout(r, 1600))
     // Strip the consent banner from the snapshot: React re-adds it for
     // visitors who haven't chosen, and returning visitors shouldn't see a flash.
-    await page.evaluate(() => document.querySelector('[aria-label="Cookie consent"]')?.remove())
+    await page.evaluate(() => {
+      document.querySelector('[aria-label="Cookie consent"]')?.remove()
+      // Scroll-reveal leaves below-fold elements hidden via inline styles;
+      // static HTML must ship fully visible (no-JS / crawler safety).
+      for (const el of document.querySelectorAll('[data-reveal]')) {
+        el.removeAttribute('style')
+        el.removeAttribute('data-reveal-armed')
+      }
+    })
     let html = await page.content()
     // The fonts stylesheet was captured after its onload flipped media to
     // "all" — restore the non-render-blocking pattern in the static HTML.

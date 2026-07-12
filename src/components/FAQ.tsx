@@ -50,27 +50,35 @@ export default function FAQ() {
           {faqs.map((item, i) => (
             <div
               key={i}
-              className="rounded-[14px] overflow-hidden"
-              style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(10,15,28,0.5)' }}
+              data-reveal
+              data-reveal-delay={i * 50}
+              className="rounded-[14px] overflow-hidden transition-colors"
+              style={{
+                border: open === i ? '1px solid rgba(47,143,255,0.3)' : '1px solid rgba(255,255,255,0.08)',
+                background: 'rgba(10,15,28,0.5)',
+              }}
             >
               <button
-                className="w-full flex items-center justify-between px-6 py-5 text-left"
+                className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
                 aria-expanded={open === i}
                 onClick={() => setOpen(open === i ? -1 : i)}
               >
                 <span className="font-heading font-semibold text-[17px] text-text-base pr-4">{item.q}</span>
                 <span
-                  className="flex-shrink-0 text-primary font-bold text-[20px] leading-none transition-transform duration-200"
-                  style={{ transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)' }}
+                  className="flex-shrink-0 text-primary font-bold text-[20px] leading-none"
+                  style={{
+                    transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s var(--ease)',
+                  }}
                 >
                   +
                 </span>
               </button>
-              {open === i && (
-                <div className="px-6 pb-5">
-                  <p className="text-muted font-medium text-[16px] leading-relaxed">{item.a}</p>
+              <div className={`expandable ${open === i ? 'open' : ''}`}>
+                <div>
+                  <p className="px-6 pb-5 text-muted font-medium text-[16px] leading-relaxed">{item.a}</p>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

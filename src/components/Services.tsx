@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import useSectionView from '../hooks/useSectionView'
 
@@ -89,6 +90,14 @@ const services = [
   },
 ]
 
+/** Tracks the cursor for the .spotlight radial highlight. */
+function setSpotlight(e: MouseEvent<HTMLElement>) {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+  el.style.setProperty('--my', `${e.clientY - r.top}px`)
+}
+
 export default function Services() {
   const viewRef = useSectionView<HTMLElement>('services_view', { section: 'home_services' })
   return (
@@ -137,20 +146,54 @@ export default function Services() {
           Mix and match, or hand us the whole problem. Everything's built around your numbers, your systems, your team.
         </p>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
-          {services.map((s) => (
-            <article
-              key={s.title}
-              className="p-6 rounded-[14px] hover:border-white/[0.14] transition-colors"
-              style={{ background: 'rgba(10,15,28,0.55)', border: '1px solid rgba(255,255,255,0.08)' }}
-            >
-              <div className={`${s.tileClass} mb-4`} aria-hidden="true">
-                {s.icon}
-              </div>
-              <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{s.title}</h3>
-              <p className="text-muted font-medium text-[16px] leading-relaxed">{s.body}</p>
-            </article>
-          ))}
+        {/* Bento grid: featured card + mixed tiles + full-width band */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-6 gap-5 text-left">
+          {services.map((s, i) => {
+            const span =
+              i === 0 ? 'md:col-span-4' : i === 5 ? 'md:col-span-6' : 'md:col-span-2'
+            return (
+              <article
+                key={s.title}
+                data-reveal
+                data-reveal-delay={(i % 3) * 70}
+                onMouseMove={setSpotlight}
+                className={`spotlight card-lift p-6 rounded-[16px] ${span} ${
+                  i === 5 ? 'md:flex md:items-center md:gap-6' : ''
+                }`}
+                style={{ background: 'rgba(10,15,28,0.55)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <div className={i === 5 ? 'md:flex md:items-center md:gap-5 md:flex-1' : ''}>
+                  <div className={`${s.tileClass} mb-4 ${i === 5 ? 'md:mb-0 md:flex-shrink-0' : ''}`} aria-hidden="true">
+                    {s.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{s.title}</h3>
+                    <p className="text-muted font-medium text-[16px] leading-relaxed">{s.body}</p>
+                  </div>
+                </div>
+
+                {/* Featured card: decorative margin-trend flourish */}
+                {i === 0 && (
+                  <div className="mt-5 flex items-end gap-[6px] h-[54px]" aria-hidden="true">
+                    {[34, 46, 40, 58, 50, 66, 60, 74, 82].map((h, n) => (
+                      <div
+                        key={n}
+                        className="flex-1 rounded-t-[4px]"
+                        style={{
+                          height: `${h}%`,
+                          maxWidth: 30,
+                          background:
+                            n >= 7
+                              ? 'linear-gradient(180deg, #27e0a0, #2f8fff)'
+                              : 'rgba(47,143,255,0.35)',
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </article>
+            )
+          })}
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3 relative z-10">

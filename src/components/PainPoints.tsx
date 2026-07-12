@@ -49,9 +49,13 @@ const pains = [
   },
 ]
 
-function PainCard({ p }: { p: typeof pains[0] }) {
+function PainCard({ p, delay }: { p: typeof pains[0]; delay: number }) {
   return (
-    <article className="card p-6 hover:border-white/[0.14] transition-colors">
+    <article
+      className="card card-lift p-6 hover:border-white/[0.14]"
+      data-reveal
+      data-reveal-delay={delay}
+    >
       <p className="font-mono text-[13px] font-bold text-primary mb-3 tracking-[0.1em]">{p.num}</p>
       <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{p.title}</h3>
       <p className="text-muted font-medium text-[16px] leading-relaxed">{p.body}</p>
@@ -72,11 +76,11 @@ export default function PainPoints() {
         <div className="mt-10">
           {/* Top row: 3 cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {pains.slice(0, 3).map((p) => <PainCard key={p.num} p={p} />)}
+            {pains.slice(0, 3).map((p, i) => <PainCard key={p.num} p={p} delay={i * 70} />)}
           </div>
           {/* Bottom row: 2 cards at ~45% each — no centering constraint */}
           <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5 md:max-w-[90%] mx-auto">
-            {pains.slice(3).map((p) => <PainCard key={p.num} p={p} />)}
+            {pains.slice(3).map((p, i) => <PainCard key={p.num} p={p} delay={i * 70} />)}
           </div>
         </div>
       </div>

@@ -50,8 +50,13 @@ export default function HowItWorks() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-            {steps.map((s) => (
-              <div key={s.num} className="flex flex-col items-center text-center px-4">
+            {steps.map((s, i) => (
+              <div
+                key={s.num}
+                className="flex flex-col items-center text-center px-4"
+                data-reveal
+                data-reveal-delay={i * 90}
+              >
                 <div
                   className="relative z-10 w-[62px] h-[62px] rounded-full flex items-center justify-center mb-4 font-heading font-bold text-[22px] text-primary"
                   style={{ border: '2px solid #2f8fff', background: '#0c1a30' }}
