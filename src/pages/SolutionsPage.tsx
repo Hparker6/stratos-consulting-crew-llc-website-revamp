@@ -14,8 +14,8 @@ import { getDashboard } from '../components/dashboards'
  */
 export default function SolutionsPage() {
   usePageMeta(
-    'Solutions for Distributors & Manufacturers — Problems We Solve',
-    'The supplier problems we solve — cash stuck in inventory, no margin visibility, gut-feel purchasing, manual reporting — with the analytics approach and sample dashboards for each.',
+    'Solutions: The Supplier Problems We Solve',
+    'The supplier problems we solve, from cash stuck in inventory to gut-feel purchasing and manual reporting, with the analytics approach and a sample dashboard for each.',
     { breadcrumb: 'Solutions' },
   )
 
@@ -28,26 +28,13 @@ export default function SolutionsPage() {
             The problems are common. <span className="gradient-text">The fix is your data.</span>
           </>
         }
-        lede="Six challenges we see across distributors, manufacturers, and wholesalers — what each one costs you, how we attack it analytically, and a sample of what you'd see on screen."
+        lede="Six challenges we see across distributors, manufacturers, and wholesalers. For each one: what it costs you, how we attack it analytically, and a sample of what you'd see on screen."
       />
 
-      {/* Honesty banner + jump links */}
+      {/* Jump links */}
       <div className="bg-bg">
         <div className="max-w-6xl mx-auto px-5">
-          <div
-            className="rounded-[14px] px-5 py-4 flex items-start gap-3"
-            style={{ background: 'rgba(217,119,6,0.07)', border: '1px solid rgba(217,119,6,0.3)' }}
-          >
-            <span className="text-[18px] leading-none mt-[1px]" aria-hidden="true">⚠️</span>
-            <p className="text-muted font-medium text-[14px] leading-relaxed">
-              <strong className="text-text-base">The dashboards below are demonstrations, not client work.</strong>{' '}
-              Every figure, customer, and vendor is fictional — invented to look like a realistic mid-size
-              supplier. As a young firm we'd rather show you exactly how we think than imply a track record
-              we haven't earned yet. Yours get built from your real numbers, and they stay yours.
-            </p>
-          </div>
-
-          <nav className="mt-6 flex flex-wrap gap-2" aria-label="Jump to a solution">
+          <nav className="flex flex-wrap gap-2" aria-label="Jump to a solution">
             {problems.map((p, i) => (
               <a
                 key={p.slug}
@@ -81,7 +68,7 @@ export default function SolutionsPage() {
                 Want the service-by-service breakdown?
               </h2>
               <p className="mt-2 text-muted font-medium text-[15px] leading-relaxed">
-                Deliverables, tools, and what's included in each engagement — dashboards, forecasting,
+                Deliverables, tools, and what's included in each engagement: dashboards, forecasting,
                 inventory optimization, profitability, and automation.
               </p>
             </div>
@@ -94,7 +81,7 @@ export default function SolutionsPage() {
 
       <CTABand
         title="Recognize your business in one of these?"
-        body="That's exactly what the free discovery call is for. Bring the problem; we'll tell you honestly whether analytics can move it — and what it would take."
+        body="That's exactly what the free discovery call is for. Bring the problem, and we'll tell you honestly whether analytics can move it and what it would take."
       />
     </>
   )
@@ -165,8 +152,8 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
                     <>
                       {dashboard.mock}
                       <p className="mt-3 text-faint font-medium text-[13px] leading-relaxed">
-                        <span className="text-muted font-semibold">{dashboard.title}</span>
-                        {` — built for ${dashboard.audience.toLowerCase()}. Answers: ${
+                        <span className="text-muted font-semibold">{`${dashboard.title}.`}</span>
+                        {` Built for ${dashboard.audience.toLowerCase().replace(/\bgms\b/g, 'GMs').replace(/\bmro\b/g, 'MRO')}, and built to answer: ${
                           dashboard.questions[0].charAt(0).toLowerCase() + dashboard.questions[0].slice(1)
                         }`}
                       </p>

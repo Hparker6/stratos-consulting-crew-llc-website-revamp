@@ -7,7 +7,7 @@ import { articles, formatDate } from '../data/insights'
 export default function InsightsPage() {
   usePageMeta(
     'Insights',
-    'Practical analytics thinking for distributors, manufacturers, and wholesalers — inventory, forecasting, profitability, and reporting, in plain English.',
+    'Practical analytics thinking for distributors, manufacturers, and wholesalers. Inventory, forecasting, profitability, and reporting, in plain English.',
   )
 
   return (
@@ -19,7 +19,7 @@ export default function InsightsPage() {
             Practical analytics thinking, <span className="gradient-text">in plain English.</span>
           </>
         }
-        lede="How we think about inventory, forecasting, profitability, and reporting for mid-size suppliers. New pieces publish here and on LinkedIn — this page is their permanent home."
+        lede="How we think about inventory, forecasting, profitability, and reporting for mid-size suppliers. New pieces publish here and on LinkedIn, and this page is their permanent home."
       />
 
       <section className="py-14 lg:py-16 bg-bg">
@@ -56,7 +56,7 @@ export default function InsightsPage() {
             style={{ background: 'rgba(255,255,255,0.03)', border: '1px dashed rgba(255,255,255,0.12)' }}
           >
             <p className="text-muted font-medium text-[14px] leading-relaxed">
-              Prefer LinkedIn? The same articles publish there —{' '}
+              Prefer LinkedIn? The same articles publish there.{' '}
               <a
                 href="https://www.linkedin.com"
                 target="_blank"

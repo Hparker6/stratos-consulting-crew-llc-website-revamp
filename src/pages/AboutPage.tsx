@@ -15,18 +15,18 @@ const values = [
   },
   {
     title: 'You own everything',
-    body: 'Dashboards, models, pipelines, documentation — built in your systems, under your accounts, yours to keep whether or not we keep working together.',
+    body: 'Dashboards, models, pipelines, and documentation are built in your systems, under your accounts. They stay yours whether or not we keep working together.',
   },
   {
     title: 'Scoped small, proven fast',
-    body: 'Every engagement is a fixed scope that stands alone. The work has to earn the next phase — you should never be more than one small step from the exit.',
+    body: 'Every engagement is a fixed scope that stands alone. The work has to earn the next phase, and you should never be more than one small step from the exit.',
   },
 ]
 
 export default function AboutPage() {
   usePageMeta(
-    'About — A Boutique Analytics Firm for Suppliers',
-    'Stratos Consulting Crew is a boutique analytics firm for distributors, manufacturers, and wholesalers — founder-led, technically deep, and honest about being new.',
+    'About: A Boutique Analytics Firm for Suppliers',
+    'Stratos Consulting Crew is a boutique analytics firm for distributors, manufacturers, and wholesalers. Founder-led, technically deep, and honest about being new.',
     { breadcrumb: 'About' },
   )
 
@@ -39,7 +39,7 @@ export default function AboutPage() {
             Boutique on purpose. <span className="gradient-text">Technical to the core.</span>
           </>
         }
-        lede="Stratos exists because $5–50M suppliers deserve the analytics firepower the big players have — without enterprise pricing, junior account teams, or a rip-and-replace agenda."
+        lede="Stratos exists because $5–50M suppliers deserve the analytics firepower the big players have, without enterprise pricing, junior account teams, or a rip-and-replace agenda."
       />
 
       {/* Founder bio — reuses the light-section treatment from the homepage */}
@@ -56,14 +56,14 @@ export default function AboutPage() {
             <p className="mt-5 text-muted font-medium text-[17px] leading-relaxed">
               You'll notice this site has no client logos, no testimonials, and no case studies. That's
               deliberate: Stratos is new, and we won't manufacture social proof we haven't earned. What we
-              can show you is real — the depth of the technical work, exactly how we think about your
+              can show you is real: the depth of the technical work, exactly how we think about your
               problems, and sample dashboards labeled honestly as samples.
             </p>
             <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed">
               And we've structured every engagement so you never have to take it on faith: the first
               conversation is free, the assessment is a small fixed fee with a deliverable you keep, and
               everything after that is scoped, priced, and cancelable. Being new means every early client
-              gets our absolute best work — our reputation is being built on it.
+              gets our absolute best work, because our reputation is being built on it.
             </p>
           </div>
 

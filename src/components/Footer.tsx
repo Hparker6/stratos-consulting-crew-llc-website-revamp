@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Logo } from './Nav'
+import { BOOK_CALL_MAILTO } from '../lib/site'
 
 const exploreLinks = [
   { label: 'Services', to: '/services' },
@@ -8,10 +9,7 @@ const exploreLinks = [
   { label: 'Pricing', to: '/pricing' },
 ]
 
-const companyLinks = [
-  { label: 'About', to: '/about' },
-  { label: 'Book a Free Call', to: '/#contact' },
-]
+const companyLinks = [{ label: 'About', to: '/about' }]
 
 export default function Footer() {
   return (
@@ -29,8 +27,8 @@ export default function Footer() {
               <Logo size={52} />
             </Link>
             <p className="mt-4 text-muted font-medium text-[15px] leading-relaxed">
-              Analytics, dashboards, and forecasting for distributors, manufacturers, and wholesalers —
-              based in Dallas–Fort Worth.
+              Analytics, dashboards, and forecasting for distributors, manufacturers, and wholesalers.
+              Based in Dallas-Fort Worth.
             </p>
           </div>
 
@@ -69,6 +67,16 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <a
+                    href={BOOK_CALL_MAILTO}
+                    className="text-muted hover:text-text-base font-medium text-[15px] transition-colors"
+                    data-track="cta_click"
+                    data-track-label="footer_book_call"
+                  >
+                    Book a Free Call
+                  </a>
+                </li>
               </ul>
             </div>
 

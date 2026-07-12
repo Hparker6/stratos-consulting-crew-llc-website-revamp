@@ -78,6 +78,17 @@ New buttons are trackable without code: add `data-track="event_name"` and option
 - Google Fonts preloaded and non-render-blocking (`display=swap`).
 - No third-party JS before consent; hashed assets cached immutable for 1 year via Netlify headers.
 
+## Contact plumbing
+
+- Every "Book a Free Call" CTA opens a prefilled email draft to `hparker6@stratosconsultingcrew.com` (configured in [`src/lib/site.ts`](src/lib/site.ts)).
+- The contact form posts to Netlify Forms with client-side validation and sanitization (length caps, control-character stripping, email format check). **One-time setup:** in the Netlify dashboard, go to Forms → Notifications and add an email notification to receive submissions.
+
+## Security notes
+
+- Headers (netlify.toml): CSP with `object-src 'none'`, `frame-ancestors 'none'`, `base-uri 'self'`, `form-action 'self'`; HSTS; nosniff; strict referrer policy.
+- No secrets live in this repo. The GA4 measurement ID is public by design; `.env*` files are gitignored and none exist.
+- `npm audit` reports a moderate esbuild advisory (GHSA-67mh-4wv8-2f99) via Vite. It affects only the **local dev server** (`npm run dev`), never the deployed static site. The fix requires a breaking Vite major upgrade; revisit when upgrading tooling.
+
 ## Deployment
 
 Push to `main` → Netlify builds (`npm run build`) and deploys. Domain: stratosconsultingcrew.com (Google Workspace, Netlify DNS).

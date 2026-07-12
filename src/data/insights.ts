@@ -34,27 +34,27 @@ export const articles: Article[] = [
     sections: [
       {
         paragraphs: [
-          'Distribution businesses generate enormous amounts of data and remarkably little visibility. The ERP prints hundreds of reports; almost none of them get read. Meanwhile the questions that actually keep owners up at night — are we making money, is the warehouse healthy, are we about to disappoint a customer — go unanswered until month-end.',
+          'Distribution businesses generate enormous amounts of data and remarkably little visibility. The ERP prints hundreds of reports; almost none of them get read. Meanwhile the questions that actually keep owners up at night (are we making money, is the warehouse healthy, are we about to disappoint a customer) go unanswered until month-end.',
           'The fix isn’t more reports. It’s fewer numbers, watched more often. Here are the five we’d put on any distributor’s Monday screen.',
         ],
       },
       {
         heading: '1. Gross margin percent, this week vs. trailing average',
         paragraphs: [
-          'Revenue is a vanity check; margin is the health check. Weekly gross margin against your own trailing average catches pricing mistakes, cost increases that haven’t been passed through, and mix shifts — weeks before they show up in the P&L.',
+          'Revenue is a vanity check; margin is the health check. Weekly gross margin against your own trailing average catches pricing mistakes, cost increases that haven’t been passed through, and mix shifts, weeks before they show up in the P&L.',
           'The key is comparing against yourself. Industry benchmarks are interesting; your own trend is actionable.',
         ],
       },
       {
         heading: '2. Fill rate on A-items',
         paragraphs: [
-          'Overall fill rate hides the number that matters. Customers forgive a stockout on an odd item; they leave over repeated misses on the items they order every week. Track fill rate on your top-velocity SKUs separately — it is the single best early indicator of customer defection risk.',
+          'Overall fill rate hides the number that matters. Customers forgive a stockout on an odd item; they leave over repeated misses on the items they order every week. Track fill rate on your top-velocity SKUs separately. It is the single best early indicator of customer defection risk.',
         ],
       },
       {
         heading: '3. Inventory turns, by category',
         paragraphs: [
-          'One blended turns number tells you almost nothing, because your fastest and slowest categories average into a comfortable-looking middle. Broken out by category, turns show you exactly where cash is accumulating on shelves — and where you might actually be under-stocked.',
+          'One blended turns number tells you almost nothing, because your fastest and slowest categories average into a comfortable-looking middle. Broken out by category, turns show you exactly where cash is accumulating on shelves, and where you might actually be under-stocked.',
         ],
       },
       {
@@ -66,7 +66,7 @@ export const articles: Article[] = [
       {
         heading: '5. Cash conversion: DSO plus days of inventory',
         paragraphs: [
-          'Distributors live and die on working capital. Days sales outstanding plus days of inventory on hand tells you how long a dollar stays trapped in the business. When that number creeps up, growth starts consuming cash instead of generating it — and it creeps quietly.',
+          'Distributors live and die on working capital. Days sales outstanding plus days of inventory on hand tells you how long a dollar stays trapped in the business. When that number creeps up, growth starts consuming cash instead of generating it. And it creeps quietly.',
         ],
       },
       {
@@ -80,7 +80,7 @@ export const articles: Article[] = [
   },
   {
     slug: 'excess-inventory-is-a-data-problem',
-    title: 'Excess inventory isn’t a warehouse problem — it’s a data problem',
+    title: 'Excess inventory isn’t a warehouse problem. It’s a data problem',
     date: '2026-06-01',
     readMinutes: 7,
     tag: 'Inventory',
@@ -89,7 +89,7 @@ export const articles: Article[] = [
     sections: [
       {
         paragraphs: [
-          'Walk any distributor’s warehouse and you’ll find it: the aisle of items nobody has picked in a year. Ask how it got there and you’ll hear reasonable stories — a customer who switched vendors, a minimum buy that outlived the demand, a "great deal" on a pallet, reorder points nobody has touched since they were set.',
+          'Walk any distributor’s warehouse and you’ll find it: the aisle of items nobody has picked in a year. Ask how it got there and you’ll hear reasonable stories: a customer who switched vendors, a minimum buy that outlived the demand, a "great deal" on a pallet, reorder points nobody has touched since they were set.',
           'Every one of those decisions was locally sensible. The excess is what happens when locally sensible decisions accumulate without a feedback loop. That’s why excess inventory is fundamentally a data problem: the information that would have prevented each buy existed, but it wasn’t in front of the person clicking "order."',
         ],
       },
@@ -97,22 +97,22 @@ export const articles: Article[] = [
         heading: 'The three feedback loops that prevent excess',
         paragraphs: ['Distributors who keep inventory honest tend to run three loops:'],
         bullets: [
-          'Velocity classification that updates itself. ABC rankings recomputed from live sales history — not the ranking from two years ago — so demoted items stop getting reordered automatically.',
+          'Velocity classification that updates itself. ABC rankings recomputed from live sales history, not the ranking from two years ago, so demoted items stop getting reordered automatically.',
           'Reorder points tied to measured demand and lead time. When either changes, the stocking rule changes with it, instead of drifting until someone notices.',
-          'A monthly excess review with dollars attached. A ranked list of what to return, promote, transfer, or write off — small, boring, and relentless beats heroic annual cleanups.',
+          'A monthly excess review with dollars attached. A ranked list of what to return, promote, transfer, or write off. Small, boring, and relentless beats heroic annual cleanups.',
         ],
       },
       {
         heading: 'Why the spreadsheet version decays',
         paragraphs: [
           'Most operations have attempted some version of this in Excel, and most versions are abandoned within a quarter. The pattern is always the same: the analysis depends on someone manually pulling exports, that person gets busy, the file goes stale, and stale analysis is worse than none because people stop trusting it.',
-          'Durability comes from automation, not diligence. When classification, reorder math, and the excess list refresh themselves from the ERP, the review meeting survives busy seasons — because nobody has to do homework for it.',
+          'Durability comes from automation, not diligence. When classification, reorder math, and the excess list refresh themselves from the ERP, the review meeting survives busy seasons, because nobody has to do homework for it.',
         ],
       },
       {
         heading: 'Where to start',
         paragraphs: [
-          'Start with the ranked excess list. It’s the analysis with the most immediate, tangible payoff: it names dollars sitting on shelves and what to do about each line. It also builds the organizational trust you’ll want when you move on to changing reorder points — the numbers will have earned their credibility.',
+          'Start with the ranked excess list. It’s the analysis with the most immediate, tangible payoff: it names dollars sitting on shelves and what to do about each line. It also builds the organizational trust you’ll want when you move on to changing reorder points. The numbers will have earned their credibility.',
         ],
       },
     ],
@@ -124,18 +124,18 @@ export const articles: Article[] = [
     readMinutes: 6,
     tag: 'Forecasting',
     excerpt:
-      'The forecasting sweet spot for a $5–50M supplier isn’t AI magic — it’s simple, explainable models with honest accuracy tracking. Here’s what that looks like in practice.',
+      'The forecasting sweet spot for a $5–50M supplier isn’t AI magic. It’s simple, explainable models with honest accuracy tracking. Here’s what that looks like in practice.',
     sections: [
       {
         paragraphs: [
           'Forecasting has a marketing problem. Vendors pitch it as artificial intelligence; skeptical operators dismiss it as fortune telling. Both miss what a forecast actually is: a disciplined summary of your own sales history, extended forward, with its error measured.',
-          'For a mid-size supplier, that discipline alone — no exotic algorithms required — is usually a large improvement over the status quo, because the status quo is human memory.',
+          'For a mid-size supplier, that discipline alone, no exotic algorithms required, is usually a large improvement over the status quo, because the status quo is human memory.',
         ],
       },
       {
         heading: 'What gut feel gets wrong, predictably',
         paragraphs: [
-          'Human buyers are not bad at forecasting because they lack intelligence; they’re bad at it because memory has systematic biases. Recent weeks weigh more than they should. Dramatic events (the big stockout, the huge order) dominate quiet patterns. Slow trends — a product line eroding 2% a month — are nearly invisible year over year.',
+          'Human buyers are not bad at forecasting because they lack intelligence; they’re bad at it because memory has systematic biases. Recent weeks weigh more than they should. Dramatic events (the big stockout, the huge order) dominate quiet patterns. Slow trends, like a product line eroding 2% a month, are nearly invisible year over year.',
           'Simple statistical models have none of these biases. They notice seasonality every single year, weight history consistently, and detect gradual rollovers early. That is the entire trick.',
         ],
       },
@@ -149,7 +149,7 @@ export const articles: Article[] = [
       {
         heading: 'The non-negotiable: track accuracy openly',
         paragraphs: [
-          'Every forecast should ship with its own report card — forecast vs. actual, by product line, every cycle. Two things happen when accuracy is public: the models improve, because misses get investigated; and adoption improves, because skeptics watch the forecast earn its keep.',
+          'Every forecast should ship with its own report card: forecast vs. actual, by product line, every cycle. Two things happen when accuracy is public: the models improve, because misses get investigated; and adoption improves, because skeptics watch the forecast earn its keep.',
           'A forecast without accuracy tracking is an opinion with better formatting.',
         ],
       },
@@ -162,25 +162,25 @@ export const articles: Article[] = [
     readMinutes: 5,
     tag: 'Analytics Strategy',
     excerpt:
-      'Enterprise distributors have analysts on staff. You don’t need that to get the same visibility — you need the right scope, the systems you already own, and honest definitions.',
+      'Enterprise distributors have analysts on staff. You don’t need that to get the same visibility. You need the right scope, the systems you already own, and honest definitions.',
     sections: [
       {
         paragraphs: [
-          'There’s a persistent belief among mid-size suppliers that "running on data" is an enterprise sport — that it requires a data warehouse, a BI team, and a seven-figure line item. That belief usually comes from watching enterprise projects, which are big because enterprises are big, not because the underlying work is.',
+          'There’s a persistent belief among mid-size suppliers that "running on data" is an enterprise sport, requiring a data warehouse, a BI team, and a seven-figure line item. That belief usually comes from watching enterprise projects, which are big because enterprises are big, not because the underlying work is.',
           'For a $5–50M distributor, the actual footprint of useful analytics is small: a handful of pipelines out of systems you already own, a few dashboards designed around real decisions, and stocking or forecasting math applied to your own history.',
         ],
       },
       {
         heading: 'Your ERP already collects the data',
         paragraphs: [
-          'Every order, receipt, invoice, and adjustment is already being recorded. Mid-market ERPs — whether that’s Prophet 21, NetSuite, Business Central, SAP Business One, or even QuickBooks with an inventory add-on — are rich sources. The gap is almost never data collection; it’s that the data has no path from the transaction tables to a decision-maker’s screen.',
+          'Every order, receipt, invoice, and adjustment is already being recorded. Mid-market ERPs, whether that’s Prophet 21, NetSuite, Business Central, SAP Business One, or even QuickBooks with an inventory add-on, are rich sources. The gap is almost never data collection; it’s that the data has no path from the transaction tables to a decision-maker’s screen.',
           'Building that path is well-understood work. It does not require replacing anything you run today.',
         ],
       },
       {
         heading: 'Scope around decisions, not dashboards',
         paragraphs: [
-          'The failure mode of small-company analytics isn’t technical — it’s building views nobody uses. The antidote is scoping every piece of work around a recurring decision: what to reorder, which accounts to call, where margin is leaking. If a dashboard doesn’t change a specific decision made by a specific person on a specific cadence, it shouldn’t get built.',
+          'The failure mode of small-company analytics isn’t technical. It’s building views nobody uses. The antidote is scoping every piece of work around a recurring decision: what to reorder, which accounts to call, where margin is leaking. If a dashboard doesn’t change a specific decision made by a specific person on a specific cadence, it shouldn’t get built.',
         ],
       },
       {
@@ -195,7 +195,7 @@ export const articles: Article[] = [
       },
       {
         paragraphs: [
-          'That’s not a transformation program. It’s a few months of focused work and a modest ongoing effort to keep it sharp — a fraction of one analyst’s salary, for most of what an analyst would give you.',
+          'That’s not a transformation program. It’s a few months of focused work and a modest ongoing effort to keep it sharp, at a fraction of one analyst’s salary, for most of what an analyst would give you.',
         ],
       },
     ],

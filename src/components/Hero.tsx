@@ -1,4 +1,5 @@
 import HeroDashboardMock from './HeroDashboardMock'
+import { BOOK_CALL_MAILTO } from '../lib/site'
 
 const badges = [
   { label: 'Cost Reduction', color: '#2f8fff' },
@@ -59,7 +60,7 @@ export default function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3 rise rise-3">
-              <a href="#contact" className="btn-primary" data-track="cta_click" data-track-label="hero_book_call">
+              <a href={BOOK_CALL_MAILTO} className="btn-primary" data-track="cta_click" data-track-label="hero_book_call">
                 Book a Free Discovery Call →
               </a>
               <a href="#services" className="btn-secondary" data-track="cta_click" data-track-label="hero_see_services">

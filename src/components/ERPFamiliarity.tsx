@@ -27,7 +27,7 @@ export default function ERPFamiliarity() {
           </h2>
           <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed">
             Analytics work starts with the transaction data your ERP and accounting systems already
-            collect — orders, receipts, invoices, adjustments. We're familiar with the data structures and
+            collect: orders, receipts, invoices, adjustments. We're familiar with the data structures and
             reporting layers of the platforms common in distribution and manufacturing, and we connect to
             them rather than replace them.
           </p>
@@ -46,9 +46,9 @@ export default function ERPFamiliarity() {
         </div>
 
         <p className="mt-6 text-faint font-medium text-[14px] leading-relaxed max-w-2xl">
-          To be clear about what this means: familiarity with these platforms' data and reporting — not
-          vendor certifications, and not ERP implementation services. If your system isn't listed, that's
-          rarely a blocker; if it can export data, we can usually work with it.
+          To be clear about what this means: familiarity with these platforms' data and reporting, not
+          vendor certifications or ERP implementation services. If your system isn't listed, that's
+          rarely a blocker. If it can export data, we can usually work with it.
         </p>
       </div>
     </section>

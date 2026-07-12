@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { BOOK_CALL_MAILTO } from '../lib/site'
 
 function Logo({ size = 44 }: { size?: number }) {
   return (
@@ -112,14 +113,14 @@ export default function Nav() {
           ))}
         </nav>
 
-        <Link
-          to="/#contact"
+        <a
+          href={BOOK_CALL_MAILTO}
           className="hidden lg:inline-flex btn-primary !px-5 !py-3"
           data-track="cta_click"
           data-track-label="nav_book_call"
         >
           Book a Free Call
-        </Link>
+        </a>
 
         {/* Hamburger */}
         <button
@@ -162,15 +163,15 @@ export default function Nav() {
               {l.label}
             </NavLink>
           ))}
-          <Link
-            to="/#contact"
+          <a
+            href={BOOK_CALL_MAILTO}
             className="btn-primary w-fit mt-1"
             onClick={() => setOpen(false)}
             data-track="cta_click"
             data-track-label="nav_book_call_mobile"
           >
             Book a Free Call
-          </Link>
+          </a>
         </nav>
       )}
     </header>

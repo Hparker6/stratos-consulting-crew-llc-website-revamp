@@ -4,7 +4,7 @@ const steps = [
   {
     num: '1',
     title: 'Discovery Call',
-    body: 'A free 30-minute call. Tell us where it hurts — margins, inventory, reporting. No pitch.',
+    body: 'A free 30-minute call. Tell us where it hurts: margins, inventory, reporting. No pitch.',
   },
   {
     num: '2',
@@ -14,7 +14,7 @@ const steps = [
   {
     num: '3',
     title: 'Ongoing Partnership',
-    body: 'We build, automate, and keep improving — your fractional analytics team on call.',
+    body: 'We build, automate, and keep improving. Think of it as your fractional analytics team, on call.',
   },
 ]
 

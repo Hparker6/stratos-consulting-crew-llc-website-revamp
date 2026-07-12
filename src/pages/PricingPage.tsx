@@ -11,7 +11,7 @@ const rangeFactors = [
   },
   {
     title: 'Data cleanliness',
-    body: 'If item codes, customers, and units are consistent, we move fast. If history needs untangling first, that work is scoped — and quoted — before we start.',
+    body: 'If item codes, customers, and units are consistent, we move fast. If history needs untangling first, that work is scoped and quoted before we start.',
   },
   {
     title: 'Depth of rollout',
@@ -21,8 +21,8 @@ const rangeFactors = [
 
 export default function PricingPage() {
   usePageMeta(
-    'Pricing — Transparent, Fixed-Scope Analytics Engagements',
-    'Transparent, fixed-scope pricing for analytics engagements — discovery assessment from $299, dashboard packages from $1k, forecasting projects, and month-to-month retainers.',
+    'Pricing: Transparent, Fixed-Scope Analytics Engagements',
+    'Transparent, fixed-scope pricing for analytics engagements. Discovery assessments from $299, dashboard packages from $1k, forecasting projects, and month-to-month retainers.',
     { breadcrumb: 'Pricing' },
   )
 
@@ -52,7 +52,7 @@ export default function PricingPage() {
               What moves you within a range.
             </h2>
             <p className="mt-4 text-muted font-medium text-[16px] leading-relaxed">
-              Every project is quoted as a fixed price before it starts — the ranges above exist because
+              Every project is quoted as a fixed price before it starts. The ranges above exist because
               three things legitimately vary between businesses. You'll know your exact number after the
               discovery call, in writing.
             </p>
@@ -70,16 +70,16 @@ export default function PricingPage() {
           <p className="mt-8 text-faint font-medium text-[14px] leading-relaxed max-w-2xl">
             Curious how the phases fit together?{' '}
             <Link to="/process" className="text-primary font-bold hover:underline">
-              See the full process
+              See the full process.
             </Link>{' '}
-            — each step is priced separately and has to earn the next one.
+            Each step is priced separately and has to earn the next one.
           </p>
         </div>
       </section>
 
       <CTABand
         title="Get your exact number."
-        body="A free 30-minute call is all it takes to turn a range into a fixed, written quote — or an honest 'this isn't worth your money yet.'"
+        body="A free 30-minute call is all it takes to turn a range into a fixed, written quote, or an honest 'this isn't worth your money yet.'"
       />
     </>
   )

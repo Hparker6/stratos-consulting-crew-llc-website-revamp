@@ -17,7 +17,7 @@ export function ExecutiveKpisMock() {
       </div>
 
       <Panel
-        title="Revenue vs plan — trailing 12 weeks"
+        title="Revenue vs plan, trailing 12 weeks"
         right={<LegendKey items={[{ label: 'actual', color: CHART.blue }, { label: 'plan', color: CHART.violet, dashed: true }]} />}
       >
         <MiniLine
@@ -101,7 +101,7 @@ export function InventoryOptimizationMock() {
       </div>
 
       <Panel
-        title="Stock health by category — % of inventory value"
+        title="Stock health by category, % of inventory value"
         right={
           <LegendKey
             items={[
@@ -144,7 +144,7 @@ export function DemandForecastingMock() {
       </div>
 
       <Panel
-        title="Units — actual vs forecast, next quarter projected"
+        title="Units sold, actual vs forecast, next quarter projected"
         right={<LegendKey items={[{ label: 'actual', color: CHART.blue }, { label: 'forecast', color: CHART.green, dashed: true }]} />}
       >
         <MiniLine
@@ -177,7 +177,7 @@ export function PurchasingAnalyticsMock() {
         <KpiTile label="Open PO value" value="$342K" />
       </div>
 
-      <Panel title="Spend by vendor — trailing 12 months">
+      <Panel title="Spend by vendor, trailing 12 months">
         <div className="space-y-[6px]">
           <BarRowH label="Vulcan Fastener" value="$486K" pct={100} color={CHART.blue} />
           <BarRowH label="Redbird Elec." value="$371K" pct={76} color={CHART.blue} />
@@ -188,7 +188,7 @@ export function PurchasingAnalyticsMock() {
       </Panel>
 
       <Panel
-        title="Vendor on-time delivery — trailing 90 days"
+        title="Vendor on-time delivery, trailing 90 days"
         right={
           <LegendKey
             items={[
@@ -204,7 +204,7 @@ export function PurchasingAnalyticsMock() {
           <BarRowH label="Vulcan Fastener" value="96%" pct={96} color={CHART.status.good} />
           <BarRowH label="Alamo Bearing" value="91%" pct={91} color={CHART.status.warn} />
           <BarRowH label="Redbird Elec." value="88%" pct={88} color={CHART.status.warn} />
-          <BarRowH label="Gulfline Pipe" value="79%" pct={79} color={CHART.status.serious} title="Gulfline Pipe: 79% on-time — lead times drifting 3 weeks" />
+          <BarRowH label="Gulfline Pipe" value="79%" pct={79} color={CHART.status.serious} title="Gulfline Pipe: 79% on-time, lead times drifting 3 weeks" />
         </div>
       </Panel>
     </DashFrame>
@@ -226,7 +226,7 @@ export function SalesReportingMock() {
       </div>
 
       <Panel
-        title="Monthly revenue — this year vs last"
+        title="Monthly revenue, this year vs last"
         right={<LegendKey items={[{ label: 'this year', color: CHART.blue }, { label: 'last year', color: CHART.violet, dashed: true }]} />}
       >
         <MiniLine
@@ -238,7 +238,7 @@ export function SalesReportingMock() {
       </Panel>
 
       <Panel
-        title="Revenue mix — repeat vs new customers ($K)"
+        title="Revenue mix, repeat vs new customers ($K)"
         right={<LegendKey items={[{ label: 'repeat', color: CHART.blue }, { label: 'new', color: CHART.green }]} />}
       >
         <div className="flex items-end gap-[6px]" style={{ height: 72 }}>

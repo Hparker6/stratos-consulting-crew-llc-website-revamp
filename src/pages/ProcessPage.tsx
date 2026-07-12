@@ -16,7 +16,7 @@ const phases: Phase[] = [
     title: 'Discovery Call',
     duration: 'Free · 30 minutes',
     happens: [
-      'You describe where it hurts — margins, inventory, reporting, forecasting.',
+      'You describe where it hurts: margins, inventory, reporting, forecasting.',
       'We ask about your systems, your data, and how decisions get made today.',
       'We tell you honestly whether analytics can move your problem, and roughly what it would take. If we’re not the right fit, we’ll say so.',
     ],
@@ -27,18 +27,18 @@ const phases: Phase[] = [
     title: 'Data & Opportunity Assessment',
     duration: 'Fixed fee · 1–2 weeks',
     happens: [
-      'We take a structured look at your actual data — sales history, inventory, purchasing, margins.',
+      'We take a structured look at your actual data: sales history, inventory, purchasing, margins.',
       'We test data quality and identify what your systems can support today vs. what needs cleanup.',
       'We rank the opportunities by expected impact and effort, biggest wins first.',
     ],
-    youGet: 'A written, ranked opportunity report and a 60-minute findings call. The report is yours to act on — with us or without us.',
+    youGet: 'A written, ranked opportunity report and a 60-minute findings call. The report is yours to act on, with us or without us.',
   },
   {
     num: '03',
     title: 'Build & Validate',
     duration: 'Fixed scope · 2–6 weeks',
     happens: [
-      'We build the agreed scope — dashboards, forecasts, stocking rules — connected live to your systems.',
+      'We build the agreed scope, whether dashboards, forecasts, or stocking rules, connected live to your systems.',
       'Every metric definition is reviewed with your team so the numbers are trusted before they’re used.',
       'You see working versions early and often; course corrections happen mid-build, not after delivery.',
     ],
@@ -49,7 +49,7 @@ const phases: Phase[] = [
     title: 'Implementation & Training',
     duration: 'Included in every build',
     happens: [
-      'We wire the outputs into your routines — the Monday meeting, the purchasing cycle, the account review.',
+      'We wire the outputs into your routines: the Monday meeting, the purchasing cycle, the account review.',
       'Your team is trained on using and questioning the tools, in plain English.',
       'Documentation covers how everything works and how definitions are calculated.',
     ],
@@ -62,7 +62,7 @@ const phases: Phase[] = [
     happens: [
       'Dashboards and models are maintained, tuned, and extended as the business changes.',
       'A monthly working session digs into the numbers with your leadership team.',
-      'New questions get answered from the priority queue — like having an analyst on staff.',
+      'New questions get answered from the priority queue, like having an analyst on staff.',
     ],
     youGet: 'A fractional analytics team, cancelable any month. It continues only while it clearly earns its keep.',
   },
@@ -70,7 +70,7 @@ const phases: Phase[] = [
 
 export default function ProcessPage() {
   usePageMeta(
-    'Our Process — Fixed-Scope Analytics Consulting',
+    'Our Process: Fixed-Scope Analytics Consulting',
     'How a Stratos engagement works: free discovery call, fixed-fee data assessment, fixed-scope build, implementation and training, and optional month-to-month optimization.',
     { breadcrumb: 'Our Process' },
   )
@@ -158,7 +158,7 @@ export default function ProcessPage() {
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { title: 'Fixed scope, fixed price', body: 'Every phase is quoted before it starts. No open-ended billing.' },
-              { title: 'You own everything', body: 'Dashboards, models, code, documentation — yours, even if we part ways.' },
+              { title: 'You own everything', body: 'Dashboards, models, code, and documentation are yours, even if we part ways.' },
               { title: 'Stop anywhere', body: 'Each phase stands alone. Continue only when the last one proved its worth.' },
             ].map((p) => (
               <div key={p.title} className="card p-6 text-center">

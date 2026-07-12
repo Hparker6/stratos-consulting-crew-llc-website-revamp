@@ -47,19 +47,19 @@ const audiences = [
     icon: <IconTruck />,
     tileClass: 'icon-tile-blue',
     title: 'Distributors',
-    body: 'Multi-line distributors balancing thousands of SKUs, fill-rate promises, and thin margins — where inventory decisions are the business.',
+    body: 'Multi-line distributors balancing thousands of SKUs, fill-rate promises, and thin margins, where inventory decisions are the business.',
   },
   {
     icon: <IconGear />,
     tileClass: 'icon-tile-green',
     title: 'Manufacturers',
-    body: 'Small and mid-size manufacturers who need visibility from raw materials through finished goods — and forecasts that drive production, not guesswork.',
+    body: 'Small and mid-size manufacturers who need visibility from raw materials through finished goods, plus forecasts that drive production instead of guesswork.',
   },
   {
     icon: <IconWrench />,
     tileClass: 'icon-tile-blue',
     title: 'Industrial Suppliers',
-    body: 'MRO, fastener, electrical, and safety suppliers serving contractors and plants — high SKU counts, unpredictable demand, and service levels that win or lose accounts.',
+    body: 'MRO, fastener, electrical, and safety suppliers serving contractors and plants, with high SKU counts, unpredictable demand, and service levels that win or lose accounts.',
   },
   {
     icon: <IconStack />,
@@ -110,7 +110,7 @@ export default function WhoWeHelp({ variant = 'section' }: Props) {
         </h2>
         <p className="mt-4 text-muted font-medium text-[17px] max-w-xl mx-auto leading-relaxed">
           We work with $5–50M product businesses that run on ERPs, spreadsheets, and hard-won operational
-          instinct — and are ready to add real numbers to that instinct.
+          instinct, and are ready to add real numbers to that instinct.
         </p>
         <div className="mt-8">{cards}</div>
       </div>

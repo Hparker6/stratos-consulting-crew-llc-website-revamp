@@ -62,7 +62,7 @@ const services = [
     icon: <IconTrend />,
     tileClass: 'icon-tile-green',
     title: 'Demand & Sales Forecasting',
-    body: 'Forecast what sells, when, and how much — by product line, customer, and season.',
+    body: 'Forecast what sells, when, and how much, by product line, customer, and season.',
   },
   {
     icon: <IconBox />,
@@ -86,7 +86,7 @@ const services = [
     icon: <IconDonut />,
     tileClass: 'icon-tile-green',
     title: 'Ongoing Analytics Partner',
-    body: 'A monthly partnership that gives you an analytics team — without the headcount or the overhead.',
+    body: 'A monthly partnership that gives you an analytics team without the headcount or the overhead.',
   },
 ]
 

@@ -161,8 +161,8 @@ export default function DashboardPreview() {
               A single screen that runs your whole operation.
             </h2>
             <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed">
-              Inventory turns, fill rate, margin by product line, demand forecast — live, automated, and
-              refreshed without anyone touching a spreadsheet.
+              Inventory turns, fill rate, margin by product line, and demand forecast. All of it live,
+              automated, and refreshed without anyone touching a spreadsheet.
             </p>
             <ul className="mt-5 space-y-3">
               {[

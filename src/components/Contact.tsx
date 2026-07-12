@@ -17,11 +17,28 @@ export default function Contact() {
     const form = e.currentTarget
     const data = new FormData(form)
 
+    // Sanitize before sending: cap lengths, strip control characters, trim.
+    // The message field keeps its line breaks; single-line fields do not.
+    const MAX: Record<string, number> = { name: 100, company: 120, email: 254, phone: 30, challenge: 2000 }
+    const body = new URLSearchParams()
+    for (const [key, raw] of data.entries()) {
+      if (typeof raw !== 'string') continue
+      let value = raw.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+      if (key !== 'challenge') value = value.replace(/[\r\n]+/g, ' ')
+      value = value.trim().slice(0, MAX[key] ?? 500)
+      body.set(key, value)
+    }
+
+    if (!body.get('name') || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.get('email') ?? '')) {
+      form.reportValidity()
+      return
+    }
+
     try {
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        body: body.toString(),
       })
       setSubmitted(true)
       setDisabled(true)
@@ -51,8 +68,8 @@ export default function Contact() {
               Book your free discovery call.
             </h2>
             <p className="mt-4 text-muted font-medium text-[16px] leading-relaxed">
-              30 minutes, no pitch. Tell us where it hurts and we'll tell you — honestly — whether we can
-              help and what it'd take.
+              30 minutes, no pitch. Tell us where it hurts and we'll tell you honestly whether we can
+              help and what it would take.
             </p>
             <ul className="mt-5 space-y-3">
               {[
@@ -103,25 +120,25 @@ export default function Contact() {
                     <label htmlFor="name" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Name
                     </label>
-                    <input id="name" name="name" type="text" required placeholder="Jane Doe" className="input-dark" />
+                    <input id="name" name="name" type="text" required maxLength={100} autoComplete="name" placeholder="Jane Doe" className="input-dark" />
                   </div>
                   <div>
                     <label htmlFor="company" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Company
                     </label>
-                    <input id="company" name="company" type="text" placeholder="Acme Supply Co." className="input-dark" />
+                    <input id="company" name="company" type="text" maxLength={120} autoComplete="organization" placeholder="Acme Supply Co." className="input-dark" />
                   </div>
                   <div>
                     <label htmlFor="email" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Email
                     </label>
-                    <input id="email" name="email" type="email" required placeholder="jane@acme.com" className="input-dark" />
+                    <input id="email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="jane@acme.com" className="input-dark" />
                   </div>
                   <div>
                     <label htmlFor="phone" className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint block mb-2">
                       Phone
                     </label>
-                    <input id="phone" name="phone" type="tel" placeholder="(214) 555-0142" className="input-dark" />
+                    <input id="phone" name="phone" type="tel" maxLength={30} pattern="[0-9+()\-\s.]{0,30}" autoComplete="tel" placeholder="(214) 555-0142" className="input-dark" />
                   </div>
                 </div>
 
@@ -133,6 +150,7 @@ export default function Contact() {
                     id="challenge"
                     name="challenge"
                     rows={4}
+                    maxLength={2000}
                     placeholder="Too much cash tied up in slow-moving inventory..."
                     className="input-dark resize-none"
                   />

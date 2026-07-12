@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { BOOK_CALL_MAILTO } from '../lib/site'
 
 function CheckItem({ text }: { text: string }) {
   return (
@@ -21,7 +21,7 @@ const tiers = [
     features: [
       'A ranked report of your biggest opportunities',
       'Honest read on what your data can support today',
-      '60-min findings call — the report is yours to keep',
+      'A 60-minute findings call, and the report is yours to keep',
       'Stop here if you want; no strings',
     ],
     featured: false,
@@ -58,7 +58,7 @@ const tiers = [
       'Everything maintained and improving',
       'Monthly strategy session on the numbers',
       'New questions answered on priority',
-      'Month-to-month — cancel anytime',
+      'Month-to-month, cancel anytime',
     ],
     featured: false,
   },
@@ -66,7 +66,7 @@ const tiers = [
 
 const guarantees = [
   { title: 'Fixed scope, quoted first', body: 'Every engagement is priced before it starts. No open-ended billing, no surprise invoices.' },
-  { title: 'You own everything', body: 'Dashboards, models, and documentation are built in your systems and stay yours — always.' },
+  { title: 'You own everything', body: 'Dashboards, models, and documentation are built in your systems and stay yours, always.' },
   { title: 'Start tiny', body: 'The first call is free and the assessment is a few hundred dollars. You risk a conversation, not a budget.' },
 ]
 
@@ -117,8 +117,8 @@ export default function Pricing() {
                   <CheckItem key={f} text={f} />
                 ))}
               </ul>
-              <Link
-                to="/#contact"
+              <a
+                href={BOOK_CALL_MAILTO}
                 className={`mt-6 block text-center py-3 rounded-[10px] font-bold text-[14px] transition-opacity hover:opacity-90 ${
                   t.featured ? 'btn-primary justify-center' : 'btn-secondary justify-center'
                 }`}
@@ -126,7 +126,7 @@ export default function Pricing() {
                 data-track-label={t.name}
               >
                 Book a Call →
-              </Link>
+              </a>
             </article>
           ))}
         </div>

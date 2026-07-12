@@ -24,10 +24,10 @@ export const dashboards: DashboardEntry[] = [
     title: 'Executive KPI Command Center',
     audience: 'Owners, presidents & GMs',
     description:
-      'The Monday-morning view: revenue against plan, margin, turns, and fill rate on one screen — refreshed automatically from the ERP, drillable to branch, product line, or SKU.',
+      'The Monday-morning view: revenue against plan, margin, turns, and fill rate on one screen, refreshed automatically from the ERP and drillable to branch, product line, or SKU.',
     questions: [
       'How did we perform last week, without waiting for month-end?',
-      'Which product lines are ahead of plan — and which are slipping?',
+      'Which product lines are ahead of plan, and which are slipping?',
       'Is margin moving because of price, cost, or mix?',
     ],
     problemSlug: 'executive-visibility',
@@ -38,11 +38,11 @@ export const dashboards: DashboardEntry[] = [
     title: 'Customer Profitability & Cost-to-Serve',
     audience: 'Owners & sales leadership',
     description:
-      'Ranks every account by true gross profit after freight, returns, discounts, and terms — and flags the large-revenue accounts that are quietly break-even or worse.',
+      'Ranks every account by true gross profit after freight, returns, discounts, and terms, then flags the large-revenue accounts that are quietly break-even or worse.',
     questions: [
       'Which customers actually make us money after cost-to-serve?',
       'Which accounts need a pricing or service-level conversation?',
-      'How concentrated is our profit — and are we protecting the accounts that carry us?',
+      'How concentrated is our profit, and are we protecting the accounts that carry us?',
     ],
     problemSlug: 'customer-profitability',
     mock: <CustomerProfitabilityMock />,
@@ -52,7 +52,7 @@ export const dashboards: DashboardEntry[] = [
     title: 'Inventory Health & Optimization',
     audience: 'Operations & purchasing',
     description:
-      'Splits inventory value into healthy, excess, and dead by category and age — with a ranked cleanup list and stockout-risk flags on the items that drive fill rate.',
+      'Splits inventory value into healthy, excess, and dead by category and age, with a ranked cleanup list and stockout-risk flags on the items that drive fill rate.',
     questions: [
       'How much cash is sitting in excess and dead stock, and where?',
       'Which SKUs are at stockout risk in the next 30–60 days?',
@@ -66,7 +66,7 @@ export const dashboards: DashboardEntry[] = [
     title: 'Demand Forecast & Accuracy Tracker',
     audience: 'Purchasing & planning',
     description:
-      'Statistical forecasts built on your own sales history, with seasonality made visible and forecast accuracy reported openly every cycle — so the numbers earn trust.',
+      'Statistical forecasts built on your own sales history, with seasonality made visible and forecast accuracy reported openly every cycle so the numbers earn trust.',
     questions: [
       'What will we realistically sell next month and next quarter?',
       'When should the seasonal buys land, and how big should they be?',
@@ -80,7 +80,7 @@ export const dashboards: DashboardEntry[] = [
     title: 'Purchasing & Vendor Scorecard',
     audience: 'Purchasing & operations',
     description:
-      'Vendor reliability computed from your own PO history — on-time rates, lead-time drift, and spend concentration — so vendor reviews run on evidence, not anecdote.',
+      'Vendor reliability computed from your own PO history, covering on-time rates, lead-time drift, and spend concentration, so vendor reviews run on evidence instead of anecdote.',
     questions: [
       'Which vendors deliver on time, and which are quietly getting worse?',
       'Where is spend concentrated, and what is our exposure?',
@@ -94,7 +94,7 @@ export const dashboards: DashboardEntry[] = [
     title: 'Sales Performance & Mix',
     audience: 'Owners & sales managers',
     description:
-      'One automated sales view for every altitude — trend vs. last year, new vs. repeat mix, and account momentum — so Monday meetings start from agreement, not reconciliation.',
+      'One automated sales view for every altitude: trend vs. last year, new vs. repeat mix, and account momentum. Monday meetings start from agreement, not reconciliation.',
     questions: [
       'How is each rep, territory, and product line trending?',
       'Is growth coming from new customers or deeper share of existing ones?',

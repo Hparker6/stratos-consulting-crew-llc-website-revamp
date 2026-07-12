@@ -35,7 +35,7 @@ const pains = [
   {
     num: '03',
     title: 'Spreadsheets everywhere',
-    body: 'Reports rebuilt by hand every week — and different numbers in every file.',
+    body: 'Reports rebuilt by hand every week, with different numbers in every file.',
   },
   {
     num: '04',

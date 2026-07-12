@@ -3,19 +3,19 @@ import { useState } from 'react'
 const faqs = [
   {
     q: 'Do you work with small companies?',
-    a: "Yes — that's the entire point. We focus on distributors and manufacturers with 1–50 employees who don't have an analyst on staff.",
+    a: "Yes. That's the entire point. We focus on distributors and manufacturers with 1–50 employees who don't have an analyst on staff.",
   },
   {
     q: 'How fast should I expect results?',
-    a: 'Every project is scoped so the first tangible win — usually freed-up cash from inventory or hours saved on weekly reporting — lands within the first 30–60 days. If we don’t believe your data can support that, we’ll tell you on the discovery call.',
+    a: 'Every project is scoped so the first tangible win, usually freed-up cash from inventory or hours saved on weekly reporting, lands within the first 30–60 days. If we don’t believe your data can support that, we’ll tell you on the discovery call.',
   },
   {
-    q: 'You’re a new firm — why should I trust you?',
+    q: 'You’re a new firm. Why should I trust you?',
     a: 'Because we won’t ask you to. There are no fake logos or testimonials here; instead, every engagement is structured so trust is never required up front: a free call, then a small fixed-fee assessment whose report you keep, then fixed-scope projects you can stop after any phase. You own everything we build at every step.',
   },
   {
     q: 'What tools do you use?',
-    a: "Power BI, SQL, Python, and Excel. We meet your data where it lives, from QuickBooks to your ERP — no rip-and-replace required.",
+    a: "Power BI, SQL, Python, and Excel. We meet your data where it lives, from QuickBooks to your ERP. No rip-and-replace required.",
   },
   {
     q: 'Can you work with our existing systems?',

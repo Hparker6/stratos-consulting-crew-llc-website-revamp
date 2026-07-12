@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { BOOK_CALL_MAILTO } from '../lib/site'
 
 interface Props {
   title?: string
@@ -8,7 +9,7 @@ interface Props {
 /** Reusable end-of-page call-to-action band pointing at the discovery call. */
 export default function CTABand({
   title = 'Ready to see what your data is hiding?',
-  body = 'A free 30-minute discovery call. No pitch, no obligation — just an honest conversation about whether analytics can move the needle for your business.',
+  body = 'A free 30-minute discovery call. No pitch and no obligation, just an honest conversation about whether analytics can move the needle for your business.',
 }: Props) {
   return (
     <section className="py-16 lg:py-20 bg-bg">
@@ -27,9 +28,9 @@ export default function CTABand({
           </h2>
           <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed max-w-xl mx-auto">{body}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Link to="/#contact" className="btn-primary" data-track="cta_click" data-track-label="cta_band_book_call">
+            <a href={BOOK_CALL_MAILTO} className="btn-primary" data-track="cta_click" data-track-label="cta_band_book_call">
               Book a Free Discovery Call →
-            </Link>
+            </a>
             <Link to="/process" className="btn-secondary" data-track="cta_click" data-track-label="cta_band_process">
               See How We Work
             </Link>

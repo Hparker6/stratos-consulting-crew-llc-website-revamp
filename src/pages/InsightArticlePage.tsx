@@ -111,7 +111,7 @@ export default function InsightArticlePage() {
             <div>
               <p className="font-heading font-semibold text-[16px] text-text-base">Houston Parker</p>
               <p className="text-muted font-medium text-[14px] leading-snug">
-                Founder, Stratos Consulting Crew — analytics for distributors, manufacturers, and wholesalers.{' '}
+                Founder of Stratos Consulting Crew. Analytics for distributors, manufacturers, and wholesalers.{' '}
                 <Link to="/about" className="text-primary font-bold hover:underline">
                   About the firm →
                 </Link>

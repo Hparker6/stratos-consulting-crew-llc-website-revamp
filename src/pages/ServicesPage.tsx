@@ -22,10 +22,10 @@ const services: ServiceDetail[] = [
     title: 'Executive Dashboards & KPI Reporting',
     tag: 'Visibility',
     intro:
-      'One trusted, automatically refreshed view of the business — revenue, margin, turns, fill rate — designed around the decisions your leadership team actually makes each week.',
+      'One trusted, automatically refreshed view of revenue, margin, turns, and fill rate, designed around the decisions your leadership team actually makes each week.',
     deliverables: [
       'Power BI dashboards connected directly to your ERP and accounting systems',
-      'Agreed, documented KPI definitions — one version of the truth',
+      'Agreed, documented KPI definitions, so there is one version of the truth',
       'Automated weekly summary reports delivered to your inbox',
       'Drill-down from company-wide to branch, product line, or SKU',
     ],
@@ -37,7 +37,7 @@ const services: ServiceDetail[] = [
     title: 'Demand & Sales Forecasting',
     tag: 'Planning',
     intro:
-      'Statistical forecasts built on your own sales history — trend, seasonality, and momentum made visible — with accuracy measured and reported openly every cycle.',
+      'Statistical forecasts built on your own sales history, with trend, seasonality, and momentum made visible and accuracy reported openly every cycle.',
     deliverables: [
       'Demand models at the level purchasing actually buys: SKU, line, or vendor',
       'Seasonal buy timing and sizing backed by evidence',
@@ -52,7 +52,7 @@ const services: ServiceDetail[] = [
     title: 'Inventory Optimization',
     tag: 'Working capital',
     intro:
-      'Velocity classification, recalculated stocking rules, and a ranked excess list — so cash comes off the shelves and the A-items stop stocking out.',
+      'Velocity classification, recalculated stocking rules, and a ranked excess list, so cash comes off the shelves and the A-items stop stocking out.',
     deliverables: [
       'ABC/XYZ classification from live sales history',
       'Reorder points, safety stock, and min/max computed from real demand variability',
@@ -67,7 +67,7 @@ const services: ServiceDetail[] = [
     title: 'Customer & Product Profitability',
     tag: 'Margin',
     intro:
-      'True profit by customer and product after freight, returns, discounts, and terms — the analysis that changes where sales effort and pricing attention go.',
+      'True profit by customer and product after freight, returns, discounts, and terms. This is the analysis that changes where sales effort and pricing attention go.',
     deliverables: [
       'Cost-to-serve profitability model with explicit, auditable allocation logic',
       'Account segmentation: protect, grow, reprice',
@@ -82,7 +82,7 @@ const services: ServiceDetail[] = [
     title: 'Reporting & Process Automation',
     tag: 'Time back',
     intro:
-      'The reports your team rebuilds by hand every week, rebuilt once — as pipelines that run themselves, identically, on schedule.',
+      'The reports your team rebuilds by hand every week, rebuilt once as pipelines that run themselves, identically, on schedule.',
     deliverables: [
       'Automated data pipelines from ERP/accounting to reporting',
       'Scheduled report generation and distribution',
@@ -97,12 +97,12 @@ const services: ServiceDetail[] = [
     title: 'Ongoing Analytics Partnership',
     tag: 'Fractional team',
     intro:
-      'A monthly engagement that works like having an analytics team on staff — maintaining what’s built, answering new questions, and finding the next improvement.',
+      'A monthly engagement that works like having an analytics team on staff: maintaining what’s built, answering new questions, and finding the next improvement.',
     deliverables: [
       'Dashboards and models maintained and improved continuously',
       'Monthly working session on the numbers with your leadership',
       'Priority queue for new questions and requests',
-      'Month-to-month terms — continue only while it earns its keep',
+      'Month-to-month terms, so it continues only while it earns its keep',
     ],
     tools: 'Everything above, on retainer',
     problemSlug: 'executive-visibility',
@@ -126,7 +126,7 @@ export default function ServicesPage() {
             Analytics built around <span className="gradient-text">supplier decisions.</span>
           </>
         }
-        lede="Every engagement is scoped around a recurring decision your team makes — what to stock, what to buy, which accounts to protect — not around technology for its own sake."
+        lede="Every engagement is scoped around a recurring decision your team makes, whether that's what to stock, what to buy, or which accounts to protect. Never around technology for its own sake."
       />
 
       <section ref={viewRef} className="py-14 lg:py-16 bg-bg">
