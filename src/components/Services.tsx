@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function IconGrid() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -146,6 +148,15 @@ export default function Services() {
               <p className="text-muted font-medium text-[16px] leading-relaxed">{s.body}</p>
             </article>
           ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3 relative z-10">
+          <Link to="/services" className="btn-secondary">
+            Explore All Services →
+          </Link>
+          <Link to="/solutions" className="btn-secondary">
+            See the Problems We Solve
+          </Link>
         </div>
       </div>
 

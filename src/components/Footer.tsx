@@ -1,4 +1,17 @@
+import { Link } from 'react-router-dom'
 import { Logo } from './Nav'
+
+const exploreLinks = [
+  { label: 'Services', to: '/services' },
+  { label: 'Solutions', to: '/solutions' },
+  { label: 'Our Process', to: '/process' },
+  { label: 'Pricing', to: '/pricing' },
+]
+
+const companyLinks = [
+  { label: 'About', to: '/about' },
+  { label: 'Book a Free Call', to: '/#contact' },
+]
 
 export default function Footer() {
   return (
@@ -12,28 +25,38 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row gap-10 lg:items-start">
           {/* Brand */}
           <div className="flex-1 max-w-[340px]">
-            <Logo size={52} />
+            <Link to="/" aria-label="Stratos Consulting Crew home">
+              <Logo size={52} />
+            </Link>
             <p className="mt-4 text-muted font-medium text-[15px] leading-relaxed">
-              Analytics, dashboards, and forecasting for small distributors and manufacturers across
-              Dallas–Fort Worth.
+              Analytics, dashboards, and forecasting for distributors, manufacturers, and wholesalers —
+              based in Dallas–Fort Worth.
             </p>
           </div>
 
           {/* Links */}
-          <div className="flex gap-16">
+          <div className="flex flex-wrap gap-x-16 gap-y-8">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-4">Explore</p>
+              <ul className="space-y-3">
+                {exploreLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link to={l.to} className="text-muted hover:text-text-base font-medium text-[15px] transition-colors">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-4">Company</p>
               <ul className="space-y-3">
-                {[
-                  { label: 'Services', href: '#services' },
-                  { label: 'About', href: '#about' },
-                  { label: 'Pricing', href: '#pricing' },
-                  { label: 'FAQ', href: '#faq' },
-                ].map((l) => (
-                  <li key={l.label}>
-                    <a href={l.href} className="text-muted hover:text-text-base font-medium text-[15px] transition-colors">
+                {companyLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link to={l.to} className="text-muted hover:text-text-base font-medium text-[15px] transition-colors">
                       {l.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

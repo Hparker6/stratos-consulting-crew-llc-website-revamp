@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 /* Light section — background #f5f3ee (warm off-white), dark navy text. */
 const DARK = '#0a1628'
 const BODY = '#2d4a6b'
@@ -69,6 +71,14 @@ export default function About() {
                 </span>
               ))}
             </div>
+
+            <Link
+              to="/about"
+              className="inline-flex mt-6 font-bold text-[15px] hover:underline"
+              style={{ color: '#1570cc' }}
+            >
+              More about how we work →
+            </Link>
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const steps = [
   {
     num: '1',
@@ -62,6 +64,10 @@ export default function HowItWorks() {
             ))}
           </div>
         </div>
+
+        <Link to="/process" className="inline-flex mt-8 text-primary font-bold text-[15px] hover:underline">
+          See the full process, phase by phase →
+        </Link>
       </div>
     </section>
   )

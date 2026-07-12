@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 function Logo({ size = 44 }: { size?: number }) {
   return (
@@ -44,12 +45,18 @@ function Logo({ size = 44 }: { size?: number }) {
 export { Logo }
 
 const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Services', to: '/services' },
+  { label: 'Solutions', to: '/solutions' },
+  { label: 'Process', to: '/process' },
+  { label: 'Pricing', to: '/pricing' },
+  { label: 'About', to: '/about' },
 ]
+
+function linkClass(isActive: boolean): string {
+  return `font-body font-medium text-[14px] transition-colors ${
+    isActive ? 'text-text-base' : 'text-muted hover:text-text-base'
+  }`
+}
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
@@ -65,31 +72,28 @@ export default function Nav() {
       }}
     >
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-[72px]">
-        <a href="#" aria-label="Stratos Consulting Crew home">
+        <Link to="/" aria-label="Stratos Consulting Crew home" onClick={() => setOpen(false)}>
           <Logo />
-        </a>
+        </Link>
 
         {/* Desktop links */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
           {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="font-body font-medium text-[15px] text-muted hover:text-text-base transition-colors"
-            >
+            <NavLink key={l.to} to={l.to} className={({ isActive }) => linkClass(isActive)}>
               {l.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
-        <a href="#contact" className="hidden md:inline-flex btn-primary">
+        <Link to="/#contact" className="hidden lg:inline-flex btn-primary !px-5 !py-3">
           Book a Free Call
-        </a>
+        </Link>
 
         {/* Hamburger */}
         <button
-          className="md:hidden flex flex-col gap-[5px] p-2"
+          className="lg:hidden flex flex-col gap-[5px] p-2"
           aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
           <span
@@ -110,23 +114,23 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <nav
-          className="md:hidden border-t px-5 py-5 flex flex-col gap-5"
+          className="lg:hidden border-t px-5 py-5 flex flex-col gap-5"
           style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(10,15,28,0.97)' }}
           aria-label="Mobile navigation"
         >
           {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="font-body font-medium text-[15px] text-muted hover:text-text-base transition-colors"
+            <NavLink
+              key={l.to}
+              to={l.to}
+              className={({ isActive }) => linkClass(isActive)}
               onClick={() => setOpen(false)}
             >
               {l.label}
-            </a>
+            </NavLink>
           ))}
-          <a href="#contact" className="btn-primary w-fit mt-1" onClick={() => setOpen(false)}>
+          <Link to="/#contact" className="btn-primary w-fit mt-1" onClick={() => setOpen(false)}>
             Book a Free Call
-          </a>
+          </Link>
         </nav>
       )}
     </header>

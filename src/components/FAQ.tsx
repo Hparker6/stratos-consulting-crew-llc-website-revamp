@@ -6,8 +6,12 @@ const faqs = [
     a: "Yes — that's the entire point. We focus on distributors and manufacturers with 1–50 employees who don't have an analyst on staff.",
   },
   {
-    q: 'How fast will I see ROI?',
-    a: 'Most clients see their first wins within 30–60 days — usually freed-up cash from inventory or hours saved every week on reporting.',
+    q: 'How fast should I expect results?',
+    a: 'Every project is scoped so the first tangible win — usually freed-up cash from inventory or hours saved on weekly reporting — lands within the first 30–60 days. If we don’t believe your data can support that, we’ll tell you on the discovery call.',
+  },
+  {
+    q: 'You’re a new firm — why should I trust you?',
+    a: 'Because we won’t ask you to. There are no fake logos or testimonials here; instead, every engagement is structured so trust is never required up front: a free call, then a small fixed-fee assessment whose report you keep, then fixed-scope projects you can stop after any phase. You own everything we build at every step.',
   },
   {
     q: 'What tools do you use?',

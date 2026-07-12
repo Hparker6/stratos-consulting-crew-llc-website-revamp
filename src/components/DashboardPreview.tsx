@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function PreviewMock() {
   const actualPoints = [38, 42, 35, 48, 44, 52, 56, 50, 60, 65, 58, 70]
   const forecastPoints = [40, 44, 42, 46, 50, 54, 58, 56, 62, 68, 65, 72]
@@ -174,6 +176,9 @@ export default function DashboardPreview() {
                 </li>
               ))}
             </ul>
+            <Link to="/solutions" className="inline-flex mt-6 text-primary font-bold text-[15px] hover:underline">
+              See six sample dashboards, problem by problem →
+            </Link>
           </div>
 
           <div className="flex-1 flex justify-center lg:justify-end">
