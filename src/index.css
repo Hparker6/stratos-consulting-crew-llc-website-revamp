@@ -262,27 +262,23 @@
     animation: shimmer 7s linear infinite;
   }
 
-  /* Rotating conic gradient border for the featured pricing card */
+  /* Rotating conic gradient border for the featured pricing card:
+     opaque padding-box layer covers the card, conic border-box layer
+     shows only through the transparent border band. */
   .gradient-ring {
     position: relative;
-    background: rgba(47, 143, 255, 0.07);
-    border: 1.5px solid transparent;
-    background-clip: padding-box;
-  }
-  .gradient-ring::before {
-    content: '';
-    position: absolute;
-    inset: -1.5px;
-    z-index: -1;
-    border-radius: inherit;
-    background: conic-gradient(
-      from var(--ring-angle, 0deg),
-      #2f8fff,
-      #27e0a0 30%,
-      #2f8fff 55%,
-      rgba(47, 143, 255, 0.35) 75%,
-      #2f8fff
-    );
+    border: 2px solid transparent;
+    background:
+      linear-gradient(#0c182c, #0c182c) padding-box,
+      conic-gradient(
+          from var(--ring-angle, 0deg),
+          #2f8fff,
+          #27e0a0 30%,
+          #2f8fff 55%,
+          rgba(47, 143, 255, 0.35) 75%,
+          #2f8fff
+        )
+        border-box;
     animation: ring-spin 6s linear infinite;
   }
 
@@ -342,7 +338,7 @@
   .drift-a,
   .drift-b,
   .divider-shimmer,
-  .gradient-ring::before,
+  .gradient-ring,
   .animate-float {
     animation: none !important;
   }
