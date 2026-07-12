@@ -28,7 +28,7 @@ export default function Footer() {
             </Link>
             <p className="mt-4 text-muted font-medium text-[15px] leading-relaxed">
               Analytics, dashboards, and forecasting for distributors, manufacturers, and wholesalers.
-              Based in Dallas-Fort Worth.
+              Serving clients nationwide.
             </p>
           </div>
 
@@ -102,7 +102,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <span className="text-muted font-medium text-[15px]">Dallas–Fort Worth, TX</span>
+                  <span className="text-muted font-medium text-[15px]">United States</span>
                 </li>
               </ul>
             </div>
