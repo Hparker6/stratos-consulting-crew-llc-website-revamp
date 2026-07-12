@@ -124,6 +124,8 @@ export default function Pricing() {
                 className={`mt-6 block text-center py-3 rounded-[10px] font-bold text-[14px] transition-opacity hover:opacity-90 ${
                   t.featured ? 'btn-primary justify-center' : 'btn-secondary justify-center'
                 }`}
+                data-track="pricing_card_click"
+                data-track-label={t.name}
               >
                 Book a Call →
               </Link>

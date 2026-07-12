@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import useSectionView from '../hooks/useSectionView'
 
 function IconGrid() {
   return (
@@ -89,9 +90,11 @@ const services = [
 ]
 
 export default function Services() {
+  const viewRef = useSectionView<HTMLElement>('services_view', { section: 'home_services' })
   return (
     <section
       id="services"
+      ref={viewRef}
       className="relative overflow-hidden py-16 lg:py-20"
       style={{
         background: '#101a2e',

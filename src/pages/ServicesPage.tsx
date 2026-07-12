@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
+import useSectionView from '../hooks/useSectionView'
 import PageHeader from '../components/PageHeader'
 import WhoWeHelp from '../components/WhoWeHelp'
 import ERPFamiliarity from '../components/ERPFamiliarity'
@@ -110,9 +111,11 @@ const services: ServiceDetail[] = [
 
 export default function ServicesPage() {
   usePageMeta(
-    'Services',
+    'Analytics Services for Distributors & Manufacturers',
     'Executive dashboards, demand forecasting, inventory optimization, profitability analysis, and reporting automation for distributors, manufacturers, and wholesalers.',
+    { breadcrumb: 'Services' },
   )
+  const viewRef = useSectionView<HTMLElement>('services_view', { section: 'services_page' })
 
   return (
     <>
@@ -126,7 +129,7 @@ export default function ServicesPage() {
         lede="Every engagement is scoped around a recurring decision your team makes — what to stock, what to buy, which accounts to protect — not around technology for its own sake."
       />
 
-      <section className="py-14 lg:py-16 bg-bg">
+      <section ref={viewRef} className="py-14 lg:py-16 bg-bg">
         <div className="max-w-6xl mx-auto px-5 space-y-5">
           {services.map((s, i) => (
             <article

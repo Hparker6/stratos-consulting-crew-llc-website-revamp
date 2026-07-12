@@ -1,7 +1,10 @@
-import { Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import CookieConsent from './components/CookieConsent'
+import { resetPageTracking, trackPageView } from './lib/analytics'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
 import SolutionsPage from './pages/SolutionsPage'
@@ -16,10 +19,23 @@ function ProblemRedirect() {
   return <Navigate to={`/solutions${slug ? `#${slug}` : ''}`} replace />
 }
 
+/** SPA page_view events for GA4 (Enhanced Measurement can't see route changes). */
+function PageViewTracker() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    resetPageTracking(pathname)
+    // Let usePageMeta set the title first, then report.
+    const id = window.setTimeout(() => trackPageView(pathname, document.title), 0)
+    return () => window.clearTimeout(id)
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
     <div className="bg-bg text-text-base font-body min-h-screen">
       <ScrollToTop />
+      <PageViewTracker />
       <Nav />
       <main>
         <Routes>
@@ -38,6 +54,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   )
 }

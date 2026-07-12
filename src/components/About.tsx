@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 const DARK = '#0a1628'
 const BODY = '#2d4a6b'
 const BORDER = 'rgba(10,22,40,0.1)'
+const LINK_BLUE = '#0d5cb0' /* ≥4.5:1 on #f5f3ee (WCAG AA) */
 
 export default function About() {
   return (
@@ -19,23 +20,30 @@ export default function About() {
         <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
           {/* Headshot — 24px left padding keeps it off the edge */}
           <div className="flex-shrink-0 lg:w-[380px] lg:pl-6">
-            <img
-              src="/houston-parker.jpg"
-              alt="Houston Parker, founder of Stratos Consulting Crew LLC"
-              className="w-full rounded-[18px] object-cover object-top"
-              style={{
-                aspectRatio: '4/5',
-                border: '1px solid rgba(10,22,40,0.12)',
-                boxShadow: '0 20px 60px rgba(10,22,40,0.15)',
-              }}
-            />
+            <picture>
+              <source srcSet="/houston-parker-800.webp" type="image/webp" />
+              <img
+                src="/houston-parker-800.jpg"
+                alt="Houston Parker, founder of Stratos Consulting Crew LLC, in a professional headshot"
+                width={800}
+                height={1000}
+                loading="lazy"
+                decoding="async"
+                className="w-full rounded-[18px] object-cover object-top"
+                style={{
+                  aspectRatio: '4/5',
+                  border: '1px solid rgba(10,22,40,0.12)',
+                  boxShadow: '0 20px 60px rgba(10,22,40,0.15)',
+                }}
+              />
+            </picture>
           </div>
 
           {/* Bio */}
           <div className="flex-1">
             <p
               className="eyebrow mb-3"
-              style={{ color: '#1570cc' }}
+              style={{ color: LINK_BLUE }}
             >
               Who you'll work with
             </p>
@@ -75,7 +83,7 @@ export default function About() {
             <Link
               to="/about"
               className="inline-flex mt-6 font-bold text-[15px] hover:underline"
-              style={{ color: '#1570cc' }}
+              style={{ color: LINK_BLUE }}
             >
               More about how we work →
             </Link>

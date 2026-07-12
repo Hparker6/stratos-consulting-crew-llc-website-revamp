@@ -72,20 +72,31 @@ export default function Nav() {
       }}
     >
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-[72px]">
-        <Link to="/" aria-label="Stratos Consulting Crew home" onClick={() => setOpen(false)}>
+        <Link to="/" onClick={() => setOpen(false)}>
           <Logo />
         </Link>
 
         {/* Desktop links */}
         <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
           {navLinks.map((l) => (
-            <NavLink key={l.to} to={l.to} className={({ isActive }) => linkClass(isActive)}>
+            <NavLink
+              key={l.to}
+              to={l.to}
+              className={({ isActive }) => linkClass(isActive)}
+              data-track="nav_click"
+              data-track-label={l.label}
+            >
               {l.label}
             </NavLink>
           ))}
         </nav>
 
-        <Link to="/#contact" className="hidden lg:inline-flex btn-primary !px-5 !py-3">
+        <Link
+          to="/#contact"
+          className="hidden lg:inline-flex btn-primary !px-5 !py-3"
+          data-track="cta_click"
+          data-track-label="nav_book_call"
+        >
           Book a Free Call
         </Link>
 
@@ -124,11 +135,19 @@ export default function Nav() {
               to={l.to}
               className={({ isActive }) => linkClass(isActive)}
               onClick={() => setOpen(false)}
+              data-track="nav_click"
+              data-track-label={`${l.label}_mobile`}
             >
               {l.label}
             </NavLink>
           ))}
-          <Link to="/#contact" className="btn-primary w-fit mt-1" onClick={() => setOpen(false)}>
+          <Link
+            to="/#contact"
+            className="btn-primary w-fit mt-1"
+            onClick={() => setOpen(false)}
+            data-track="cta_click"
+            data-track-label="nav_book_call_mobile"
+          >
             Book a Free Call
           </Link>
         </nav>

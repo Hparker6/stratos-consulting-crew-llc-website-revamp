@@ -14,7 +14,7 @@ export default {
         secondary: '#27e0a0',
         'text-base': '#eaf0fa',
         muted: '#a8b8cc',
-        faint: '#5e6a7e',
+        faint: '#7f8ba0', /* ≥4.5:1 on all dark surfaces (WCAG AA) */
         'btn-dark': '#04102a',
       },
       fontFamily: {

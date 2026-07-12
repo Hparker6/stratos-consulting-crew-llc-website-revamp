@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
+import useSectionView from '../hooks/useSectionView'
 import PageHeader from '../components/PageHeader'
 import CTABand from '../components/CTABand'
-import { problems } from '../data/problems'
+import { problems, Problem } from '../data/problems'
 import { getDashboard } from '../components/dashboards'
 
 /**
@@ -13,8 +14,9 @@ import { getDashboard } from '../components/dashboards'
  */
 export default function SolutionsPage() {
   usePageMeta(
-    'Solutions',
+    'Solutions for Distributors & Manufacturers — Problems We Solve',
     'The supplier problems we solve — cash stuck in inventory, no margin visibility, gut-feel purchasing, manual reporting — with the analytics approach and sample dashboards for each.',
+    { breadcrumb: 'Solutions' },
   )
 
   return (
@@ -52,8 +54,10 @@ export default function SolutionsPage() {
                 href={`#${p.slug}`}
                 className="font-mono text-[11px] tracking-[0.04em] font-medium px-3 py-[7px] rounded-full text-muted hover:text-text-base transition-colors"
                 style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
+                data-track="dashboard_interaction"
+                data-track-label={`jump_${p.slug}`}
               >
-                {String(i + 1).padStart(2, '0')} · {p.eyebrow}
+                {`${String(i + 1).padStart(2, '0')} · ${p.eyebrow}`}
               </a>
             ))}
           </nav>
@@ -62,15 +66,53 @@ export default function SolutionsPage() {
 
       <section className="py-12 lg:py-16 bg-bg">
         <div className="max-w-6xl mx-auto px-5 space-y-16 lg:space-y-20">
-          {problems.map((p, i) => {
-            const dashboard = p.dashboardId ? getDashboard(p.dashboardId) : undefined
-            return (
-              <article
-                key={p.slug}
-                id={p.slug}
-                className={`flex flex-col gap-8 lg:gap-12 ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
-                style={{ scrollMarginTop: 90 }}
-              >
+          {problems.map((p, i) => (
+            <SolutionSection key={p.slug} problem={p} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* Bridge to services */}
+      <section className="py-12 bg-bg">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="card-lg p-7 lg:p-9 flex flex-col md:flex-row md:items-center gap-6">
+            <div className="flex-1">
+              <h2 className="font-heading font-bold text-[24px] md:text-[28px] tracking-[-0.02em] text-text-base">
+                Want the service-by-service breakdown?
+              </h2>
+              <p className="mt-2 text-muted font-medium text-[15px] leading-relaxed">
+                Deliverables, tools, and what's included in each engagement — dashboards, forecasting,
+                inventory optimization, profitability, and automation.
+              </p>
+            </div>
+            <Link to="/services" className="btn-secondary flex-shrink-0" data-track="nav_click" data-track-label="solutions_to_services">
+              View Services →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <CTABand
+        title="Recognize your business in one of these?"
+        body="That's exactly what the free discovery call is for. Bring the problem; we'll tell you honestly whether analytics can move it — and what it would take."
+      />
+    </>
+  )
+}
+
+function SolutionSection({ problem: p, index: i }: { problem: Problem; index: number }) {
+  const dashboard = p.dashboardId ? getDashboard(p.dashboardId) : undefined
+  const viewRef = useSectionView<HTMLElement>('dashboard_view', {
+    dashboard_id: p.dashboardId,
+    solution: p.slug,
+  })
+  return (
+    <article
+      ref={viewRef}
+      id={p.slug}
+      className={`flex flex-col gap-8 lg:gap-12 ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
+      style={{ scrollMarginTop: 90 }}
+    >
                 {/* Text column */}
                 <div className="flex-1 lg:max-w-[460px]">
                   <div className="flex items-center gap-3 mb-3">
@@ -97,7 +139,8 @@ export default function SolutionsPage() {
                           {n + 1}
                         </span>
                         <p className="text-muted font-medium text-[15px] leading-snug">
-                          <span className="text-text-base font-semibold">{a.title}.</span> {a.body}
+                          <span className="text-text-base font-semibold">{`${a.title}.`}</span>
+                          {` ${a.body}`}
                         </p>
                       </div>
                     ))}
@@ -122,43 +165,14 @@ export default function SolutionsPage() {
                     <>
                       {dashboard.mock}
                       <p className="mt-3 text-faint font-medium text-[13px] leading-relaxed">
-                        <span className="text-muted font-semibold">{dashboard.title}</span> — built for{' '}
-                        {dashboard.audience.toLowerCase()}. Answers:{' '}
-                        {dashboard.questions[0].charAt(0).toLowerCase() + dashboard.questions[0].slice(1)}
+                        <span className="text-muted font-semibold">{dashboard.title}</span>
+                        {` — built for ${dashboard.audience.toLowerCase()}. Answers: ${
+                          dashboard.questions[0].charAt(0).toLowerCase() + dashboard.questions[0].slice(1)
+                        }`}
                       </p>
                     </>
                   )}
                 </div>
-              </article>
-            )
-          })}
-        </div>
-      </section>
-
-      {/* Bridge to services */}
-      <section className="py-12 bg-bg">
-        <div className="max-w-6xl mx-auto px-5">
-          <div className="card-lg p-7 lg:p-9 flex flex-col md:flex-row md:items-center gap-6">
-            <div className="flex-1">
-              <h2 className="font-heading font-bold text-[24px] md:text-[28px] tracking-[-0.02em] text-text-base">
-                Want the service-by-service breakdown?
-              </h2>
-              <p className="mt-2 text-muted font-medium text-[15px] leading-relaxed">
-                Deliverables, tools, and what's included in each engagement — dashboards, forecasting,
-                inventory optimization, profitability, and automation.
-              </p>
-            </div>
-            <Link to="/services" className="btn-secondary flex-shrink-0">
-              View Services →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <CTABand
-        title="Recognize your business in one of these?"
-        body="That's exactly what the free discovery call is for. Bring the problem; we'll tell you honestly whether analytics can move it — and what it would take."
-      />
-    </>
+    </article>
   )
 }

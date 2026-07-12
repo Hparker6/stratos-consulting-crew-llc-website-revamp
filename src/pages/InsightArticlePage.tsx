@@ -8,7 +8,25 @@ export default function InsightArticlePage() {
   const { slug } = useParams()
   const article = slug ? getArticle(slug) : undefined
 
-  usePageMeta(article ? article.title : 'Article not found', article ? article.excerpt : 'This article does not exist.')
+  usePageMeta(
+    article ? article.title : 'Article not found',
+    article ? article.excerpt : 'This article does not exist.',
+    article
+      ? {
+          breadcrumb: 'Insights',
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: article.title,
+            description: article.excerpt,
+            datePublished: article.date,
+            author: { '@type': 'Person', name: 'Houston Parker' },
+            publisher: { '@type': 'Organization', name: 'Stratos Consulting Crew LLC' },
+            mainEntityOfPage: `https://www.stratosconsultingcrew.com/insights/${article.slug}`,
+          },
+        }
+      : {},
+  )
 
   if (!article) return <NotFoundPage />
 
@@ -77,12 +95,19 @@ export default function InsightArticlePage() {
             className="mt-12 rounded-[14px] p-6 flex items-center gap-5"
             style={{ background: '#101a2e', border: '1px solid rgba(255,255,255,0.08)' }}
           >
-            <img
-              src="/houston-parker.jpg"
-              alt="Houston Parker"
-              className="w-[64px] h-[64px] rounded-full object-cover object-top flex-shrink-0"
-              style={{ border: '1px solid rgba(255,255,255,0.15)' }}
-            />
+            <picture>
+              <source srcSet="/houston-parker-800.webp" type="image/webp" />
+              <img
+                src="/houston-parker-800.jpg"
+                alt="Houston Parker, article author"
+                width={64}
+                height={64}
+                loading="lazy"
+                decoding="async"
+                className="w-[64px] h-[64px] rounded-full object-cover object-top flex-shrink-0"
+                style={{ border: '1px solid rgba(255,255,255,0.15)' }}
+              />
+            </picture>
             <div>
               <p className="font-heading font-semibold text-[16px] text-text-base">Houston Parker</p>
               <p className="text-muted font-medium text-[14px] leading-snug">

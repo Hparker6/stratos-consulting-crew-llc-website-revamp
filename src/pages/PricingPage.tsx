@@ -21,8 +21,9 @@ const rangeFactors = [
 
 export default function PricingPage() {
   usePageMeta(
-    'Pricing',
+    'Pricing — Transparent, Fixed-Scope Analytics Engagements',
     'Transparent, fixed-scope pricing for analytics engagements — discovery assessment from $299, dashboard packages from $1k, forecasting projects, and month-to-month retainers.',
+    { breadcrumb: 'Pricing' },
   )
 
   return (

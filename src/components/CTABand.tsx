@@ -26,10 +26,10 @@ export default function CTABand({
           </h2>
           <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed max-w-xl mx-auto">{body}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Link to="/#contact" className="btn-primary">
+            <Link to="/#contact" className="btn-primary" data-track="cta_click" data-track-label="cta_band_book_call">
               Book a Free Discovery Call →
             </Link>
-            <Link to="/process" className="btn-secondary">
+            <Link to="/process" className="btn-secondary" data-track="cta_click" data-track-label="cta_band_process">
               See How We Work
             </Link>
           </div>

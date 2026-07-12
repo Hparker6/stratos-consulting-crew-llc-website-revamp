@@ -59,10 +59,10 @@ export default function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#contact" className="btn-primary">
+              <a href="#contact" className="btn-primary" data-track="cta_click" data-track-label="hero_book_call">
                 Book a Free Discovery Call →
               </a>
-              <a href="#services" className="btn-secondary">
+              <a href="#services" className="btn-secondary" data-track="cta_click" data-track-label="hero_see_services">
                 See How We Help
               </a>
             </div>

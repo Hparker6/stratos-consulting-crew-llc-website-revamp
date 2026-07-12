@@ -18,7 +18,7 @@ export const CHART = {
   amber: '#d97706',
   status: { good: '#0fa96f', warn: '#d97706', serious: '#e0504f' },
   textMuted: '#a8b8cc',
-  textFaint: '#5e6a7e',
+  textFaint: '#7f8ba0',
 }
 
 /** Window chrome + prominent fictional-data label around every sample dashboard. */

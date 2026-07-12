@@ -55,7 +55,7 @@ function PreviewMock() {
               style={
                 tab === 'YTD'
                   ? { background: '#2f8fff', color: '#04102a', fontWeight: 700 }
-                  : { color: '#5e6a7e', background: 'transparent' }
+                  : { color: '#7f8ba0', background: 'transparent' }
               }
             >
               {tab}
@@ -176,7 +176,12 @@ export default function DashboardPreview() {
                 </li>
               ))}
             </ul>
-            <Link to="/solutions" className="inline-flex mt-6 text-primary font-bold text-[15px] hover:underline">
+            <Link
+              to="/solutions"
+              className="inline-flex mt-6 text-primary font-bold text-[15px] hover:underline"
+              data-track="dashboard_interaction"
+              data-track-label="home_preview_to_solutions"
+            >
               See six sample dashboards, problem by problem →
             </Link>
           </div>

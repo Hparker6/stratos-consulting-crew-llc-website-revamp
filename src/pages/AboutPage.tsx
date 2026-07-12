@@ -25,8 +25,9 @@ const values = [
 
 export default function AboutPage() {
   usePageMeta(
-    'About',
+    'About — A Boutique Analytics Firm for Suppliers',
     'Stratos Consulting Crew is a boutique analytics firm for distributors, manufacturers, and wholesalers — founder-led, technically deep, and honest about being new.',
+    { breadcrumb: 'About' },
   )
 
   return (

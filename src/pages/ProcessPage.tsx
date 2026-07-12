@@ -70,8 +70,9 @@ const phases: Phase[] = [
 
 export default function ProcessPage() {
   usePageMeta(
-    'Our Process',
+    'Our Process — Fixed-Scope Analytics Consulting',
     'How a Stratos engagement works: free discovery call, fixed-fee data assessment, fixed-scope build, implementation and training, and optional month-to-month optimization.',
+    { breadcrumb: 'Our Process' },
   )
 
   return (

@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row gap-10 lg:items-start">
           {/* Brand */}
           <div className="flex-1 max-w-[340px]">
-            <Link to="/" aria-label="Stratos Consulting Crew home">
+            <Link to="/">
               <Logo size={52} />
             </Link>
             <p className="mt-4 text-muted font-medium text-[15px] leading-relaxed">
@@ -41,7 +41,12 @@ export default function Footer() {
               <ul className="space-y-3">
                 {exploreLinks.map((l) => (
                   <li key={l.to}>
-                    <Link to={l.to} className="text-muted hover:text-text-base font-medium text-[15px] transition-colors">
+                    <Link
+                      to={l.to}
+                      className="text-muted hover:text-text-base font-medium text-[15px] transition-colors"
+                      data-track="nav_click"
+                      data-track-label={`footer_${l.label}`}
+                    >
                       {l.label}
                     </Link>
                   </li>
@@ -54,7 +59,12 @@ export default function Footer() {
               <ul className="space-y-3">
                 {companyLinks.map((l) => (
                   <li key={l.to}>
-                    <Link to={l.to} className="text-muted hover:text-text-base font-medium text-[15px] transition-colors">
+                    <Link
+                      to={l.to}
+                      className="text-muted hover:text-text-base font-medium text-[15px] transition-colors"
+                      data-track="nav_click"
+                      data-track-label={`footer_${l.label}`}
+                    >
                       {l.label}
                     </Link>
                   </li>

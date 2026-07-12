@@ -1,8 +1,16 @@
-import { useState, FormEvent } from 'react'
+import { useRef, useState, FormEvent } from 'react'
+import { track } from '../lib/analytics'
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [disabled, setDisabled] = useState(false)
+  const startTracked = useRef(false)
+
+  function handleFormStart() {
+    if (startTracked.current) return
+    startTracked.current = true
+    track('contact_form_start', { form_name: 'contact' })
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -21,6 +29,7 @@ export default function Contact() {
     } catch {
       setSubmitted(true)
     }
+    track('contact_form_submit', { form_name: 'contact' })
   }
 
   return (
@@ -83,6 +92,7 @@ export default function Contact() {
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
+                onFocusCapture={handleFormStart}
               >
                 <input type="hidden" name="form-name" value="contact" />
                 <input type="hidden" name="bot-field" />
