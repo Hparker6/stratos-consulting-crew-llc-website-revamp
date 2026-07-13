@@ -628,6 +628,95 @@
     animation: pulse-dot 2.4s var(--ease) infinite;
   }
 
+  /* ---------------------------------------------------------------- */
+  /* HERO CINEMATIC LAYER                                             */
+  /*                                                                  */
+  /* Scoped to the hero: three stacked light sources (a slow drifting  */
+  /* aurora, the fixed overhead spotlight, and a cursor-follow light), */
+  /* pointer parallax, floating glass metric chips, and chart          */
+  /* entrances. Every piece is additive and reduced-motion-safe — the  */
+  /* prerendered markup and no-JS visitors get the composed, static    */
+  /* frame; motion and interactivity layer on after hydration.         */
+  /* ---------------------------------------------------------------- */
+
+  /* Moving gradient mesh — the ambient light "breathes" behind the hero. */
+  .hero-aurora {
+    background:
+      radial-gradient(38% 55% at 22% 28%, rgba(47, 143, 255, 0.24), transparent 60%),
+      radial-gradient(32% 48% at 82% 22%, rgba(39, 224, 160, 0.16), transparent 60%),
+      radial-gradient(46% 60% at 62% 88%, rgba(47, 143, 255, 0.12), transparent 65%);
+    filter: blur(24px);
+    animation: aurora-drift 26s var(--ease) infinite alternate;
+  }
+
+  /* Light that follows the cursor across the hero — driven by --mx/--my (JS). */
+  .hero-cursor-light {
+    background: radial-gradient(
+      460px circle at var(--mx, 50%) var(--my, 32%),
+      rgba(47, 143, 255, 0.14),
+      rgba(39, 224, 160, 0.05) 42%,
+      transparent 68%
+    );
+  }
+
+  /* Fade the guide-grid out toward the edges so it reads as texture, not a table. */
+  .grid-fade {
+    -webkit-mask-image: radial-gradient(125% 90% at 50% 0%, #000 28%, transparent 78%);
+    mask-image: radial-gradient(125% 90% at 50% 0%, #000 28%, transparent 78%);
+  }
+
+  /* Pointer parallax: descendants translate a fraction of the pointer offset
+     (--px/--py, set on the hero in JS). Foreground chips lead, the dashboard
+     drifts the opposite way — the split is what creates depth. */
+  .parallax-fore {
+    transform: translate3d(calc(var(--px, 0) * 1px), calc(var(--py, 0) * 1px), 0);
+    transition: transform 240ms var(--ease);
+  }
+  .parallax-back {
+    transform: translate3d(calc(var(--px, 0) * -0.45px), calc(var(--py, 0) * -0.45px), 0);
+    transition: transform 300ms var(--ease);
+  }
+
+  /* Small glass kicker above the headline. */
+  .hero-kicker {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Floating glass metric chip — reads as a card lifted off the dashboard. */
+  .metric-chip {
+    background: linear-gradient(180deg, rgba(16, 26, 46, 0.94), rgba(11, 18, 32, 0.94));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .float-a { animation: float-a 7s ease-in-out infinite; }
+  .float-b { animation: float-b 9s ease-in-out infinite; }
+
+  /* Headline accent: a slow gradient flow across the emphasised words. */
+  .gradient-text-flow {
+    background: linear-gradient(100deg, #2f8fff, #27e0a0, #2f8fff);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-flow 9s linear infinite;
+  }
+
+  /* Chart entrances used inside the hero dashboard. */
+  .bar-grow { transform-origin: bottom; animation: bar-grow 900ms var(--ease) both; }
+  .draw-line {
+    stroke-dasharray: var(--len, 90);
+    stroke-dashoffset: var(--len, 90);
+    animation: draw-line 1.3s var(--ease) 250ms forwards;
+  }
+
   /* ================================================================ */
   /* 8b. CHROME — header, logo, consent, light section                 */
   /*                                                                  */
@@ -740,7 +829,8 @@
      imperceptible 22-second drift stops. */
   @media (max-width: 1024px) {
     .drift-a,
-    .drift-b {
+    .drift-b,
+    .hero-aurora {
       animation: none;
     }
   }
@@ -865,6 +955,34 @@
   50% { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
 }
 
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1.06); opacity: 0.9; }
+  50%  { transform: translate3d(2%, 1.5%, 0) scale(1.14); opacity: 1; }
+  100% { transform: translate3d(-1%, 2%, 0) scale(1.08); opacity: 0.92; }
+}
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(9px); }
+}
+
+@keyframes text-flow {
+  to { background-position: 200% 0; }
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
 @keyframes ring-spin {
   to { --ring-angle: 360deg; }
 }
@@ -878,8 +996,28 @@
   .divider-shimmer,
   .gradient-ring,
   .pulse-dot,
+  .hero-aurora,
+  .float-a,
+  .float-b,
+  .gradient-text-flow,
+  .bar-grow,
+  .draw-line,
   .animate-float {
     animation: none !important;
+  }
+  /* Parallax is pointer-driven, but neutralise any residual transform too. */
+  .parallax-fore,
+  .parallax-back {
+    transform: none !important;
+    transition: none !important;
+  }
+  /* A drawn-in line must not stay hidden when its animation is cancelled. */
+  .draw-line {
+    stroke-dashoffset: 0 !important;
+  }
+  /* A grown bar must not stay collapsed when its animation is cancelled. */
+  .bar-grow {
+    transform: none !important;
   }
   .rise,
   .rise-solid {
@@ -917,10 +1055,12 @@
      every gradient headline — half of every <h1> on this site — rendered as
      invisible. Restore real glyphs. */
   .gradient-text,
+  .gradient-text-flow,
   .gradient-num {
     background: none;
     -webkit-text-fill-color: currentColor;
     color: LinkText;
+    animation: none;
   }
 
   /* Buttons are distinguished only by background colour, which forced-colors

@@ -51,7 +51,7 @@ function Spark({ points, color }: { points: number[]; color: string }) {
         </linearGradient>
       </defs>
       <path d={`${line} L ${(w - pad).toFixed(1)} ${h} L ${pad} ${h} Z`} fill={`url(#${gid})`} />
-      <path d={line} fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path className="draw-line" d={line} fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx={ex} cy={ey} r="2.1" fill={color} />
     </svg>
   )
@@ -125,18 +125,18 @@ export default function HeroDashboardMock() {
                 const best = i === bars.length - 1
                 return (
                   <div key={b.label} className="flex-1 h-full flex items-end justify-center">
-                    <div
-                      className="w-full relative"
-                      style={{
-                        height: `${(b.v / axisMax) * 100}%`,
-                        maxWidth: 28,
-                        borderRadius: '5px 5px 0 0',
-                        background: best
-                          ? 'linear-gradient(180deg, #3ff0c0 0%, #2f8fff 100%)'
-                          : 'linear-gradient(180deg, rgba(47,143,255,0.9) 0%, rgba(47,143,255,0.22) 100%)',
-                        boxShadow: best ? '0 0 18px rgba(47,224,160,0.55)' : 'none',
-                      }}
-                    >
+                    <div className="w-full relative" style={{ height: `${(b.v / axisMax) * 100}%`, maxWidth: 28 }}>
+                      <div
+                        className="bar-grow absolute inset-0"
+                        style={{
+                          borderRadius: '5px 5px 0 0',
+                          background: best
+                            ? 'linear-gradient(180deg, #3ff0c0 0%, #2f8fff 100%)'
+                            : 'linear-gradient(180deg, rgba(47,143,255,0.9) 0%, rgba(47,143,255,0.22) 100%)',
+                          boxShadow: best ? '0 0 18px rgba(47,224,160,0.55)' : 'none',
+                          animationDelay: `${i * 70}ms`,
+                        }}
+                      />
                       {best && (
                         <span
                           className="absolute -top-[18px] left-1/2 -translate-x-1/2 font-mono text-[11px] font-bold whitespace-nowrap"
