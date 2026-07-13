@@ -2,11 +2,14 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 /**
- * Scroll-reveal for any element carrying `data-reveal` (optional
- * `data-reveal-delay` in ms for stagger). Crawler/no-JS safe by design:
- * markup ships fully visible; this hook hides only elements still below the
- * viewport after mount, then transitions them in on intersection.
- * prefers-reduced-motion is honored both here and in CSS.
+ * Scroll-reveal for elements carrying `data-reveal` (optional
+ * `data-reveal-delay` in ms for stagger).
+ *
+ * Content is NEVER hidden. Markup ships fully visible; on intersection we
+ * only add a short entrance animation (fade + rise) via the Web Animations
+ * API. If the observer never fires, or JS fails, or the user scrolls past
+ * too fast, the element simply sits at full opacity — a blank section is
+ * impossible by construction. prefers-reduced-motion is honored.
  */
 export default function useRevealObserver() {
   const { pathname } = useLocation()
@@ -14,16 +17,12 @@ export default function useRevealObserver() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     if (typeof IntersectionObserver === 'undefined') return
+    if (typeof HTMLElement.prototype.animate !== 'function') return
 
     const els = Array.from(
       document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-reveal-armed])'),
     )
     if (!els.length) return
-
-    const reveal = (el: HTMLElement) => {
-      el.style.opacity = '1'
-      el.style.transform = 'none'
-    }
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -31,34 +30,27 @@ export default function useRevealObserver() {
           if (!entry.isIntersecting) continue
           const el = entry.target as HTMLElement
           io.unobserve(el)
-          requestAnimationFrame(() => reveal(el))
+          const delay = Number(el.dataset.revealDelay ?? 0)
+          el.animate(
+            [
+              { opacity: 0.2, transform: 'translateY(14px)' },
+              { opacity: 1, transform: 'none' },
+            ],
+            { duration: 450, delay, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'backwards' },
+          )
         }
       },
-      // Positive bottom margin: elements start revealing before they
-      // actually reach the viewport, so nothing sits blank mid-scroll.
-      { threshold: 0, rootMargin: '0px 0px 200px 0px' },
+      { threshold: 0, rootMargin: '0px 0px 80px 0px' },
     )
-
-    const timers: ReturnType<typeof setTimeout>[] = []
 
     for (const el of els) {
       el.setAttribute('data-reveal-armed', '')
       const rect = el.getBoundingClientRect()
-      const alreadyVisible = rect.top < window.innerHeight * 1.15 && rect.bottom > 0
-      if (alreadyVisible) continue // never hide what the user can already see
-      const delay = Number(el.dataset.revealDelay ?? 0)
-      el.style.opacity = '0'
-      el.style.transform = 'translateY(12px)'
-      el.style.transition = `opacity 0.4s ease-out ${delay}ms, transform 0.4s ease-out ${delay}ms`
+      // Elements already on screen at mount don't need an entrance.
+      if (rect.top < window.innerHeight && rect.bottom > 0) continue
       io.observe(el)
-      // Safety net: guarantee visibility even if IntersectionObserver
-      // never fires (e.g. fast programmatic scroll, capture tooling).
-      timers.push(setTimeout(() => reveal(el), 1800 + delay))
     }
 
-    return () => {
-      io.disconnect()
-      timers.forEach(clearTimeout)
-    }
+    return () => io.disconnect()
   }, [pathname])
 }
