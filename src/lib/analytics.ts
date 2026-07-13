@@ -1,28 +1,39 @@
 /**
- * Analytics core — consent-gated, dataLayer-first, GTM-ready.
+ * Analytics transport — consent-gated, dataLayer-first, GTM-ready.
+ *
+ * This module answers *how* an event is sent. What we send is declared in
+ * events.ts; the automatic listeners live in autoTrack.ts.
  *
  * Architecture:
- *  - All custom events flow through track(), which writes to window.dataLayer.
- *  - If a GTM container ID is set, GTM is the primary tag layer: GA4, Meta
- *    Pixel, LinkedIn Insight, Google Ads, A/B tools, etc. get added in the GTM
- *    UI with zero code changes here. Events arrive as dataLayer events.
- *  - Until a GTM container exists, gtag.js loads directly with the GA4 ID and
- *    track() mirrors events to gtag('event', ...), so reporting is identical.
+ *  - Every event flows through track(), which writes to window.dataLayer.
+ *  - If a GTM container ID is configured, GTM is the primary tag layer: GA4,
+ *    Meta Pixel, LinkedIn Insight, Google Ads and A/B tools are then added in
+ *    the GTM UI with zero code changes here, and our events arrive as dataLayer
+ *    events they can trigger on.
+ *  - With no GTM container, gtag.js loads directly with the GA4 ID and track()
+ *    sends gtag('event', ...) instead, so reporting is identical either way.
+ *    Both are never loaded at once, so no event is ever counted twice.
  *  - Nothing loads before consent. Google Consent Mode v2 defaults are pushed
- *    from index.html before any tag can execute; granting consent updates
- *    them and injects the scripts. Declining keeps the site 100% tag-free.
- *  - Microsoft Clarity loads only when an ID is set AND consent is granted,
- *    and is additionally told about consent via clarity('consent').
+ *    from index.html before any tag can execute; granting consent updates them
+ *    and injects the scripts. Declining keeps the site entirely tag-free.
+ *  - Microsoft Clarity loads only when an ID is set AND consent is granted.
+ *
+ * IDs come from build-time env vars (see .env.example) so the same code can run
+ * against a staging property without a commit.
  */
 
+function env(value: string | undefined, fallback = ''): string {
+  return typeof value === 'string' && value.trim() !== '' ? value.trim() : fallback
+}
+
 export const ANALYTICS_CONFIG = {
-  /** GA4 measurement ID (dedicated property for this site). */
-  GA4_ID: 'G-R4XFZ4FJXC',
-  /** GTM container ID, e.g. 'GTM-XXXXXXX'. Leave '' until the container exists;
-   *  once set, GTM becomes the primary tag layer and gtag.js stops loading. */
-  GTM_ID: '',
-  /** Microsoft Clarity project ID. Leave '' until created at clarity.microsoft.com. */
-  CLARITY_ID: '',
+  /** GA4 measurement ID. Used only when no GTM container is configured. */
+  GA4_ID: env(import.meta.env.VITE_GA4_ID, 'G-R4XFZ4FJXC'),
+  /** GTM container ID (GTM-XXXXXXX). When set, GTM becomes the tag layer and
+   *  gtag.js is NOT loaded — GA4 is configured inside the container instead. */
+  GTM_ID: env(import.meta.env.VITE_GTM_ID),
+  /** Microsoft Clarity project ID. Optional. */
+  CLARITY_ID: env(import.meta.env.VITE_CLARITY_ID),
 }
 
 const CONSENT_KEY = 'stratos-consent-v1'
@@ -90,6 +101,23 @@ export function denyConsent() {
   } catch {
     /* ignore */
   }
+  // Withdrawal must actually take effect, not just be recorded. Consent Mode is
+  // told to deny analytics storage, which stops GA4 writing or reading cookies
+  // from this point on, and track() refuses to emit anything further.
+  gtag('consent', 'update', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  })
+}
+
+/** Name of the event that asks the consent banner to re-open. */
+export const CONSENT_SETTINGS_EVENT = 'stratos:open-consent'
+
+/** Lets a visitor revisit their choice after the banner is gone (footer link). */
+export function openConsentSettings() {
+  window.dispatchEvent(new Event(CONSENT_SETTINGS_EVENT))
 }
 
 function injectScript(src: string) {
@@ -106,11 +134,12 @@ function loadTags() {
   const { GA4_ID, GTM_ID, CLARITY_ID } = ANALYTICS_CONFIG
 
   if (GTM_ID) {
-    // GTM path: container owns GA4 + all future tags.
+    // GTM path: the container owns GA4 and every other tag.
     dl().push({ 'gtm.start': Date.now(), event: 'gtm.js' })
     injectScript(`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`)
   } else if (GA4_ID) {
-    // Direct gtag path until a GTM container is created.
+    // Direct gtag path. Mutually exclusive with GTM above — loading both would
+    // double-count every event.
     injectScript(`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`)
     gtag('js', new Date())
     // SPA: page_view is sent manually on every route change (see trackPageView).
@@ -143,8 +172,11 @@ export function initAnalytics() {
 }
 
 /**
- * Record a custom event. Events are named so they can be promoted to GA4 Key
- * Events (Conversions) directly: contact_form_submit, cta_click, etc.
+ * Send one event. Prefer the typed helpers in events.ts over calling this
+ * directly — they are the documented surface.
+ *
+ * Exactly one transport is used per event (dataLayer push for GTM, gtag for
+ * GA4), never both, so a single call can never produce two hits.
  */
 export function track(event: string, params: Record<string, unknown> = {}) {
   if (getConsent() !== 'granted') return
@@ -153,103 +185,4 @@ export function track(event: string, params: Record<string, unknown> = {}) {
   } else {
     gtag('event', event, params)
   }
-}
-
-export function trackPageView(path: string, title: string) {
-  track('page_view', {
-    page_path: path,
-    page_location: window.location.href,
-    page_title: title,
-  })
-}
-
-/* ------------------------------------------------------------------ */
-/* Automatic listeners: clicks, scroll depth                           */
-/* ------------------------------------------------------------------ */
-
-let listenersInstalled = false
-const firedScrollMarks = new Set<string>()
-let currentScrollPath = ''
-let lastNavAt = 0
-
-/** Reset per-page trackers on SPA navigation (each pageview gets fresh marks). */
-export function resetPageTracking(path: string) {
-  currentScrollPath = path
-  firedScrollMarks.clear()
-  lastNavAt = Date.now()
-}
-
-function onDocumentClick(e: MouseEvent) {
-  const target = e.target as Element | null
-  if (!target) return
-
-  // Explicitly annotated elements first.
-  const tracked = target.closest<HTMLElement>('[data-track]')
-  if (tracked?.dataset.track) {
-    track(tracked.dataset.track, {
-      label: tracked.dataset.trackLabel ?? undefined,
-      page_path: window.location.pathname,
-    })
-  }
-
-  // Link-type inference: email / phone / outbound / downloads.
-  const a = target.closest<HTMLAnchorElement>('a[href]')
-  if (!a) return
-  const href = a.getAttribute('href') ?? ''
-
-  if (href.startsWith('mailto:')) {
-    track('email_click', { link_url: href.replace('mailto:', ''), page_path: window.location.pathname })
-    return
-  }
-  if (href.startsWith('tel:')) {
-    track('phone_click', { link_url: href.replace('tel:', ''), page_path: window.location.pathname })
-    return
-  }
-  if (/\.(pdf|xlsx?|csv|docx?|pptx?|zip)(\?|$)/i.test(href)) {
-    track('file_download', { link_url: href, page_path: window.location.pathname })
-    return
-  }
-  if (/^https?:\/\//i.test(href) && !href.includes(window.location.hostname)) {
-    track('outbound_click', {
-      link_url: href,
-      link_domain: new URL(href).hostname,
-      page_path: window.location.pathname,
-    })
-  }
-}
-
-function onScroll() {
-  // Ignore the settle window right after SPA navigation: the old scroll
-  // position against the new page's height would fire bogus depth marks.
-  if (Date.now() - lastNavAt < 400) return
-  const doc = document.documentElement
-  const scrollable = doc.scrollHeight - window.innerHeight
-  if (scrollable <= 0) return
-  const pct = ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100
-  for (const mark of [25, 50, 75, 100]) {
-    const key = `${currentScrollPath}|${mark}`
-    if (pct >= mark && !firedScrollMarks.has(key)) {
-      firedScrollMarks.add(key)
-      track('scroll_depth', { percent_scrolled: mark, page_path: currentScrollPath })
-    }
-  }
-}
-
-export function installGlobalListeners() {
-  if (listenersInstalled) return
-  listenersInstalled = true
-  document.addEventListener('click', onDocumentClick, { capture: true, passive: true })
-  let ticking = false
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        onScroll()
-        ticking = false
-      })
-    },
-    { passive: true },
-  )
 }

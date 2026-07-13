@@ -40,7 +40,7 @@ export default function InsightArticlePage() {
           className="pointer-events-none absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(47,143,255,0.12) 0%, transparent 65%)', filter: 'blur(40px)' }}
         />
-        <div className="relative max-w-3xl mx-auto px-5 pt-14 pb-10 lg:pt-20 lg:pb-12">
+        <div className="relative container-prose pt-14 pb-10 lg:pt-20 lg:pb-12">
           <Link to="/insights" className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint hover:text-muted transition-colors">
             ← All insights
           </Link>
@@ -58,22 +58,22 @@ export default function InsightArticlePage() {
           <h1 className="font-heading font-extrabold text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.03em] text-text-base">
             {article.title}
           </h1>
-          <p className="mt-5 text-muted font-medium text-[17px] leading-relaxed">{article.excerpt}</p>
+          <p className="mt-5 text-muted font-medium text-body-lg">{article.excerpt}</p>
         </div>
       </section>
 
       {/* Body */}
-      <article className="py-10 lg:py-14 bg-bg">
-        <div className="max-w-3xl mx-auto px-5">
+      <article className="section-sm bg-bg">
+        <div className="container-prose">
           {article.sections.map((s, i) => (
             <section key={i} className="mb-8">
               {s.heading && (
-                <h2 className="font-heading font-bold text-[22px] md:text-[26px] tracking-[-0.02em] text-text-base mb-4">
+                <h2 className="t-h4 text-text-base mb-4">
                   {s.heading}
                 </h2>
               )}
               {s.paragraphs.map((p) => (
-                <p key={p.slice(0, 40)} className="text-muted font-medium text-[17px] leading-relaxed mb-4">
+                <p key={p.slice(0, 40)} className="text-muted font-medium text-body-lg mb-4">
                   {p}
                 </p>
               ))}
@@ -110,7 +110,7 @@ export default function InsightArticlePage() {
             </picture>
             <div>
               <p className="font-heading font-semibold text-[16px] text-text-base">Houston Parker</p>
-              <p className="text-muted font-medium text-[14px] leading-snug">
+              <p className="text-muted font-medium text-caption leading-snug">
                 Founder of Stratos Consulting Crew. Analytics for distributors, manufacturers, and wholesalers.{' '}
                 <Link to="/about" className="text-primary font-bold hover:underline">
                   About the firm →
@@ -122,12 +122,12 @@ export default function InsightArticlePage() {
           {/* More articles */}
           {more.length > 0 && (
             <div className="mt-12">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-4">Keep reading</p>
+              <p className="t-label text-faint mb-4">Keep reading</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {more.map((a) => (
                   <Link key={a.slug} to={`/insights/${a.slug}`} className="card p-6 hover:border-white/[0.16] transition-colors group">
                     <p className="font-mono text-[11px] text-faint tracking-wide mb-2">{formatDate(a.date)}</p>
-                    <h3 className="font-heading font-semibold text-[17px] leading-snug text-text-base group-hover:text-primary transition-colors">
+                    <h3 className="t-h5 leading-snug text-text-base group-hover:text-primary transition-colors">
                       {a.title}
                     </h3>
                   </Link>

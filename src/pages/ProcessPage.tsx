@@ -87,7 +87,7 @@ export default function ProcessPage() {
         lede="Each phase is scoped and priced before it starts, ends with something you own, and earns the next one. You can stop after any step and keep everything produced so far."
       />
 
-      <section className="py-14 lg:py-16 bg-bg">
+      <section className="section-sm bg-bg">
         <div className="max-w-4xl mx-auto px-5">
           <div className="relative">
             {/* Vertical connector */}
@@ -103,8 +103,7 @@ export default function ProcessPage() {
               {phases.map((ph) => (
                 <article key={ph.num} className="relative md:pl-24" data-reveal>
                   <div
-                    className="hidden md:flex absolute left-0 top-1 w-[62px] h-[62px] rounded-full items-center justify-center font-heading font-bold text-[18px] text-primary"
-                    style={{ border: '2px solid #2f8fff', background: '#0a0f1c', zIndex: 1 }}
+                    className="step-marker hidden md:flex absolute left-0 top-1 w-[62px] h-[62px] text-[18px] z-[1]"
                     aria-hidden="true"
                   >
                     {ph.num}
@@ -118,14 +117,13 @@ export default function ProcessPage() {
                         {ph.title}
                       </h2>
                       <span
-                        className="font-mono text-[10px] uppercase tracking-[0.12em] px-2 py-[3px] rounded-[5px] text-secondary"
-                        style={{ background: 'rgba(39,224,160,0.1)', border: '1px solid rgba(39,224,160,0.25)' }}
+                        className="chip-accent"
                       >
                         {ph.duration}
                       </span>
                     </div>
 
-                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-3">
+                    <p className="t-label text-faint mb-3">
                       What happens
                     </p>
                     <ul className="space-y-2 mb-5">
@@ -138,8 +136,7 @@ export default function ProcessPage() {
                     </ul>
 
                     <div
-                      className="rounded-[10px] px-4 py-3"
-                      style={{ background: 'rgba(39,224,160,0.06)', border: '1px solid rgba(39,224,160,0.18)' }}
+                      className="note-accent px-4 py-3"
                     >
                       <p className="text-[14px] font-medium leading-relaxed text-muted">
                         <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-secondary block mb-1">
@@ -162,8 +159,8 @@ export default function ProcessPage() {
               { title: 'Stop anywhere', body: 'Each phase stands alone. Continue only when the last one proved its worth.' },
             ].map((p) => (
               <div key={p.title} className="card p-6 text-center">
-                <h3 className="font-heading font-semibold text-[17px] text-text-base mb-2">{p.title}</h3>
-                <p className="text-muted font-medium text-[14px] leading-relaxed">{p.body}</p>
+                <h3 className="t-h5 text-text-base mb-2">{p.title}</h3>
+                <p className="text-muted font-medium text-caption">{p.body}</p>
               </div>
             ))}
           </div>

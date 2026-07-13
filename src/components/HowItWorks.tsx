@@ -20,17 +20,10 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section
-      id="how-it-works"
-      className="py-10 lg:py-12"
-      style={{
-        background: '#0c1a30',
-        borderBottom: '1px solid rgba(255,255,255,0.07)',
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-5 text-center">
+    <section id="how-it-works" className="section-sm bg-elevated border-b-hairline">
+      <div className="container-page text-center">
         <p className="eyebrow text-primary mb-3">How it works</p>
-        <h2 className="font-heading font-bold text-[36px] md:text-[48px] tracking-[-0.02em]">
+        <h2 className="t-h2">
           Three steps. No jargon.
         </h2>
 
@@ -57,14 +50,11 @@ export default function HowItWorks() {
                 data-reveal
                 data-reveal-delay={i * 90}
               >
-                <div
-                  className="relative z-10 w-[62px] h-[62px] rounded-full flex items-center justify-center mb-4 font-heading font-bold text-[22px] text-primary"
-                  style={{ border: '2px solid #2f8fff', background: '#0c1a30' }}
-                >
+                <div className="step-marker relative z-10 w-[62px] h-[62px] mb-4 text-[22px] !bg-elevated">
                   {s.num}
                 </div>
-                <h3 className="font-heading font-bold text-[19px] text-text-base mb-3">{s.title}</h3>
-                <p className="text-muted font-medium text-[16px] leading-relaxed max-w-[240px] mx-auto">{s.body}</p>
+                <h3 className="t-h5 text-text-base mb-3">{s.title}</h3>
+                <p className="text-muted font-medium text-body max-w-[240px] mx-auto">{s.body}</p>
               </div>
             ))}
           </div>

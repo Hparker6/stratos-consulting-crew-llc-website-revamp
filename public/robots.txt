@@ -1,4 +1,16 @@
+# Stratos Consulting Crew — https://www.stratosconsultingcrew.com
+# Everything on this site is meant to be found. Nothing is hidden from crawlers.
+
 User-agent: *
 Allow: /
+
+# Tracking parameters produce duplicate URLs of pages that already
+# self-canonicalise. Crawling them spends crawl budget and indexes nothing new.
+Disallow: /*?utm_
+Disallow: /*?ref=
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
+
+# A plain-language summary of the business for LLM crawlers lives at /llms.txt
 
 Sitemap: https://www.stratosconsultingcrew.com/sitemap.xml

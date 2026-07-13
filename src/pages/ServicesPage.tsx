@@ -115,7 +115,7 @@ export default function ServicesPage() {
     'Executive dashboards, demand forecasting, inventory optimization, profitability analysis, and reporting automation for distributors, manufacturers, and wholesalers.',
     { breadcrumb: 'Services' },
   )
-  const viewRef = useSectionView<HTMLElement>('services_view', { section: 'services_page' })
+  const viewRef = useSectionView<HTMLElement>('services_page')
 
   return (
     <>
@@ -129,8 +129,8 @@ export default function ServicesPage() {
         lede="Every engagement is scoped around a recurring decision your team makes, whether that's what to stock, what to buy, or which accounts to protect. Never around technology for its own sake."
       />
 
-      <section ref={viewRef} className="py-14 lg:py-16 bg-bg">
-        <div className="max-w-6xl mx-auto px-5 space-y-5">
+      <section ref={viewRef} className="section-sm bg-bg">
+        <div className="container-page space-y-5">
           {services.map((s, i) => (
             <article
               key={s.id}
@@ -144,28 +144,27 @@ export default function ServicesPage() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
-                    className="font-mono text-[9px] uppercase tracking-[0.12em] px-2 py-[3px] rounded-[5px] text-secondary"
-                    style={{ background: 'rgba(39,224,160,0.1)', border: '1px solid rgba(39,224,160,0.25)' }}
+                    className="chip-accent"
                   >
                     {s.tag}
                   </span>
                 </div>
-                <h2 className="font-heading font-bold text-[24px] md:text-[28px] tracking-[-0.02em] leading-tight text-text-base">
+                <h2 className="t-h4 text-text-base">
                   {s.title}
                 </h2>
-                <p className="mt-3 text-muted font-medium text-[16px] leading-relaxed">{s.intro}</p>
+                <p className="mt-3 text-muted font-medium text-body">{s.intro}</p>
                 <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.1em] text-faint">{s.tools}</p>
               </div>
 
               <div className="flex-1">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-4">
+                <p className="t-label text-faint mb-4">
                   What you get
                 </p>
                 <ul className="space-y-3">
                   {s.deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-3">
                       <span className="text-secondary mt-[2px] font-bold text-sm flex-shrink-0">✓</span>
-                      <span className="text-muted font-medium text-[15px] leading-snug">{d}</span>
+                      <span className="text-muted font-medium text-body-sm leading-snug">{d}</span>
                     </li>
                   ))}
                 </ul>

@@ -99,25 +99,15 @@ function setSpotlight(e: MouseEvent<HTMLElement>) {
 }
 
 export default function Services() {
-  const viewRef = useSectionView<HTMLElement>('services_view', { section: 'home_services' })
+  const viewRef = useSectionView<HTMLElement>('home_services')
   return (
     <section
       id="services"
       ref={viewRef}
-      className="relative overflow-hidden py-16 lg:py-20"
-      style={{
-        background: '#101a2e',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-      }}
+      className="relative overflow-hidden section bg-surface border-t-hairline"
     >
       {/* Faint data dot-grid texture */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(47,143,255,0.07) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 dot-grid" />
 
       {/* Faint large watermark bar-chart in the background */}
       <div className="pointer-events-none absolute right-0 bottom-0 w-1/2 h-full overflow-hidden opacity-[0.035]">
@@ -137,12 +127,12 @@ export default function Services() {
         </svg>
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-5 text-center">
+      <div className="relative container-page text-center">
         <p className="eyebrow text-secondary mb-3">What we do</p>
-        <h2 className="font-heading font-bold text-[36px] md:text-[48px] tracking-[-0.02em]">
+        <h2 className="t-h2">
           Six ways we turn data into dollars.
         </h2>
-        <p className="mt-4 text-muted font-medium text-[17px] max-w-lg mx-auto leading-relaxed">
+        <p className="mt-4 text-muted font-medium text-body-lg max-w-lg mx-auto leading-relaxed">
           Mix and match, or hand us the whole problem. Everything's built around your numbers, your systems, your team.
         </p>
 
@@ -157,18 +147,17 @@ export default function Services() {
                 data-reveal
                 data-reveal-delay={(i % 3) * 70}
                 onMouseMove={setSpotlight}
-                className={`spotlight card-lift p-6 rounded-[16px] ${span} ${
+                className={`spotlight card-lift p-6 rounded-lg border hairline bg-[rgba(10,15,28,0.55)] ${span} ${
                   i === 5 ? 'md:flex md:items-center md:gap-6' : ''
                 }`}
-                style={{ background: 'rgba(10,15,28,0.55)', border: '1px solid rgba(255,255,255,0.08)' }}
               >
                 <div className={i === 5 ? 'md:flex md:items-center md:gap-5 md:flex-1' : ''}>
                   <div className={`${s.tileClass} mb-4 ${i === 5 ? 'md:mb-0 md:flex-shrink-0' : ''}`} aria-hidden="true">
                     {s.icon}
                   </div>
                   <div>
-                    <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{s.title}</h3>
-                    <p className="text-muted font-medium text-[16px] leading-relaxed">{s.body}</p>
+                    <h3 className="t-h5 text-text-base mb-2">{s.title}</h3>
+                    <p className="text-muted font-medium text-body">{s.body}</p>
                   </div>
                 </div>
 

@@ -145,8 +145,8 @@ function PreviewMock() {
 
 export default function DashboardPreview() {
   return (
-    <section id="dashboard" className="py-16 lg:py-20 bg-bg">
-      <div className="max-w-6xl mx-auto px-5">
+    <section id="dashboard" className="section bg-bg">
+      <div className="container-page">
         <div
           className="rounded-[24px] p-8 lg:p-10 flex flex-col lg:flex-row gap-10 lg:items-center"
           style={{
@@ -157,10 +157,10 @@ export default function DashboardPreview() {
         >
           <div className="flex-1 max-w-md" data-reveal>
             <p className="eyebrow text-primary mb-3">What you get</p>
-            <h2 className="font-heading font-bold text-[32px] md:text-[42px] tracking-[-0.02em] leading-tight">
+            <h2 className="t-h3">
               A single screen that runs your whole operation.
             </h2>
-            <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed">
+            <p className="mt-4 text-muted font-medium text-body-lg">
               Inventory turns, fill rate, margin by product line, and demand forecast. All of it live,
               automated, and refreshed without anyone touching a spreadsheet.
             </p>
@@ -172,7 +172,7 @@ export default function DashboardPreview() {
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="text-secondary mt-[2px] font-bold text-sm flex-shrink-0">✓</span>
-                  <span className="text-muted font-medium text-[16px] leading-snug">{item}</span>
+                  <span className="text-muted font-medium text-body leading-snug">{item}</span>
                 </li>
               ))}
             </ul>

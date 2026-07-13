@@ -3,6 +3,7 @@ import usePageMeta from '../hooks/usePageMeta'
 import PageHeader from '../components/PageHeader'
 import CTABand from '../components/CTABand'
 import { articles, formatDate } from '../data/insights'
+import { HAS_LINKEDIN, LINKEDIN_URL } from '../lib/site'
 
 export default function InsightsPage() {
   usePageMeta(
@@ -22,7 +23,7 @@ export default function InsightsPage() {
         lede="How we think about inventory, forecasting, profitability, and reporting for mid-size suppliers. New pieces publish here and on LinkedIn, and this page is their permanent home."
       />
 
-      <section className="py-14 lg:py-16 bg-bg">
+      <section className="section-sm bg-bg">
         <div className="max-w-4xl mx-auto px-5 space-y-5">
           {articles.map((a) => (
             <Link
@@ -41,33 +42,36 @@ export default function InsightsPage() {
                   {formatDate(a.date)} · {a.readMinutes} min read
                 </span>
               </div>
-              <h2 className="font-heading font-bold text-[22px] md:text-[26px] tracking-[-0.02em] leading-tight text-text-base group-hover:text-primary transition-colors">
+              <h2 className="t-h4 leading-tight text-text-base group-hover:text-primary transition-colors">
                 {a.title}
               </h2>
-              <p className="mt-3 text-muted font-medium text-[15px] leading-relaxed">{a.excerpt}</p>
+              <p className="mt-3 text-muted font-medium text-body-sm">{a.excerpt}</p>
               <span className="inline-flex mt-4 text-primary font-bold text-[14px] group-hover:underline">
                 Read the article →
               </span>
             </Link>
           ))}
 
-          <div
-            className="rounded-[14px] px-6 py-5 text-center"
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px dashed rgba(255,255,255,0.12)' }}
-          >
-            <p className="text-muted font-medium text-[14px] leading-relaxed">
-              Prefer LinkedIn? The same articles publish there.{' '}
-              <a
-                href="https://www.linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary font-bold hover:underline"
-              >
-                follow along
-              </a>{' '}
-              and new pieces will find you.
-            </p>
-          </div>
+          {/* Only shown once VITE_LINKEDIN_URL is configured. */}
+          {HAS_LINKEDIN && (
+            <div
+              className="rounded-[14px] px-6 py-5 text-center"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px dashed rgba(255,255,255,0.12)' }}
+            >
+              <p className="text-muted font-medium text-caption">
+                Prefer LinkedIn? The same articles publish there.{' '}
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary font-bold hover:underline"
+                >
+                  follow along
+                </a>{' '}
+                and new pieces will find you.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

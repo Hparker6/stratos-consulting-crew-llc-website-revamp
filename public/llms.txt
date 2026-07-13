@@ -21,6 +21,9 @@ Distributors, manufacturers, industrial suppliers, and wholesalers in the $5-50M
 - /process (five-phase engagement process)
 - /pricing (transparent fixed-scope pricing)
 - /about (founder and firm values)
+- /contact (book a free discovery call, contact form)
+- /privacy (privacy policy)
+- /terms (terms of use)
 
 ## Location
 United States (remote-friendly, nationwide)
