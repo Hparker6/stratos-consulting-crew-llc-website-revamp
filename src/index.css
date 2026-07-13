@@ -717,6 +717,86 @@
     animation: draw-line 1.3s var(--ease) 250ms forwards;
   }
 
+  /* ---------------------------------------------------------------- */
+  /* SERVICES — feature cards                                          */
+  /*                                                                  */
+  /* Each service is a small product surface: a bespoke graphic on a   */
+  /* nested screen, accent lighting that blooms on hover, flowing data  */
+  /* motion, and a progressive-disclosure caption that lifts in. The    */
+  /* per-card accent (--glow) lets blue and green services light apart. */
+  /* ---------------------------------------------------------------- */
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 75% at 50% 0%, var(--glow, rgba(47, 143, 255, 0.16)), transparent 62%);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+  }
+  .feature-card:hover::after { opacity: 1; }
+
+  /* The nested "screen" a graphic sits on — reads as product, not decoration. */
+  .feature-media {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(13, 21, 38, 0.72), rgba(10, 15, 28, 0.72));
+    border: 1px solid var(--line-soft);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Progressive disclosure: a caption that lifts in when the card is hovered. */
+  .feature-reveal {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .group:hover .feature-reveal { opacity: 1; transform: none; }
+
+  /* One-shot light sweep across a graphic on hover. */
+  .feature-scan {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -45%;
+    width: 45%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(108, 182, 255, 0.14), transparent);
+  }
+  .group:hover .feature-scan { animation: feature-scan 1.1s var(--ease); }
+
+  /* Flowing data: travelling dashes on a wire, and a moving highlight band. */
+  .flow-dash { animation: flow-dash 1.1s linear infinite; }
+  .wire-flow {
+    background-image: linear-gradient(
+      90deg,
+      rgba(47, 143, 255, 0.12) 0 42%,
+      rgba(108, 182, 255, 0.8) 50%,
+      rgba(47, 143, 255, 0.12) 58% 100%
+    );
+    background-size: 200% 100%;
+    animation: wire-flow 1.9s linear infinite;
+  }
+
+  /* A forecast confidence ping and a ring that fills further on hover. */
+  .fc-ping { transform-box: fill-box; transform-origin: center; animation: fc-ping 2.4s var(--ease) infinite; }
+  .fc-band { opacity: 0.5; transition: opacity var(--dur) var(--ease); }
+  .group:hover .fc-band { opacity: 1; }
+  .ring-progress {
+    stroke-dashoffset: var(--off);
+    transition: stroke-dashoffset var(--dur-slow) var(--ease);
+  }
+  .group:hover .ring-progress { stroke-dashoffset: var(--offh, var(--off)); }
+
+  /* Inventory bars: excess stock retracts to the reorder line on hover. */
+  .inv-bar { width: var(--w); background: var(--bar); transition: width var(--dur-slow) var(--ease); }
+  .group:hover .inv-excess { width: var(--wh, var(--w)); }
+
+  /* A pulse that travels the partnership timeline. */
+  .timeline-pulse { animation: timeline-pulse 5s var(--ease) infinite; }
+
   /* ================================================================ */
   /* 8b. CHROME — header, logo, consent, light section                 */
   /*                                                                  */
@@ -983,6 +1063,27 @@
   to { stroke-dashoffset: 0; }
 }
 
+@keyframes feature-scan {
+  from { left: -45%; }
+  to { left: 130%; }
+}
+@keyframes flow-dash {
+  to { stroke-dashoffset: -18; }
+}
+@keyframes wire-flow {
+  to { background-position: -200% 0; }
+}
+@keyframes fc-ping {
+  0% { transform: scale(0.6); opacity: 0.5; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes timeline-pulse {
+  0% { left: 0; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
 @keyframes ring-spin {
   to { --ring-angle: 360deg; }
 }
@@ -1018,6 +1119,25 @@
   /* A grown bar must not stay collapsed when its animation is cancelled. */
   .bar-grow {
     transform: none !important;
+  }
+  /* Services feature cards: silence continuous motion, keep captions shown. */
+  .feature-scan,
+  .flow-dash,
+  .wire-flow,
+  .timeline-pulse,
+  .fc-ping {
+    animation: none !important;
+  }
+  .feature-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .feature-reveal,
+  .fc-band,
+  .ring-progress,
+  .inv-bar,
+  .feature-card::after {
+    transition: none !important;
   }
   .rise,
   .rise-solid {
