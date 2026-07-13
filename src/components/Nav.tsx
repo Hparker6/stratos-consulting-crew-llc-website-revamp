@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { BOOK_CALL_MAILTO } from '../lib/site'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import BookCallLink from './BookCallLink'
+import { prefetchRoute } from '../routes'
 
 function Logo({ size = 44 }: { size?: number }) {
   return (
     <div className="flex items-center gap-3">
-      <div
-        style={{
-          width: size,
-          height: size,
-          borderRadius: '28%',
-          background: 'linear-gradient(135deg, #2f8fff, #27e0a0)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 0 18px rgba(47,143,255,0.45)',
-          flexShrink: 0,
-        }}
-      >
-        <svg width={size * 0.56} height={size * 0.56} viewBox="0 0 20 20" fill="none">
+      <div className="logo-mark" style={{ width: size, height: size }}>
+        {/* Decorative: the adjacent text already names the brand, so announcing
+            the mark again would just be noise for a screen reader. */}
+        <svg width={size * 0.56} height={size * 0.56} viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
           <path
             d="M10 2C10 2 16 5.5 16 10.5C16 13.5 14 15.8 11.5 17L10 20L8.5 17C6 15.8 4 13.5 4 10.5C4 5.5 10 2 10 2Z"
             fill="#04102a"
@@ -35,7 +26,7 @@ function Logo({ size = 44 }: { size?: number }) {
       </div>
       <div>
         <div className="font-heading font-bold text-[18px] text-text-base leading-none tracking-tight">Stratos</div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted leading-none mt-[4px]">
+        <div className="t-label text-muted leading-none mt-[4px]">
           Consulting Crew
         </div>
       </div>
@@ -62,6 +53,9 @@ function linkClass(isActive: boolean): string {
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { pathname } = useLocation()
+  const menuRef = useRef<HTMLElement | null>(null)
+  const toggleRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
     let ticking = false
@@ -78,102 +72,165 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  /** Close the menu on route change — a NavLink click navigates without unmounting. */
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  /**
+   * Open-menu behaviour: lock background scrolling, close on Escape, and keep
+   * Tab inside the panel. Without the trap, tabbing walks invisibly into the
+   * page behind the overlay and focus is lost.
+   */
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    // Move focus into the panel so the next Tab starts from a sane place.
+    const focusables = () =>
+      Array.from(
+        menuRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      )
+    focusables()[0]?.focus()
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        toggleRef.current?.focus() // return focus to the control that opened it
+        return
+      }
+      if (e.key !== 'Tab') return
+
+      // Cycle Tab / Shift+Tab between the toggle button and the panel's links.
+      const items = [toggleRef.current, ...focusables()].filter(Boolean) as HTMLElement[]
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      const active = document.activeElement
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
+
   return (
-    <header
-      className="sticky top-0 z-50"
-      style={{
-        background: scrolled ? 'rgba(8,12,22,0.92)' : 'rgba(10,15,28,0.85)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: scrolled ? '1px solid rgba(47,143,255,0.18)' : '1px solid rgba(255,255,255,0.08)',
-        boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.35)' : 'none',
-        transition: 'background 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease)',
-      }}
-    >
-      <div
-        className="max-w-6xl mx-auto px-5 flex items-center justify-between"
-        style={{ height: scrolled ? 62 : 72, transition: 'height 0.3s var(--ease)' }}
-      >
-        <Link to="/" onClick={() => setOpen(false)}>
-          <Logo />
-        </Link>
+    <>
+      {/* Spacer: holds the header's at-rest height in the document flow so the
+          fixed header shrinking on scroll cannot pull page content upward.
+          Previously the header was `sticky` (in-flow) and animating its height
+          shifted every element on the page — a Cumulative Layout Shift on the
+          first scroll of every session. */}
+      <div className="site-header-spacer" aria-hidden="true" />
 
-        {/* Desktop links */}
-        <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
-          {navLinks.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              className={({ isActive }) => linkClass(isActive)}
-              data-track="nav_click"
-              data-track-label={l.label}
-            >
-              {l.label}
-            </NavLink>
-          ))}
-        </nav>
+      <header data-site-header data-scrolled={scrolled} className="site-header">
+        <div className="site-header-inner container-page flex items-center justify-between">
+          {/* No aria-label here on purpose: the Logo's visible "Stratos /
+              Consulting Crew" text already names the link, and an aria-label
+              that doesn't contain that visible text violates WCAG 2.5.3
+              (Label in Name). */}
+          <Link to="/" onClick={() => setOpen(false)}>
+            <Logo />
+          </Link>
 
-        <a
-          href={BOOK_CALL_MAILTO}
-          className="hidden lg:inline-flex btn-primary !px-5 !py-3"
-          data-track="cta_click"
-          data-track-label="nav_book_call"
-        >
-          Book a Free Call
-        </a>
+          {/* Desktop links. Hovering or focusing a link warms its code-split
+              chunk, so by the time the click lands the route is already in
+              memory and navigation is instant. */}
+          <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
+            {navLinks.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                className={({ isActive }) => linkClass(isActive)}
+                onMouseEnter={() => prefetchRoute(l.to)}
+                onFocus={() => prefetchRoute(l.to)}
+                data-track="nav_click"
+                data-track-label={l.label}
+              >
+                {l.label}
+              </NavLink>
+            ))}
+          </nav>
 
-        {/* Hamburger */}
-        <button
-          className="lg:hidden flex flex-col gap-[5px] p-2"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
-        >
-          <span
-            className="block w-5 h-[2px] bg-text-base transition-transform origin-center"
-            style={open ? { transform: 'translateY(7px) rotate(45deg)' } : {}}
-          />
-          <span
-            className="block w-5 h-[2px] bg-text-base transition-opacity"
-            style={open ? { opacity: 0 } : {}}
-          />
-          <span
-            className="block w-5 h-[2px] bg-text-base transition-transform origin-center"
-            style={open ? { transform: 'translateY(-7px) rotate(-45deg)' } : {}}
-          />
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      {open && (
-        <nav
-          className="lg:hidden border-t px-5 py-5 flex flex-col gap-5"
-          style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(10,15,28,0.97)' }}
-          aria-label="Mobile navigation"
-        >
-          {navLinks.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              className={({ isActive }) => linkClass(isActive)}
-              onClick={() => setOpen(false)}
-              data-track="nav_click"
-              data-track-label={`${l.label}_mobile`}
-            >
-              {l.label}
-            </NavLink>
-          ))}
-          <a
-            href={BOOK_CALL_MAILTO}
-            className="btn-primary w-fit mt-1"
-            onClick={() => setOpen(false)}
-            data-track="cta_click"
-            data-track-label="nav_book_call_mobile"
+          <BookCallLink
+            label="nav_book_call"
+            className="hidden lg:inline-flex btn-primary btn-sm"
           >
             Book a Free Call
-          </a>
-        </nav>
-      )}
-    </header>
+          </BookCallLink>
+
+          {/* Hamburger. `min-w/h: 44px` lifts the tap target from ~36×32 to the
+              44×44 recommended size; the bars themselves are unchanged, so it
+              looks identical. aria-controls ties it to the panel it opens. */}
+          <button
+            ref={toggleRef}
+            type="button"
+            className="lg:hidden flex flex-col items-center justify-center gap-[5px] -mr-2 min-w-[44px] min-h-[44px]"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen(!open)}
+          >
+            <span
+              className="block w-5 h-[2px] bg-text-base transition-transform origin-center"
+              style={open ? { transform: 'translateY(7px) rotate(45deg)' } : {}}
+            />
+            <span
+              className="block w-5 h-[2px] bg-text-base transition-opacity"
+              style={open ? { opacity: 0 } : {}}
+            />
+            <span
+              className="block w-5 h-[2px] bg-text-base transition-transform origin-center"
+              style={open ? { transform: 'translateY(-7px) rotate(-45deg)' } : {}}
+            />
+          </button>
+        </div>
+
+        {/* Mobile menu. Kept mounted-on-open (as before) but now with an id for
+            aria-controls, and links padded to a 44px tap height. */}
+        {open && (
+          <nav
+            id="mobile-menu"
+            ref={menuRef}
+            className="lg:hidden border-t hairline px-5 py-3 flex flex-col bg-[rgba(10,15,28,0.97)]"
+            aria-label="Mobile navigation"
+          >
+            {navLinks.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                className={({ isActive }) => `${linkClass(isActive)} flex items-center min-h-[44px]`}
+                onClick={() => setOpen(false)}
+                data-track="nav_click"
+                data-track-label={`${l.label}_mobile`}
+              >
+                {l.label}
+              </NavLink>
+            ))}
+            <BookCallLink
+              label="nav_book_call_mobile"
+              className="btn-primary w-fit mt-3 mb-2"
+              onClick={() => setOpen(false)}
+            >
+              Book a Free Call
+            </BookCallLink>
+          </nav>
+        )}
+      </header>
+    </>
   )
 }

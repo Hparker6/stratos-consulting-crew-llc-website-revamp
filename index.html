@@ -7,25 +7,10 @@
     <title>Stratos Consulting Crew | Analytics &amp; Dashboards for Distributors</title>
     <meta name="description" content="We help small distributors and manufacturers cut costs, optimize inventory, and make smarter decisions with Power BI dashboards, forecasting, and automation. Book a free discovery call." />
     <link rel="canonical" href="https://www.stratosconsultingcrew.com" />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.stratosconsultingcrew.com" />
-    <meta property="og:title" content="Stratos Consulting Crew | Analytics &amp; Dashboards for Distributors" />
-    <meta property="og:description" content="We help small distributors and manufacturers cut costs, optimize inventory, and make smarter decisions with Power BI dashboards, forecasting, and automation." />
-    <meta property="og:image" content="https://www.stratosconsultingcrew.com/og-image.png" />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Stratos Consulting Crew | Analytics &amp; Dashboards for Distributors" />
-    <meta name="twitter:description" content="We help small distributors and manufacturers cut costs, optimize inventory, and make smarter decisions." />
-    <meta name="twitter:image" content="https://www.stratosconsultingcrew.com/og-image.png" />
-    <!-- Google Fonts — preloaded, non-render-blocking (display=swap) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-    </noscript>
+    <!-- Self-hosted fonts. Preloading these two measured CLS 0.000 (vs ~0.039
+         without). JetBrains Mono is not preloaded: eyebrow labels only. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk-latin-wght-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/manrope-latin-wght-normal.woff2" crossorigin />
     <!--
       Consent Mode v2 defaults — pushed before any tag can load. No analytics
       script (GA4/GTM/Clarity) is injected until the visitor grants consent;
@@ -42,86 +27,9 @@
         wait_for_update: 500
       });
     </script>
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "name": "Stratos Consulting Crew LLC",
-          "url": "https://www.stratosconsultingcrew.com",
-          "logo": "https://www.stratosconsultingcrew.com/favicon.svg",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "hparker6@stratosconsultingcrew.com",
-            "contactType": "customer service"
-          },
-          "areaServed": "US"
-        },
-        {
-          "@type": "ProfessionalService",
-          "name": "Stratos Consulting Crew LLC",
-          "address": {
-            "@type": "PostalAddress",
-            "addressRegion": "TX",
-            "addressCountry": "US"
-          },
-          "email": "hparker6@stratosconsultingcrew.com",
-          "priceRange": "$$",
-          "description": "Analytics, dashboards, and forecasting for small distributors and manufacturers.",
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Analytics Services",
-            "itemListElement": [
-              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Executive Dashboards"}},
-              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Demand & Sales Forecasting"}},
-              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Inventory Optimization"}},
-              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cost Reduction & Profitability"}},
-              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automation"}},
-              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Fractional Analytics Support"}}
-            ]
-          }
-        },
-        {
-          "@type": "WebPage",
-          "name": "Stratos Consulting Crew | Analytics & Dashboards for Distributors",
-          "url": "https://www.stratosconsultingcrew.com",
-          "description": "We help small distributors and manufacturers cut costs, optimize inventory, and make smarter decisions."
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Do you work with small companies?",
-              "acceptedAnswer": {"@type": "Answer", "text": "Yes. That's the entire point. We focus on distributors and manufacturers with 1–50 employees who don't have an analyst on staff."}
-            },
-            {
-              "@type": "Question",
-              "name": "How fast should I expect results?",
-              "acceptedAnswer": {"@type": "Answer", "text": "Every project is scoped so the first tangible win, usually freed-up cash from inventory or hours saved on weekly reporting, lands within the first 30–60 days."}
-            },
-            {
-              "@type": "Question",
-              "name": "What tools do you use?",
-              "acceptedAnswer": {"@type": "Answer", "text": "Power BI, SQL, Python, and Excel. We meet your data where it lives, from QuickBooks to your ERP. No rip-and-replace required."}
-            },
-            {
-              "@type": "Question",
-              "name": "Can you work with our existing systems?",
-              "acceptedAnswer": {"@type": "Answer", "text": "Almost always. We connect to your current ERP, accounting, and inventory systems instead of forcing you onto something new."}
-            },
-            {
-              "@type": "Question",
-              "name": "You're a new firm. Why should I trust you?",
-              "acceptedAnswer": {"@type": "Answer", "text": "Every engagement is structured so trust is never required up front: a free call, then a small fixed-fee assessment whose report you keep, then fixed-scope projects you can stop after any phase. You own everything we build at every step."}
-            }
-          ]
-        }
-      ]
-    }
-    </script>
+    <!-- Structured data + canonical/OG/Twitter are generated per route in
+         src/lib/schema.ts + src/lib/seo.ts and baked in by the prerenderer. -->
+
   </head>
   <body>
     <!-- Static shadow form so Netlify's build bots detect the React-rendered contact form -->

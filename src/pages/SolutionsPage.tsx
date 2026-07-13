@@ -33,14 +33,13 @@ export default function SolutionsPage() {
 
       {/* Jump links */}
       <div className="bg-bg">
-        <div className="max-w-6xl mx-auto px-5">
+        <div className="container-page">
           <nav className="flex flex-wrap gap-2" aria-label="Jump to a solution">
             {problems.map((p, i) => (
               <a
                 key={p.slug}
                 href={`#${p.slug}`}
-                className="font-mono text-[11px] tracking-[0.04em] font-medium px-3 py-[7px] rounded-full text-muted hover:text-text-base transition-colors"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
+                className="chip-outline"
                 data-track="dashboard_interaction"
                 data-track-label={`jump_${p.slug}`}
               >
@@ -51,8 +50,8 @@ export default function SolutionsPage() {
         </div>
       </div>
 
-      <section className="py-12 lg:py-16 bg-bg">
-        <div className="max-w-6xl mx-auto px-5 space-y-16 lg:space-y-20">
+      <section className="section-sm bg-bg">
+        <div className="container-page space-y-16 lg:space-y-20">
           {problems.map((p, i) => (
             <SolutionSection key={p.slug} problem={p} index={i} />
           ))}
@@ -61,13 +60,13 @@ export default function SolutionsPage() {
 
       {/* Bridge to services */}
       <section className="py-12 bg-bg">
-        <div className="max-w-6xl mx-auto px-5">
+        <div className="container-page">
           <div className="card-lg p-7 lg:p-9 flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex-1">
-              <h2 className="font-heading font-bold text-[24px] md:text-[28px] tracking-[-0.02em] text-text-base">
+              <h2 className="t-h4 text-text-base">
                 Want the service-by-service breakdown?
               </h2>
-              <p className="mt-2 text-muted font-medium text-[15px] leading-relaxed">
+              <p className="mt-2 text-muted font-medium text-body-sm">
                 Deliverables, tools, and what's included in each engagement: dashboards, forecasting,
                 inventory optimization, profitability, and automation.
               </p>
@@ -89,10 +88,7 @@ export default function SolutionsPage() {
 
 function SolutionSection({ problem: p, index: i }: { problem: Problem; index: number }) {
   const dashboard = p.dashboardId ? getDashboard(p.dashboardId) : undefined
-  const viewRef = useSectionView<HTMLElement>('dashboard_view', {
-    dashboard_id: p.dashboardId,
-    solution: p.slug,
-  })
+  const viewRef = useSectionView<HTMLElement>(`dashboard_${p.slug}`)
   return (
     <article
       ref={viewRef}
@@ -108,24 +104,23 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
                     </span>
                     <span className="eyebrow text-secondary text-[11px]">{p.eyebrow}</span>
                   </div>
-                  <h2 className="font-heading font-bold text-[26px] md:text-[32px] tracking-[-0.02em] leading-tight text-text-base">
+                  <h2 className="t-h4 text-text-base">
                     {p.title}
                   </h2>
-                  <p className="mt-3 text-muted font-medium text-[16px] leading-relaxed">{p.challenge[0]}</p>
+                  <p className="mt-3 text-muted font-medium text-body">{p.challenge[0]}</p>
 
-                  <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-3">
+                  <p className="mt-6 t-label text-faint mb-3">
                     How we attack it
                   </p>
                   <div className="space-y-3">
                     {p.approach.map((a, n) => (
                       <div key={a.title} className="flex items-start gap-3">
                         <span
-                          className="flex-shrink-0 w-[26px] h-[26px] rounded-full flex items-center justify-center font-heading font-bold text-[12px] text-primary mt-[1px]"
-                          style={{ border: '1.5px solid #2f8fff' }}
+                          className="flex-shrink-0 w-[26px] h-[26px] rounded-full flex items-center justify-center font-heading font-bold text-[12px] text-primary mt-[1px] border-[1.5px] border-primary"
                         >
                           {n + 1}
                         </span>
-                        <p className="text-muted font-medium text-[15px] leading-snug">
+                        <p className="text-muted font-medium text-body-sm leading-snug">
                           <span className="text-text-base font-semibold">{`${a.title}.`}</span>
                           {` ${a.body}`}
                         </p>
@@ -133,7 +128,7 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
                     ))}
                   </div>
 
-                  <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-faint mb-3">
+                  <p className="mt-6 t-label text-faint mb-3">
                     What this unlocks
                   </p>
                   <ul className="space-y-2">

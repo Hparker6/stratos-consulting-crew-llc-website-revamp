@@ -1,195 +1,331 @@
+/* ------------------------------------------------------------------ */
+/* Self-hosted fonts                                                    */
+/* ------------------------------------------------------------------ */
+/*
+ * Previously these came from fonts.googleapis.com, which put two extra
+ * third-party origins (DNS + TLS + a stylesheet round-trip) on the critical
+ * path before a single glyph could even be requested. They are now served from
+ * our own origin as Latin-subset *variable* fonts: one file per family covering
+ * every weight we use, instead of the eleven static files we were fetching.
+ *
+ * Each family is paired with a metric-matched fallback face below. The overrides
+ * are computed from the real font tables (xAvgCharWidth, ascent, descent) so a
+ * line of text occupies the same box in the fallback as it does in the webfont —
+ * which means the swap when the webfont lands causes no reflow, and therefore no
+ * layout shift.
+ */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+    U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk Fallback';
+  src: local('Arial');
+  size-adjust: 126.64%;
+  ascent-override: 77.7%;
+  descent-override: 23.06%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+    U+FFFD;
+}
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial');
+  size-adjust: 128.11%;
+  ascent-override: 83.21%;
+  descent-override: 23.42%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+    U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New');
+  size-adjust: 100.32%;
+  ascent-override: 101.68%;
+  descent-override: 29.91%;
+  line-gap-override: 0%;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ==================================================================== */
+/*  DESIGN SYSTEM                                                        */
+/*                                                                       */
+/*  Colour, size, elevation and motion values live in exactly two files: */
+/*  tailwind.config.js (theme tokens) and this one (semantic classes).   */
+/*  Components consume the classes; they never re-declare a hex code, a  */
+/*  shadow, or a duration. That is the whole point of the refactor — the */
+/*  brand is identical, but it is now stated once.                       */
+/* ==================================================================== */
+
 @layer base {
   :root {
-    /* Motion tokens — one rhythm everywhere (expo-out) */
+    /* --- Motion: one rhythm everywhere (expo-out) --- */
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
     --dur-fast: 200ms;
     --dur: 350ms;
     --dur-slow: 600ms;
+
+    /* --- Hairlines & fills: the alpha-white values used across the UI.
+           Previously typed inline as rgba(255,255,255,0.08) in 12 places,
+           0.07 in 10, 0.04 in 8, 0.12 in 7 … all subtly different for no
+           reason. Four steps replace all of them. --- */
+    --line: rgba(255, 255, 255, 0.08); /* default border */
+    --line-soft: rgba(255, 255, 255, 0.05); /* internal dividers */
+    --line-strong: rgba(255, 255, 255, 0.12); /* secondary button, chips */
+    --fill: rgba(255, 255, 255, 0.04); /* subtle raised fill */
+    --fill-strong: rgba(255, 255, 255, 0.08); /* hover fill */
+
+    /* --- Light section (About) --- */
+    --line-light: rgba(10, 22, 40, 0.12);
+    --fill-light: rgba(10, 22, 40, 0.07);
+
+    /* --- Brand tints, used for icon tiles, rings and ambient glows --- */
+    --primary-tint: rgba(47, 143, 255, 0.15);
+    --primary-line: rgba(47, 143, 255, 0.25);
+    --secondary-tint: rgba(39, 224, 160, 0.12);
+    --secondary-line: rgba(39, 224, 160, 0.22);
   }
-  html {
-    scroll-behavior: smooth;
+
+  /* Smooth scrolling is motion the user cannot opt out of once it starts, so it
+     is only enabled when they haven't asked for reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
+
   body {
-    font-family: 'Manrope', system-ui, sans-serif;
-    background-color: #0a0f1c;
-    color: #eaf0fa;
+    @apply bg-bg text-text-base font-body;
     -webkit-font-smoothing: antialiased;
     font-weight: 500;
     font-size: 17px;
   }
+
+  /* ---------------------------------------------------------------- */
+  /* Focus visibility (WCAG 2.4.7)                                     */
+  /* ---------------------------------------------------------------- */
+
+  /* One ring for every interactive element. :focus-visible means mouse users
+     never see it, so this is invisible to the existing visual design while
+     making the site fully navigable by keyboard. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid theme('colors.focus');
+    outline-offset: 3px;
+    border-radius: theme('borderRadius.xs');
+  }
+
+  /* Programmatically focused landmarks (skip-link target, form result panels)
+     are focus targets, not interactive controls — announce them without
+     painting a ring the user didn't ask for. */
+  :where(main, [role='status'], [role='alert']):focus,
+  :where(main, [role='status'], [role='alert']):focus-visible {
+    outline: none;
+  }
 }
 
 @layer components {
-  .gradient-text {
-    background: linear-gradient(100deg, #2f8fff, #27e0a0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* ================================================================ */
+  /* 1. TYPOGRAPHY — one scale                                         */
+  /*                                                                  */
+  /* The site had 29 distinct font sizes and TEN different responsive */
+  /* pairings for section headings (36/48, 32/44, 30/40, 28/38 …), so */
+  /* "this is a section heading" was carried by four different sizes. */
+  /* These six steps replace all of them.                             */
+  /*                                                                  */
+  /* Headings are fluid: the clamp() endpoints are exactly the sizes  */
+  /* already in use at mobile and desktop, so the extremes are        */
+  /* unchanged — but the sizes now interpolate smoothly instead of    */
+  /* snapping at the md: breakpoint.                                  */
+  /* ================================================================ */
+
+  .t-display {
+    font-family: theme('fontFamily.heading');
+    font-weight: 800;
+    font-size: clamp(2.5rem, 1.6rem + 3.4vw, 3.75rem); /* 40 → 60 */
+    line-height: 1.06;
+    letter-spacing: -0.03em;
   }
 
-  .gradient-num {
-    background: linear-gradient(100deg, #2f8fff, #27e0a0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .t-h1 {
+    font-family: theme('fontFamily.heading');
+    font-weight: 800;
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.125rem); /* 36 → 50 */
+    line-height: 1.08;
+    letter-spacing: -0.03em;
   }
 
-  .card {
-    background-color: #101a2e;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
+  /* Top-level section heading. */
+  .t-h2 {
+    font-family: theme('fontFamily.heading');
+    font-weight: 700;
+    font-size: clamp(2.25rem, 1.7rem + 2.2vw, 3rem); /* 36 → 48 */
+    line-height: 1.14;
+    letter-spacing: -0.02em;
   }
 
-  .card-lg {
-    background-color: #101a2e;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
+  /* Panel / column heading (contact, CTA band, light bio section). */
+  .t-h3 {
+    font-family: theme('fontFamily.heading');
+    font-weight: 700;
+    font-size: clamp(1.875rem, 1.45rem + 1.8vw, 2.625rem); /* 30 → 42 */
+    line-height: 1.18;
+    letter-spacing: -0.02em;
   }
 
-  .hairline {
-    border-color: rgba(255, 255, 255, 0.08);
+  /* Sub-section heading (solution cards, article titles). */
+  .t-h4 {
+    font-family: theme('fontFamily.heading');
+    font-weight: 700;
+    font-size: clamp(1.5rem, 1.35rem + 0.65vw, 1.75rem); /* 24 → 28 */
+    line-height: 1.25;
+    letter-spacing: -0.02em;
   }
 
-  /* eyebrow: 13px, mono, tight spacing */
+  /* Card title. Absorbs the old 17/18/19px trio. */
+  .t-h5 {
+    font-family: theme('fontFamily.heading');
+    font-weight: 600;
+    font-size: 1.125rem; /* 18 */
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  /* eyebrow: mono, uppercase, tight tracking — the section kicker. */
   .eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8125rem; /* 13px */
+    font-family: theme('fontFamily.mono');
+    font-size: theme('fontSize.label');
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    background-color: #2f8fff;
-    color: #04102a;
-    font-weight: 700;
-    padding: 0.875rem 2rem;
-    border-radius: 10px;
-    transition: opacity 0.2s, transform 0.2s;
-    box-shadow: 0 12px 30px rgba(47, 143, 255, 0.4);
-    font-size: 0.9375rem; /* 15px */
+  /* Mono micro-label: footer column heads, form labels, chips. */
+  .t-label {
+    font-family: theme('fontFamily.mono');
+    font-size: theme('fontSize.label-xs');
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
   }
 
-  .btn-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+  .gradient-text,
+  .gradient-num {
+    background: linear-gradient(100deg, theme('colors.primary'), theme('colors.secondary'));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.04);
-    color: #eaf0fa;
-    font-weight: 700;
-    padding: 0.875rem 2rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    transition: background-color 0.2s, transform 0.2s;
-    font-size: 0.9375rem; /* 15px */
+  /* ================================================================ */
+  /* 2. SPACING — one vertical rhythm                                  */
+  /*                                                                  */
+  /* Sections used seven different paddings (py-16/20, 14/16, 10/12,  */
+  /* 12/16, 10/14, 16/24, 24/32). Three densities replace them.       */
+  /* ================================================================ */
+
+  .section {
+    @apply py-16 lg:py-20;
+  }
+  .section-sm {
+    @apply py-12 lg:py-16;
+  }
+  .section-lg {
+    @apply py-24 lg:py-32;
+  }
+  /* Every section shares one content column. */
+  .container-page {
+    @apply max-w-6xl mx-auto px-5;
+  }
+  .container-prose {
+    @apply max-w-3xl mx-auto px-5;
   }
 
-  .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    transform: translateY(-1px);
+  /* ================================================================ */
+  /* 3. SURFACES & ELEVATION — one ladder                              */
+  /* ================================================================ */
+
+  .hairline {
+    border-color: var(--line);
+  }
+  .border-t-hairline {
+    border-top: 1px solid var(--line);
+  }
+  .border-b-hairline {
+    border-bottom: 1px solid var(--line);
   }
 
-  .bg-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-    background-size: 40px 40px;
+  /* A tinted full-width band (How it works, ERP familiarity, pricing notes). */
+  .band {
+    @apply bg-elevated;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
-  .icon-tile-blue {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: rgba(47, 143, 255, 0.15);
-    border: 1px solid rgba(47, 143, 255, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  /* ================================================================ */
+  /* 4. CARDS — one system                                             */
+  /*                                                                  */
+  /* `background:#101a2e; border:1px solid rgba(255,255,255,.08);      */
+  /*  border-radius:14px` was re-typed inline in a dozen components    */
+  /* despite .card existing. One base, three modifiers.                */
+  /* ================================================================ */
 
-  .icon-tile-green {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: rgba(39, 224, 160, 0.12);
-    border: 1px solid rgba(39, 224, 160, 0.22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .card {
+    @apply bg-surface rounded-lg;
+    border: 1px solid var(--line);
   }
-
-  .check-tile {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: rgba(39, 224, 160, 0.12);
-    border: 1px solid rgba(39, 224, 160, 0.22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  .card-lg {
+    @apply bg-surface rounded-xl;
+    border: 1px solid var(--line);
   }
-
-  .input-dark {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.25);
+  /* Translucent panel over the page background (contact, CTA band). */
+  .panel {
+    @apply rounded-2xl shadow-glow-ambient;
+    background: linear-gradient(135deg, rgba(47, 143, 255, 0.08) 0%, rgba(39, 224, 160, 0.05) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
-    color: #eaf0fa;
-    font-family: 'Manrope', sans-serif;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    transition: border-color 0.2s;
-    outline: none;
   }
 
-  .input-dark::placeholder {
-    color: #7f8ba0;
-  }
-
-  .input-dark:focus {
-    border-color: rgba(47, 143, 255, 0.5);
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* Motion & effect system                                            */
-  /* ---------------------------------------------------------------- */
-
-  /* Load-time entrance for hero content (pure CSS — works without JS) */
-  .rise {
-    opacity: 0;
-    animation: rise 0.8s var(--ease) both;
-  }
-  .rise-1 { animation-delay: 60ms; }
-  .rise-2 { animation-delay: 140ms; }
-  .rise-3 { animation-delay: 220ms; }
-  .rise-4 { animation-delay: 300ms; }
-  .rise-5 { animation-delay: 380ms; }
-
-  /* Ambient glow blobs — slow cinematic drift (transform-only) */
-  .drift-a { animation: drift-a 22s ease-in-out infinite alternate; }
-  .drift-b { animation: drift-b 28s ease-in-out infinite alternate; }
-
-  /* Interactive card: hover lift + shadow expansion, press scale */
+  /* Interactive card: hover lift + shadow expansion, press scale.
+     `will-change` is promoted on hover intent only — declared unconditionally it
+     gave every one of 30+ cards a permanent GPU layer. */
   .card-lift {
     transition:
       transform var(--dur-fast) var(--ease),
       box-shadow var(--dur) var(--ease),
       border-color var(--dur-fast) var(--ease);
-    will-change: transform;
+  }
+  @media (hover: hover) {
+    .card-lift:hover {
+      will-change: transform;
+    }
   }
   .card-lift:hover {
+    @apply shadow-lg;
     transform: translateY(-3px) scale(1.015);
     box-shadow:
       0 18px 44px rgba(0, 0, 0, 0.45),
@@ -222,11 +358,40 @@
     opacity: 1;
   }
 
-  /* Primary button: glow + shine sweep on hover */
+  /* ================================================================ */
+  /* 5. BUTTONS — one system                                           */
+  /*                                                                  */
+  /* Size was previously overridden with !important utilities          */
+  /* (`btn-primary !px-5 !py-3`) because there was no size variant.    */
+  /* There is one now, so nothing fights the base class.               */
+  /* ================================================================ */
+
+  .btn-primary,
+  .btn-secondary {
+    @apply inline-flex items-center justify-center font-bold rounded-md;
+    padding: 0.875rem 2rem;
+    font-size: 0.9375rem; /* 15 */
+    min-height: 44px; /* WCAG 2.5.5 target size */
+    transition:
+      background-color var(--dur-fast) var(--ease),
+      opacity var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease);
+  }
+
   .btn-primary {
+    @apply bg-primary text-btn-dark shadow-glow-primary;
     position: relative;
     overflow: hidden;
   }
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Shine sweep on hover. */
   .btn-primary::after {
     content: '';
     position: absolute;
@@ -236,16 +401,282 @@
     width: 55%;
     transform: skewX(-22deg);
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-    transition: left 0.55s var(--ease);
+    transition: left var(--dur-slow) var(--ease);
   }
   .btn-primary:hover::after {
     left: 130%;
   }
-  .btn-primary:active {
-    transform: translateY(0) scale(0.98);
+
+  .btn-secondary {
+    @apply text-text-base;
+    background-color: var(--fill);
+    border: 1px solid var(--line-strong);
+  }
+  .btn-secondary:hover {
+    background-color: var(--fill-strong);
+    transform: translateY(-1px);
   }
   .btn-secondary:active {
     transform: translateY(0) scale(0.98);
+  }
+
+  /* Size + shape modifiers — compose, never override. */
+  .btn-sm {
+    padding: 0.625rem 1.25rem;
+    font-size: theme('fontSize.caption');
+  }
+  .btn-block {
+    @apply w-full;
+  }
+
+  /* ================================================================ */
+  /* 6. FORM CONTROLS                                                  */
+  /* ================================================================ */
+
+  .input-dark {
+    @apply w-full rounded-md font-body text-text-base;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    font-size: theme('fontSize.body-sm');
+    font-weight: 500;
+    transition: border-color var(--dur-fast) var(--ease);
+    outline: none;
+  }
+  .input-dark::placeholder {
+    @apply text-faint;
+  }
+  .input-dark:focus {
+    border-color: rgba(47, 143, 255, 0.5);
+  }
+  /* .input-dark sets `outline: none`, and lives in a later cascade layer than
+     the base focus ring, so the ring must be restored explicitly. A 1px border
+     tint is not a discernible focus indicator on its own. */
+  .input-dark:focus-visible {
+    outline: 3px solid theme('colors.focus');
+    outline-offset: 2px;
+    border-color: rgba(47, 143, 255, 0.5);
+  }
+  .input-dark[aria-invalid='true'] {
+    border-color: rgba(248, 113, 113, 0.6);
+  }
+
+  /* ================================================================ */
+  /* 7. ICON TILES & CHIPS                                             */
+  /* ================================================================ */
+
+  .icon-tile-blue,
+  .icon-tile-green {
+    @apply flex items-center justify-center rounded-md;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+  .icon-tile-blue {
+    background: var(--primary-tint);
+    border: 1px solid var(--primary-line);
+  }
+  .icon-tile-green {
+    background: var(--secondary-tint);
+    border: 1px solid var(--secondary-line);
+  }
+  .check-tile {
+    @apply flex items-center justify-center rounded-sm;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background: var(--secondary-tint);
+    border: 1px solid var(--secondary-line);
+  }
+  /* Accent pill ("Phase 2", "Included") — re-declared inline on Process and
+     Services with the same two alpha-green values. */
+  .chip-accent {
+    @apply font-mono uppercase text-secondary rounded-xs;
+    font-size: 0.5625rem; /* 9 */
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    background: rgba(39, 224, 160, 0.1);
+    border: 1px solid var(--secondary-line);
+  }
+
+  /* Outline pill (solutions jump-nav). */
+  .chip-outline {
+    @apply font-mono rounded-full text-muted transition-colors;
+    font-size: theme('fontSize.label-sm');
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    padding: 7px 12px;
+    background: var(--fill);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .chip-outline:hover {
+    @apply text-text-base;
+  }
+
+  /* Numbered circle marker (How it works, Process timeline). */
+  .step-marker {
+    @apply flex items-center justify-center rounded-full font-heading font-bold text-primary bg-bg;
+    border: 2px solid theme('colors.primary');
+  }
+
+  /* Soft accent callout inside a card (Process deliverables). */
+  .note-accent {
+    @apply rounded-md;
+    background: rgba(39, 224, 160, 0.06);
+    border: 1px solid rgba(39, 224, 160, 0.18);
+  }
+
+  /* Pill chip (ERP platforms, credential badges). */
+  .chip {
+    @apply font-mono rounded-full text-text-base;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    padding: 9px 16px;
+    background: var(--fill);
+    border: 1px solid var(--line-strong);
+  }
+
+  /* ================================================================ */
+  /* 8. DECORATION                                                     */
+  /* ================================================================ */
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Ambient glow blobs. `.glow` is the shared shape; the colour and position
+     come from the two modifiers, replacing four near-identical inline styles. */
+  .glow {
+    @apply pointer-events-none absolute rounded-full;
+  }
+  .glow-primary {
+    background: radial-gradient(circle, rgba(47, 143, 255, 0.16) 0%, transparent 65%);
+    filter: blur(40px);
+  }
+  .glow-secondary {
+    background: radial-gradient(circle, rgba(39, 224, 160, 0.12) 0%, transparent 65%);
+    filter: blur(50px);
+  }
+
+  /* ================================================================ */
+  /* 8b. CHROME — header, logo, consent, light section                 */
+  /*                                                                  */
+  /* These were the last holdouts: five inline style objects in Nav    */
+  /* alone, re-declaring the same blur, border and shadow on every     */
+  /* render. The scrolled state is now a data attribute the stylesheet */
+  /* reacts to, so React only toggles one boolean.                     */
+  /* ================================================================ */
+
+  .site-header {
+    @apply fixed top-0 inset-x-0 z-50;
+    background: rgba(10, 15, 28, 0.85);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition:
+      background var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+  }
+  .site-header[data-scrolled='true'] {
+    @apply shadow-md;
+    background: rgba(8, 12, 22, 0.92);
+    border-bottom-color: rgba(47, 143, 255, 0.18);
+  }
+  /* Header height is a token, mirrored by the flow spacer, so the shrink on
+     scroll can never shift page content. */
+  .site-header-inner {
+    height: 72px;
+    transition: height var(--dur) var(--ease);
+  }
+  .site-header[data-scrolled='true'] .site-header-inner {
+    height: 62px;
+  }
+  .site-header-spacer {
+    height: 72px;
+  }
+
+  .logo-mark {
+    @apply flex items-center justify-center flex-shrink-0;
+    border-radius: 28%;
+    background: linear-gradient(135deg, theme('colors.primary'), theme('colors.secondary'));
+    box-shadow: 0 0 18px rgba(47, 143, 255, 0.45);
+  }
+
+  .consent-panel {
+    @apply rounded-lg;
+    background: rgba(16, 26, 46, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+  }
+
+  /* The one light section on the site (founder bio). */
+  .section-light {
+    @apply bg-light text-light-body;
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  /* Faint data dot-grid texture (Services). */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(47, 143, 255, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Inline status panels (contact form success / failure). */
+  .note-success {
+    @apply rounded-lg;
+    background: rgba(39, 224, 160, 0.07);
+    border: 1px solid var(--secondary-line);
+  }
+  .note-error {
+    @apply rounded-md;
+    background: rgba(248, 113, 113, 0.08);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+  }
+
+  /* ================================================================ */
+  /* 9. MOTION SYSTEM                                                  */
+  /* ================================================================ */
+
+  /* Load-time entrance for hero content (pure CSS — works without JS) */
+  .rise {
+    opacity: 0;
+    animation: rise 0.8s var(--ease) both;
+  }
+
+  /* Same entrance, but never transparent.
+     Chrome's Largest Contentful Paint ignores any element at opacity:0, so
+     fading in the <h1> — the LCP element on every page — pushed LCP out by the
+     animation's delay + duration. This variant animates transform only. */
+  .rise-solid {
+    opacity: 1;
+    animation: rise-solid 0.8s var(--ease) both;
+  }
+
+  .rise-1 { animation-delay: 60ms; }
+  .rise-2 { animation-delay: 140ms; }
+  .rise-3 { animation-delay: 220ms; }
+  .rise-4 { animation-delay: 300ms; }
+  .rise-5 { animation-delay: 380ms; }
+
+  /* Ambient glow drift — slow, transform-only. */
+  .drift-a { animation: drift-a 22s ease-in-out infinite alternate; }
+  .drift-b { animation: drift-b 28s ease-in-out infinite alternate; }
+
+  /* On phones, animating a 500–600px element carrying a 40–50px blur makes the
+     compositor re-rasterise a very expensive layer every frame for the life of
+     the page. The glows themselves stay exactly as they are — only the
+     imperceptible 22-second drift stops. */
+  @media (max-width: 1024px) {
+    .drift-a,
+    .drift-b {
+      animation: none;
+    }
   }
 
   /* Animated shimmer for the gradient section dividers */
@@ -260,16 +691,17 @@
     );
     background-size: 200% 100%;
     animation: shimmer 7s linear infinite;
+    height: 2px;
   }
 
-  /* Rotating conic gradient border for the featured pricing card:
-     opaque padding-box layer covers the card, conic border-box layer
-     shows only through the transparent border band. */
+  /* Rotating conic gradient border for the featured pricing card: opaque
+     padding-box layer covers the card, conic border-box layer shows only
+     through the transparent border band. */
   .gradient-ring {
     position: relative;
     border: 2px solid transparent;
     background:
-      linear-gradient(#0c182c, #0c182c) padding-box,
+      linear-gradient(theme('colors.ring'), theme('colors.ring')) padding-box,
       conic-gradient(
           from var(--ring-angle, 0deg),
           #2f8fff,
@@ -282,7 +714,9 @@
     animation: ring-spin 6s linear infinite;
   }
 
-  /* Smooth expand/collapse (FAQ) via grid-rows transition */
+  /* Smooth expand/collapse (FAQ) via grid-rows transition.
+     `visibility: hidden` is what actually removes a collapsed answer from the
+     accessibility tree — height alone only hides it visually. */
   .expandable {
     display: grid;
     grid-template-rows: 0fr;
@@ -293,9 +727,31 @@
   }
   .expandable > div {
     overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s linear var(--dur);
+  }
+  .expandable.open > div {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  /* Skip navigation (WCAG 2.4.1): off-screen until focused.
+     `position` is !important because this element also carries .btn-primary,
+     which declares `position: relative` later in this same cascade layer and
+     would otherwise win — putting the "hidden" skip link back into the document
+     flow and pushing the whole page down by its height. */
+  .skip-link {
+    position: fixed !important;
+    left: 12px;
+    top: 12px;
+    z-index: 100;
+    transform: translateY(-250%);
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
   }
 }
-
 @property --ring-angle {
   syntax: '<angle>';
   initial-value: 0deg;
@@ -309,6 +765,16 @@
   }
   to {
     opacity: 1;
+    transform: none;
+  }
+}
+
+/* Transform-only entrance for LCP elements — see .rise-solid. */
+@keyframes rise-solid {
+  from {
+    transform: translateY(22px);
+  }
+  to {
     transform: none;
   }
 }
@@ -335,6 +801,7 @@
 /* Reduced motion: kill every decorative animation and reveal instantly */
 @media (prefers-reduced-motion: reduce) {
   .rise,
+  .rise-solid,
   .drift-a,
   .drift-b,
   .divider-shimmer,
@@ -342,8 +809,10 @@
   .animate-float {
     animation: none !important;
   }
-  .rise {
+  .rise,
+  .rise-solid {
     opacity: 1;
+    transform: none;
   }
   .card-lift,
   .spotlight::before,
@@ -351,9 +820,64 @@
   .expandable {
     transition: none !important;
   }
+  /* The accordion still has to hide collapsed answers from screen readers —
+     only the *animation* is removed, not the visibility mechanic. */
+  .expandable > div {
+    transition: none !important;
+  }
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+  /* The scroll-driven header resize is motion too. */
+  header[data-site-header] > div {
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Forced colors / Windows High Contrast Mode                          */
+/* ------------------------------------------------------------------ */
+@media (forced-colors: active) {
+  /* Gradient text is painted by clipping a background to transparent glyphs.
+     Forced-colors strips the background but keeps the transparent fill, so
+     every gradient headline — half of every <h1> on this site — rendered as
+     invisible. Restore real glyphs. */
+  .gradient-text,
+  .gradient-num {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: LinkText;
+  }
+
+  /* Buttons are distinguished only by background colour, which forced-colors
+     discards; give them a real border so they still read as buttons. */
+  .btn-primary,
+  .btn-secondary {
+    border: 1px solid ButtonBorder;
+    box-shadow: none;
+  }
+
+  /* Card and input hairlines are alpha-white and disappear entirely. */
+  .card,
+  .card-lg,
+  .input-dark {
+    border: 1px solid CanvasText;
+  }
+
+  /* Purely decorative layers carry no information — drop them. */
+  .divider-shimmer,
+  .drift-a,
+  .drift-b,
+  .bg-grid,
+  .spotlight::before {
+    display: none;
+  }
+
+  /* forced-colors overrides `outline-color`, but the ring must stay visible. */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 3px;
   }
 }

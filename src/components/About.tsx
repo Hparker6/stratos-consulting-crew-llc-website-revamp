@@ -1,22 +1,18 @@
 import { Link } from 'react-router-dom'
 
-/* Light section — background #f5f3ee (warm off-white), dark navy text. */
-const DARK = '#0a1628'
-const BODY = '#2d4a6b'
-const BORDER = 'rgba(10,22,40,0.1)'
-const LINK_BLUE = '#0d5cb0' /* ≥4.5:1 on #f5f3ee (WCAG AA) */
-
+/**
+ * The one light section on the site (warm off-white, dark navy text).
+ *
+ * Its colours used to be four module-level constants (DARK, BODY, BORDER,
+ * LINK_BLUE) applied through eight inline style objects — a fourth parallel
+ * colour system on top of the three that already existed. They are tokens now:
+ * bg-light / text-light-ink / text-light-body / text-light-link, all declared
+ * once in tailwind.config.js.
+ */
 export default function About() {
   return (
-    <section
-      id="about"
-      className="py-16 lg:py-20"
-      style={{
-        background: '#f5f3ee',
-        borderBottom: BORDER,
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-5">
+    <section id="about" className="section section-light">
+      <div className="container-page">
         <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
           {/* Headshot — 24px left padding keeps it off the edge */}
           <div className="flex-shrink-0 lg:w-[380px] lg:pl-6">
@@ -29,36 +25,21 @@ export default function About() {
                 height={1000}
                 loading="lazy"
                 decoding="async"
-                className="w-full rounded-[18px] object-cover object-top"
-                style={{
-                  aspectRatio: '4/5',
-                  border: '1px solid rgba(10,22,40,0.12)',
-                  boxShadow: '0 20px 60px rgba(10,22,40,0.15)',
-                }}
+                className="w-full rounded-xl object-cover object-top aspect-[4/5] border border-[var(--line-light)] shadow-light-lift"
               />
             </picture>
           </div>
 
           {/* Bio */}
           <div className="flex-1">
-            <p
-              className="eyebrow mb-3"
-              style={{ color: LINK_BLUE }}
-            >
-              Who you'll work with
-            </p>
-            <h2
-              className="font-heading font-bold text-[32px] md:text-[44px] tracking-[-0.02em] leading-tight"
-              style={{ color: DARK }}
-            >
-              A data scientist who speaks distributor.
-            </h2>
+            <p className="eyebrow text-light-link mb-3">Who you'll work with</p>
+            <h2 className="t-h2 text-light-ink">A data scientist who speaks distributor.</h2>
 
-            <p className="mt-5 font-medium text-[17px] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-5 font-medium text-body-lg text-light-body">
               I'm Houston Parker. I've spent years inside supply-chain data, building the dashboards,
               forecasts, and inventory models that help distribution companies stop guessing and start knowing.
             </p>
-            <p className="mt-4 font-medium text-[17px] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 font-medium text-body-lg text-light-body">
               I started Stratos because small distributors deserve the same analytics firepower the big
               players have, without the enterprise price tag or the buzzwords. You work with me directly,
               not a junior who inherited your account.
@@ -68,12 +49,7 @@ export default function About() {
               {['BS, Data Science', 'Power BI · SQL · Python', 'Remote-Friendly'].map((chip) => (
                 <span
                   key={chip}
-                  className="font-mono text-[10px] uppercase tracking-[0.1em] font-medium px-3 py-[6px] rounded-full"
-                  style={{
-                    background: 'rgba(10,22,40,0.07)',
-                    border: '1px solid rgba(10,22,40,0.15)',
-                    color: DARK,
-                  }}
+                  className="font-mono text-label-xs uppercase tracking-[0.1em] font-medium px-3 py-[6px] rounded-full bg-[var(--fill-light)] border border-[rgba(10,22,40,0.15)] text-light-ink"
                 >
                   {chip}
                 </span>
@@ -82,8 +58,7 @@ export default function About() {
 
             <Link
               to="/about"
-              className="inline-flex mt-6 font-bold text-[15px] hover:underline"
-              style={{ color: LINK_BLUE }}
+              className="inline-flex mt-6 font-bold text-body-sm text-light-link hover:underline"
             >
               More about how we work →
             </Link>

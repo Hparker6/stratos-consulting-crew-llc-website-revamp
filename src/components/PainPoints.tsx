@@ -57,19 +57,19 @@ function PainCard({ p, delay }: { p: typeof pains[0]; delay: number }) {
       data-reveal-delay={delay}
     >
       <p className="font-mono text-[13px] font-bold text-primary mb-3 tracking-[0.1em]">{p.num}</p>
-      <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{p.title}</h3>
-      <p className="text-muted font-medium text-[16px] leading-relaxed">{p.body}</p>
+      <h3 className="t-h5 text-text-base mb-2">{p.title}</h3>
+      <p className="text-muted font-medium text-body">{p.body}</p>
     </article>
   )
 }
 
 export default function PainPoints() {
   return (
-    <section id="pain" className="relative overflow-hidden py-16 lg:py-20 bg-bg">
+    <section id="pain" className="relative overflow-hidden section bg-bg">
       <DataGhost />
-      <div className="relative max-w-6xl mx-auto px-5">
+      <div className="relative container-page">
         <p className="eyebrow text-primary mb-3">Sound familiar?</p>
-        <h2 className="font-heading font-bold text-[36px] md:text-[48px] leading-tight tracking-[-0.02em] max-w-[620px]">
+        <h2 className="t-h2 max-w-[620px]">
           You're running a real business on gut feel and spreadsheets.
         </h2>
 

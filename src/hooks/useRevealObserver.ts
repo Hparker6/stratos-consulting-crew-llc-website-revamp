@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { ROUTE_CONTENT_EVENT } from '../routes'
 
 /**
  * Scroll-reveal for elements carrying `data-reveal` (optional
@@ -18,11 +19,6 @@ export default function useRevealObserver() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     if (typeof IntersectionObserver === 'undefined') return
     if (typeof HTMLElement.prototype.animate !== 'function') return
-
-    const els = Array.from(
-      document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-reveal-armed])'),
-    )
-    if (!els.length) return
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -43,14 +39,25 @@ export default function useRevealObserver() {
       { threshold: 0, rootMargin: '0px 0px 80px 0px' },
     )
 
-    for (const el of els) {
-      el.setAttribute('data-reveal-armed', '')
-      const rect = el.getBoundingClientRect()
-      // Elements already on screen at mount don't need an entrance.
-      if (rect.top < window.innerHeight && rect.bottom > 0) continue
-      io.observe(el)
+    const arm = () => {
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-reveal-armed])')
+      for (const el of els) {
+        el.setAttribute('data-reveal-armed', '')
+        const rect = el.getBoundingClientRect()
+        // Elements already on screen at mount don't need an entrance.
+        if (rect.top < window.innerHeight && rect.bottom > 0) continue
+        io.observe(el)
+      }
     }
 
-    return () => io.disconnect()
+    arm()
+    // A code-split route's content mounts after the pathname changes, so the
+    // first pass can find nothing. Re-arm once its DOM actually exists.
+    window.addEventListener(ROUTE_CONTENT_EVENT, arm)
+
+    return () => {
+      window.removeEventListener(ROUTE_CONTENT_EVENT, arm)
+      io.disconnect()
+    }
   }, [pathname])
 }

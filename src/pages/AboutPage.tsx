@@ -46,20 +46,20 @@ export default function AboutPage() {
       <About />
 
       {/* The honest pitch */}
-      <section className="py-16 lg:py-20 bg-bg">
-        <div className="max-w-6xl mx-auto px-5">
+      <section className="section bg-bg">
+        <div className="container-page">
           <div className="max-w-2xl">
             <p className="eyebrow text-secondary mb-3">Why trust a new firm?</p>
-            <h2 className="font-heading font-bold text-[32px] md:text-[44px] tracking-[-0.02em] leading-tight">
+            <h2 className="t-h2">
               We'd rather earn trust than borrow it.
             </h2>
-            <p className="mt-5 text-muted font-medium text-[17px] leading-relaxed">
+            <p className="mt-5 text-muted font-medium text-body-lg">
               You'll notice this site has no client logos, no testimonials, and no case studies. That's
               deliberate: Stratos is new, and we won't manufacture social proof we haven't earned. What we
               can show you is real: the depth of the technical work, exactly how we think about your
               problems, and sample dashboards labeled honestly as samples.
             </p>
-            <p className="mt-4 text-muted font-medium text-[17px] leading-relaxed">
+            <p className="mt-4 text-muted font-medium text-body-lg">
               And we've structured every engagement so you never have to take it on faith: the first
               conversation is free, the assessment is a small fixed fee with a deliverable you keep, and
               everything after that is scoped, priced, and cancelable. Being new means every early client
@@ -70,8 +70,8 @@ export default function AboutPage() {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
             {values.map((v, i) => (
               <article key={v.title} className="card card-lift p-6" data-reveal data-reveal-delay={(i % 2) * 80}>
-                <h3 className="font-heading font-semibold text-[19px] text-text-base mb-2">{v.title}</h3>
-                <p className="text-muted font-medium text-[15px] leading-relaxed">{v.body}</p>
+                <h3 className="t-h5 text-text-base mb-2">{v.title}</h3>
+                <p className="text-muted font-medium text-body-sm">{v.body}</p>
               </article>
             ))}
           </div>

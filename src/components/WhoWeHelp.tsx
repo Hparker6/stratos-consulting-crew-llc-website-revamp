@@ -80,16 +80,15 @@ export default function WhoWeHelp({ variant = 'section' }: Props) {
       {audiences.map((a, i) => (
         <article
           key={a.title}
-          className="p-6 rounded-[14px] card-lift hover:border-white/[0.14]"
-          style={{ background: 'rgba(16,26,46,0.7)', border: '1px solid rgba(255,255,255,0.08)' }}
+          className="card card-lift p-6 hover:border-white/[0.14]"
           data-reveal
           data-reveal-delay={i * 70}
         >
           <div className={`${a.tileClass} mb-4`} aria-hidden="true">
             {a.icon}
           </div>
-          <h3 className="font-heading font-semibold text-[18px] text-text-base mb-2">{a.title}</h3>
-          <p className="text-muted font-medium text-[15px] leading-relaxed">{a.body}</p>
+          <h3 className="t-h5 text-text-base mb-2">{a.title}</h3>
+          <p className="text-muted font-medium text-body-sm">{a.body}</p>
         </article>
       ))}
     </div>
@@ -100,15 +99,14 @@ export default function WhoWeHelp({ variant = 'section' }: Props) {
   return (
     <section
       id="who-we-help"
-      className="py-16 lg:py-20"
-      style={{ background: '#0c1a30', borderTop: '1px solid rgba(255,255,255,0.07)' }}
+      className="section bg-elevated border-t-hairline"
     >
-      <div className="max-w-6xl mx-auto px-5 text-center">
+      <div className="container-page text-center">
         <p className="eyebrow text-primary mb-3">Who we help</p>
-        <h2 className="font-heading font-bold text-[36px] md:text-[48px] tracking-[-0.02em]">
+        <h2 className="t-h2">
           Built for the businesses that move product.
         </h2>
-        <p className="mt-4 text-muted font-medium text-[17px] max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-muted font-medium text-body-lg max-w-xl mx-auto leading-relaxed">
           We work with $5–50M product businesses that run on ERPs, spreadsheets, and hard-won operational
           instinct, and are ready to add real numbers to that instinct.
         </p>
