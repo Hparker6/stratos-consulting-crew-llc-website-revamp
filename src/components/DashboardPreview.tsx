@@ -25,23 +25,15 @@ function PreviewMock() {
   }
 
   const inventoryBars = [
-    { h: 65, color: '#2f8fff' },
-    { h: 80, color: '#27e0a0' },
-    { h: 50, color: '#2f8fff' },
-    { h: 70, color: '#27e0a0' },
-    { h: 58, color: '#2f8fff' },
+    { h: 65, label: 'A', good: false },
+    { h: 80, label: 'B', good: true },
+    { h: 50, label: 'C', good: false },
+    { h: 70, label: 'D', good: true },
+    { h: 58, label: 'E', good: false },
   ]
 
   return (
-    <div
-      className="rounded-[16px] overflow-hidden w-full"
-      style={{
-        background: '#0d1526',
-        border: '1px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
-        maxWidth: 420,
-      }}
-    >
+    <div className="dash-glass rounded-[16px] overflow-hidden w-full" style={{ maxWidth: 420 }}>
       <div
         className="flex items-center justify-between px-4 py-3"
         style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(0,0,0,0.2)' }}
@@ -72,8 +64,7 @@ function PreviewMock() {
           ].map((k) => (
             <div
               key={k.label}
-              className="rounded-[10px] p-3"
-              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+              className="dash-tile rounded-[10px] p-3"
             >
               <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-faint mb-1">{k.label}</p>
               <div className="flex items-end gap-2">
@@ -108,6 +99,9 @@ function PreviewMock() {
                 <stop offset="100%" stopColor="#2f8fff" stopOpacity="0" />
               </linearGradient>
             </defs>
+            {[0.25, 0.5, 0.75].map((f) => (
+              <line key={f} x1={pad} y1={pad + f * (h - pad * 2)} x2={w - pad} y2={pad + f * (h - pad * 2)} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            ))}
             <path d={toAreaPath(actualPoints)} fill="url(#areaGrad)" />
             <path d={toPath(actualPoints)} fill="none" stroke="#2f8fff" strokeWidth="1.8" strokeLinecap="round" />
             <path
@@ -132,8 +126,14 @@ function PreviewMock() {
             {inventoryBars.map((b, i) => (
               <div
                 key={i}
-                className="flex-1 rounded-t-[3px]"
-                style={{ height: `${b.h}%`, background: b.color, opacity: 0.7 }}
+                className="flex-1 rounded-t-[4px]"
+                style={{
+                  height: `${b.h}%`,
+                  background: b.good
+                    ? 'linear-gradient(180deg, #3ff0c0 0%, #0fa96f 100%)'
+                    : 'linear-gradient(180deg, rgba(47,143,255,0.9) 0%, rgba(47,143,255,0.28) 100%)',
+                  boxShadow: b.good ? '0 0 12px rgba(47,224,160,0.35)' : 'none',
+                }}
               />
             ))}
           </div>
@@ -187,7 +187,12 @@ export default function DashboardPreview() {
           </div>
 
           <div className="flex-1 flex justify-center lg:justify-end" data-reveal data-reveal-delay={120}>
-            <PreviewMock />
+            <div className="relative w-full max-w-[420px]">
+              <div className="dash-underglow" aria-hidden="true" />
+              <div className="relative z-10">
+                <PreviewMock />
+              </div>
+            </div>
           </div>
         </div>
       </div>

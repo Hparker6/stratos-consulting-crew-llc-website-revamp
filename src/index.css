@@ -295,13 +295,18 @@
   /* despite .card existing. One base, three modifiers.                */
   /* ================================================================ */
 
+  /* A whisper of top-edge light on every card so surfaces catch the light and
+     read as raised panels, not flat cut-outs. The gradient sits over the solid
+     surface colour; at 3% white it is felt as depth, not seen as a gradient. */
   .card {
     @apply bg-surface rounded-lg;
     border: 1px solid var(--line);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 42%);
   }
   .card-lg {
     @apply bg-surface rounded-xl;
     border: 1px solid var(--line);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, transparent 42%);
   }
   /* Translucent panel over the page background (contact, CTA band). */
   .panel {
@@ -563,6 +568,67 @@
   }
 
   /* ================================================================ */
+  /* 8a. LIGHTING & PRODUCT MOCKS                                      */
+  /*                                                                  */
+  /* The flat navy plane is what read as "template". These classes     */
+  /* introduce a single implied light source, real depth under the     */
+  /* product shots, and glass realism on the dashboard chrome — the    */
+  /* difference between "pasted on the wall" and "sitting in a lit      */
+  /* room". Decorative only; nothing here carries information.          */
+  /* ================================================================ */
+
+  /* Overhead directional light for the hero: a soft cool spotlight from
+     top-centre plus a warmer secondary fill, so the scene has a direction. */
+  .hero-spotlight {
+    background:
+      radial-gradient(115% 80% at 50% -12%, rgba(47, 143, 255, 0.20) 0%, transparent 55%),
+      radial-gradient(80% 55% at 82% 8%, rgba(39, 224, 160, 0.10) 0%, transparent 60%),
+      radial-gradient(90% 70% at 12% 95%, rgba(47, 143, 255, 0.06) 0%, transparent 60%);
+  }
+
+  /* Underglow "floor" that lifts a product shot off the background so it
+     reads as floating in lit space. Sits behind the mock (z-0); mock is z-10. */
+  .dash-underglow {
+    position: absolute;
+    inset: -6% -4% -10% -4%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(58% 52% at 54% 46%, rgba(47, 143, 255, 0.24) 0%, transparent 72%);
+    filter: blur(34px);
+  }
+
+  /* Glass window realism for dashboard frames: a top-edge highlight, an
+     inner hairline, and a layered depth+glow shadow. Replaces the flat
+     single-shadow inline styles the mocks used to carry. */
+  .dash-glass {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 20%),
+      theme('colors.sunken');
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.55),
+      0 0 60px rgba(47, 143, 255, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  }
+
+  /* Glassy inner tile: top-lit gradient + inner highlight so KPI cards and
+     chart panels catch the light instead of reading as flat cut-outs. */
+  .dash-tile {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.012) 60%),
+      rgba(13, 21, 38, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  /* A quietly pulsing status dot — the site's one "this is alive" signal.
+     `currentColor` lets the glow inherit whatever accent the dot is set to. */
+  .pulse-dot {
+    animation: pulse-dot 2.4s var(--ease) infinite;
+  }
+
+  /* ================================================================ */
   /* 8b. CHROME — header, logo, consent, light section                 */
   /*                                                                  */
   /* These were the last holdouts: five inline style objects in Nav    */
@@ -794,6 +860,11 @@
   to { background-position: -200% 0; }
 }
 
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 7px currentColor; }
+  50% { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
+}
+
 @keyframes ring-spin {
   to { --ring-angle: 360deg; }
 }
@@ -806,6 +877,7 @@
   .drift-b,
   .divider-shimmer,
   .gradient-ring,
+  .pulse-dot,
   .animate-float {
     animation: none !important;
   }

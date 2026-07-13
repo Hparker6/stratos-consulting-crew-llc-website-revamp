@@ -10,6 +10,9 @@ const badges = [
 export default function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden bg-bg" aria-label="Hero">
+      {/* Directional overhead light — establishes a single light source so the
+          scene reads as a lit room rather than a flat navy plane. */}
+      <div className="pointer-events-none absolute inset-0 hero-spotlight" />
       {/* Ambient glows — .glow is the shape, the modifier supplies the colour. */}
       <div className="glow glow-primary drift-a -top-32 -left-32 w-[600px] h-[600px]" />
       <div className="glow glow-secondary drift-b bottom-0 right-0 w-[500px] h-[500px]" />
@@ -79,9 +82,15 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Dashboard mock column */}
+          {/* Dashboard mock column — floated on an underglow so it sits in lit
+              space with real depth instead of pasted flat on the background. */}
           <div className="flex-1 flex justify-center lg:justify-end rise rise-3">
-            <HeroDashboardMock />
+            <div className="relative w-full max-w-[640px]">
+              <div className="dash-underglow" aria-hidden="true" />
+              <div className="relative z-10">
+                <HeroDashboardMock />
+              </div>
+            </div>
           </div>
         </div>
       </div>
