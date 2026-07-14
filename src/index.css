@@ -797,6 +797,90 @@
   /* A pulse that travels the partnership timeline. */
   .timeline-pulse { animation: timeline-pulse 5s var(--ease) infinite; }
 
+  /* ---------------------------------------------------------------- */
+  /* PROCESS — the engagement journey                                  */
+  /*                                                                  */
+  /* The process is not five paragraphs; it is one screen with data    */
+  /* moving through it. A live wire carries packets between five       */
+  /* stations, and the station currently running holds the screen —    */
+  /* whose interior re-mounts per phase, so each visual replays its    */
+  /* story (a call is heard, data is ranked, a dashboard assembles,    */
+  /* outputs route into the week, the loop keeps running).             */
+  /* ---------------------------------------------------------------- */
+
+  /* A station on the rail: upcoming → running → done. */
+  .journey-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 9999px;
+    font-family: theme('fontFamily.mono');
+    font-size: 13px;
+    font-weight: 700;
+    color: theme('colors.faint');
+    background: theme('colors.bg');
+    border: 1px solid var(--line-strong);
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+  .journey-node.is-done {
+    color: theme('colors.secondary');
+    border-color: var(--secondary-line);
+    background: linear-gradient(180deg, rgba(39, 224, 160, 0.12), theme('colors.bg'));
+  }
+  .journey-node.is-active {
+    color: theme('colors.text-base');
+    border-color: theme('colors.primary');
+    background: linear-gradient(180deg, rgba(47, 143, 255, 0.28), rgba(47, 143, 255, 0.08));
+    box-shadow:
+      0 0 0 4px rgba(47, 143, 255, 0.12),
+      0 0 26px rgba(47, 143, 255, 0.4);
+    transform: scale(1.1);
+  }
+  @media (hover: hover) {
+    .group:hover .journey-node:not(.is-active) {
+      border-color: var(--primary-line);
+      color: theme('colors.muted');
+    }
+  }
+
+  /* A packet of data running the length of the engagement, always. */
+  .journey-packet {
+    background: #3ff0c0;
+    box-shadow: 0 0 12px 2px rgba(63, 240, 192, 0.7);
+    animation: journey-packet 4.4s var(--ease) infinite;
+  }
+
+  /* How long the current station holds the screen before it advances. */
+  .journey-dwell {
+    width: 0;
+    background: theme('colors.primary');
+    animation: journey-dwell var(--dwell, 5600ms) linear forwards;
+  }
+
+  /* The screen itself lifts in when a new phase takes it over. */
+  .stage-screen { animation: stage-screen 550ms var(--ease) both; }
+
+  /* Anything inside a stage that should arrive on cue. */
+  .stage-in { animation: stage-in 520ms var(--ease) var(--d, 0ms) both; }
+  .tick-in { animation: tick-in 420ms var(--ease) var(--d, 0ms) both; }
+  .area-in { animation: area-in 700ms var(--ease) var(--d, 0ms) both; }
+  .grow-x {
+    transform-origin: left center;
+    animation: grow-x 800ms var(--ease) var(--d, 0ms) both;
+  }
+
+  /* Speech, seen: a waveform that never sits still. */
+  .wave-bar {
+    transform-origin: center;
+    animation: wave-bar 1.05s ease-in-out var(--d, 0ms) infinite alternate;
+  }
+
   /* ================================================================ */
   /* 8b. CHROME — header, logo, consent, light section                 */
   /*                                                                  */
@@ -1088,6 +1172,40 @@
   to { --ring-angle: 360deg; }
 }
 
+/* Process journey */
+@keyframes journey-packet {
+  0%   { left: 0; opacity: 0; }
+  10%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+@keyframes journey-dwell {
+  to { width: 100%; }
+}
+@keyframes stage-screen {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes stage-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes tick-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes area-in {
+  from { opacity: 0; }
+}
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes wave-bar {
+  from { transform: scaleY(0.35); }
+  to   { transform: scaleY(1); }
+}
+
 /* Reduced motion: kill every decorative animation and reveal instantly */
 @media (prefers-reduced-motion: reduce) {
   .rise,
@@ -1137,6 +1255,25 @@
   .ring-progress,
   .inv-bar,
   .feature-card::after {
+    transition: none !important;
+  }
+  /* Process journey: the phase still changes, it just doesn't animate into
+     place — and the journey never auto-advances (see ProcessJourney.tsx), so
+     nothing moves unless the visitor moves it. */
+  .journey-packet,
+  .journey-dwell,
+  .stage-screen,
+  .stage-in,
+  .tick-in,
+  .area-in,
+  .grow-x,
+  .wave-bar {
+    animation: none !important;
+  }
+  .journey-packet {
+    display: none;
+  }
+  .journey-node {
     transition: none !important;
   }
   .rise,

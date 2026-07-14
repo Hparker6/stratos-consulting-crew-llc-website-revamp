@@ -52,10 +52,21 @@ export function DashFrame({ filename, children }: { filename: string; children: 
   )
 }
 
-export function Panel({ title, children, right }: { title: string; children: ReactNode; right?: ReactNode }) {
+export function Panel({
+  title,
+  children,
+  right,
+  className = '',
+}: {
+  title: string
+  children: ReactNode
+  right?: ReactNode
+  /** Layout only — lets a caller stretch a panel to fill a fixed-height screen. */
+  className?: string
+}) {
   return (
     <div
-      className="rounded-[10px] p-3"
+      className={`rounded-[10px] p-3 ${className}`}
       style={{ background: CHART.panel, border: `1px solid ${CHART.panelBorder}` }}
     >
       <div className="flex items-center justify-between mb-2 gap-2">
