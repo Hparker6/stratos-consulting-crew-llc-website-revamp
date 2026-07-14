@@ -39,7 +39,10 @@ const routes = [
 const today = new Date().toISOString().slice(0, 10)
 
 /**
- * Author date of the last commit touching any of `paths`, as YYYY-MM-DD.
+ * Committer date (%cs) of the last commit touching any of `paths`, as
+ * YYYY-MM-DD. Committer rather than author date on purpose: lastmod is a claim
+ * about when the page changed on the site, so a rebased or cherry-picked commit
+ * should date from when it landed, not from when it was first written.
  *
  * Falls back to today when git can't answer — an unbuilt working copy, a
  * tarball deploy, or a CI checkout too shallow to hold the commit. A slightly
