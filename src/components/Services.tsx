@@ -405,7 +405,7 @@ const services: Service[] = [
     tileClass: 'icon-tile-blue',
     glow: 'rgba(47,143,255,0.16)',
     title: 'Executive Dashboards',
-    body: 'Power BI dashboards, KPI reporting, and automated weekly reports your leadership actually opens.',
+    body: 'Your Monday meeting shouldn’t open with someone asking which spreadsheet is the current one. One screen, one set of numbers, everyone looking at the same thing.',
     graphic: <GraphExecDashboard />,
   },
   {
@@ -413,7 +413,7 @@ const services: Service[] = [
     tileClass: 'icon-tile-green',
     glow: 'rgba(39,224,160,0.14)',
     title: 'Demand & Sales Forecasting',
-    body: 'Forecast what sells, when, and how much, by product line, customer, and season.',
+    body: 'If every purchase order feels like an educated guess, nothing is telling you what next month looks like.',
     graphic: <GraphForecast />,
   },
   {
@@ -421,7 +421,7 @@ const services: Service[] = [
     tileClass: 'icon-tile-blue',
     glow: 'rgba(47,143,255,0.16)',
     title: 'Inventory Optimization',
-    body: 'Safety stock, reorder points, min/max, and excess & slow-mover analysis that frees up cash.',
+    body: 'You already know the fast movers stock out and the dead stuff never leaves. What you can’t see is what that costs you this quarter.',
     graphic: <GraphInventory />,
   },
   {
@@ -429,7 +429,7 @@ const services: Service[] = [
     tileClass: 'icon-tile-green',
     glow: 'rgba(39,224,160,0.14)',
     title: 'Cost Reduction & Profitability',
-    body: 'Spend analysis, vendor benchmarking, and margin optimization that finds real money.',
+    body: 'Everyone can name the biggest customer. Almost nobody can name the most profitable one.',
     graphic: <GraphMargin />,
   },
   {
@@ -437,7 +437,7 @@ const services: Service[] = [
     tileClass: 'icon-tile-blue',
     glow: 'rgba(47,143,255,0.16)',
     title: 'Automation',
-    body: 'Kill manual reports with data pipelines and process automation that runs itself.',
+    body: 'Somebody on your team loses every Friday to a report they rebuild by hand. It should build itself.',
     graphic: <GraphAutomation />,
   },
   {
@@ -445,7 +445,7 @@ const services: Service[] = [
     tileClass: 'icon-tile-green',
     glow: 'rgba(39,224,160,0.14)',
     title: 'Ongoing Analytics Partner',
-    body: 'A monthly partnership that gives you an analytics team without the headcount or the overhead.',
+    body: 'You have more questions than an analyst’s salary would justify. So rent the analyst instead.',
     graphic: <GraphPartner />,
   },
 ]
@@ -480,9 +480,9 @@ export default function Services() {
 
       <div className="relative container-page text-center">
         <p className="eyebrow text-secondary mb-3">What we do</p>
-        <h2 className="t-h2">Six ways we turn data into dollars.</h2>
+        <h2 className="t-h2">Six things owners ask us for most.</h2>
         <p className="mt-4 text-muted font-medium text-body-lg max-w-lg mx-auto leading-relaxed">
-          Mix and match, or hand us the whole problem. Everything's built around your numbers, your systems, your team.
+          Take one, or hand us the whole thing. It all gets built on your numbers, in the systems you already pay for.
         </p>
 
         {/* Bento grid: featured card + mixed tiles + full-width band */}

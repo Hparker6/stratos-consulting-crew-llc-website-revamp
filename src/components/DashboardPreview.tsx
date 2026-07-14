@@ -158,11 +158,12 @@ export default function DashboardPreview() {
           <div className="flex-1 max-w-md" data-reveal>
             <p className="eyebrow text-primary mb-3">What you get</p>
             <h2 className="t-h3">
-              A single screen that runs your whole operation.
+              One screen to run the week from.
             </h2>
             <p className="mt-4 text-muted font-medium text-body-lg">
-              Inventory turns, fill rate, margin by product line, and demand forecast. All of it live,
-              automated, and refreshed without anyone touching a spreadsheet.
+              Today those numbers live in the ERP, the accounting system, and a spreadsheet only one person
+              knows how to update. By the time someone pulls them together, the week is over. This refreshes
+              overnight, on its own.
             </p>
             <ul className="mt-5 space-y-3">
               {[

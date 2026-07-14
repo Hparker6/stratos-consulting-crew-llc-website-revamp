@@ -17,10 +17,10 @@ export default function Pricing() {
       <div className="container-page text-center">
         <p className="eyebrow text-secondary mb-3">Pricing</p>
         <h2 className="t-h2">
-          Start small. Scale when it pays off.
+          Start small. Spend more only if it pays.
         </h2>
         <p className="mt-4 text-muted font-medium text-body-lg max-w-lg mx-auto leading-relaxed">
-          Transparent, fixed-scope pricing designed so each step has to earn the next one.
+          Fixed prices, quoted before the work starts. Every step has to earn the next one.
         </p>
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">

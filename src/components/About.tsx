@@ -37,12 +37,12 @@ export default function About() {
 
             <p className="mt-5 font-medium text-body-lg text-light-body">
               I'm Houston Parker. I've spent years inside supply-chain data, building the dashboards,
-              forecasts, and inventory models that help distribution companies stop guessing and start knowing.
+              forecasts, and inventory models that tell a distributor what it's actually making, and on what.
             </p>
             <p className="mt-4 font-medium text-body-lg text-light-body">
-              I started Stratos because small distributors deserve the same analytics firepower the big
-              players have, without the enterprise price tag or the buzzwords. You work with me directly,
-              not a junior who inherited your account.
+              I started Stratos because a $10M distributor asks the same questions a $10B one does, and
+              nobody was answering them at a price that made sense. You work with me directly, not a junior
+              who inherited your account.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">

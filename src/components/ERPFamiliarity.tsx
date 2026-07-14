@@ -23,10 +23,9 @@ export default function ERPFamiliarity() {
             We build on what you already run.
           </h2>
           <p className="mt-4 text-muted font-medium text-body-lg">
-            Analytics work starts with the transaction data your ERP and accounting systems already
-            collect: orders, receipts, invoices, adjustments. We're familiar with the data structures and
-            reporting layers of the platforms common in distribution and manufacturing, and we connect to
-            them rather than replace them.
+            You just spent years and real money getting onto your ERP. The last thing you want to hear is
+            that the fix starts with leaving it. It doesn't. Your systems already collect what we need:
+            orders, receipts, invoices, adjustments. We connect to them and leave them alone.
           </p>
         </div>
 

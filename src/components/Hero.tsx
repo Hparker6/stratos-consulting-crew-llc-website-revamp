@@ -127,9 +127,9 @@ export default function Hero() {
             </h1>
 
             <p className="mt-6 text-muted font-medium text-body-lg max-w-[490px] rise rise-2">
-              Dashboards, forecasting, and inventory analytics for small distributors.
-              No enterprise price tag. No buzzwords. Just clear numbers that
-              help you make better decisions.
+              Dashboards, forecasting, and inventory work for small distributors and
+              manufacturers. You'll know which lines make money, what to buy next,
+              and how much cash is sitting on your shelves.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3 rise rise-3">

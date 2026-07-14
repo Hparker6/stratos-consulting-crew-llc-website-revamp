@@ -36,10 +36,10 @@ export default function AboutPage() {
         eyebrow="About"
         title={
           <>
-            Boutique on purpose. <span className="gradient-text">Technical to the core.</span>
+            Small on purpose. <span className="gradient-text">Technical by training.</span>
           </>
         }
-        lede="Stratos exists because $5–50M suppliers deserve the analytics firepower the big players have, without enterprise pricing, junior account teams, or a rip-and-replace agenda."
+        lede="A $5–50M supplier has the same questions a Fortune 500 does. What it doesn't have is a six-figure budget, a team of juniors to manage, or any interest in replacing the systems it just finished paying for. That gap is why Stratos exists."
       />
 
       {/* Founder bio — reuses the light-section treatment from the homepage */}
@@ -55,9 +55,9 @@ export default function AboutPage() {
             </h2>
             <p className="mt-5 text-muted font-medium text-body-lg">
               You'll notice this site has no client logos, no testimonials, and no case studies. That's
-              deliberate: Stratos is new, and we won't manufacture social proof we haven't earned. What we
-              can show you is real: the depth of the technical work, exactly how we think about your
-              problems, and sample dashboards labeled honestly as samples.
+              deliberate. Stratos is new, and we won't manufacture social proof we haven't earned. What we
+              can show you is real: how we think about these problems, the work itself, and sample
+              dashboards labeled honestly as samples.
             </p>
             <p className="mt-4 text-muted font-medium text-body-lg">
               And we've structured every engagement so you never have to take it on faith: the first

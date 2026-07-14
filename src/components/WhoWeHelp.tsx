@@ -107,8 +107,8 @@ export default function WhoWeHelp({ variant = 'section' }: Props) {
           Built for the businesses that move product.
         </h2>
         <p className="mt-4 text-muted font-medium text-body-lg max-w-xl mx-auto leading-relaxed">
-          We work with $5–50M product businesses that run on ERPs, spreadsheets, and hard-won operational
-          instinct, and are ready to add real numbers to that instinct.
+          We work with $5–50M product businesses running on an ERP, a stack of spreadsheets, and a lot of
+          hard-earned instinct. Our job is to put real numbers behind the instinct.
         </p>
         <div className="mt-8">{cards}</div>
       </div>

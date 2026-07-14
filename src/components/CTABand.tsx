@@ -9,7 +9,7 @@ interface Props {
 /** Reusable end-of-page call-to-action band pointing at the discovery call. */
 export default function CTABand({
   title = 'Ready to see what your data is hiding?',
-  body = 'A free 30-minute discovery call. No pitch and no obligation, just an honest conversation about whether analytics can move the needle for your business.',
+  body = 'Thirty minutes, free, no pitch. You describe the problem. We tell you honestly whether better numbers would fix it, and roughly what that would take.',
 }: Props) {
   return (
     <section className="section bg-bg">

@@ -129,7 +129,7 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
                   </div>
 
                   <p className="mt-6 t-label text-faint mb-3">
-                    What this unlocks
+                    What changes
                   </p>
                   <ul className="space-y-2">
                     {p.outcomes.slice(0, 3).map((o) => (

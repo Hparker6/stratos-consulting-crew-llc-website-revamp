@@ -36,7 +36,7 @@ export interface MetaOptions {
 export function applyMeta(opts: MetaOptions) {
   const { title, description, path, image = OG_IMAGE, type = 'website', noindex = false } = opts
   const url = `${SITE_URL}${path === '/' ? '' : path}`
-  const imageAlt = `${SITE_NAME} — analytics and dashboards for distributors`
+  const imageAlt = `${SITE_NAME}: analytics and dashboards for distributors`
 
   document.title = title
   upsertMeta('name', 'description', description)
