@@ -2,7 +2,7 @@
  * Site-wide contact, booking, and social configuration.
  *
  * Every value is sourced from a build-time Vite env var (see .env.example) so
- * it can be changed per deploy in Netlify without touching code. Each one has a
+ * it can be changed per deploy in Vercel without touching code. Each one has a
  * safe degradation rather than a placeholder:
  *
  *  - No booking URL  → "Book a Free Call" CTAs route to the on-site /contact form.

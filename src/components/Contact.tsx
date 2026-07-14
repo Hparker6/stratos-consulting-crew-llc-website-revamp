@@ -4,7 +4,7 @@ import { BOOKING_URL, CONTACT_EMAIL, CONTACT_MAILTO, HAS_BOOKING } from '../lib/
 
 /**
  * Submission lifecycle. The form is only ever replaced by the confirmation
- * panel on 'success', which requires an actual 2xx from Netlify. A network
+ * panel on 'success', which requires an actual 2xx from /api/contact. A network
  * failure or a non-2xx response lands on 'error', which keeps the visitor's
  * typed input on screen and offers a fallback — rather than claiming a message
  * was delivered when it never left the browser.
@@ -38,20 +38,21 @@ export default function Contact() {
 
     // Sanitize before sending: cap lengths, strip control characters, trim.
     // The message field keeps its line breaks; single-line fields do not.
+    // api/contact.ts repeats every one of these checks server-side — this pass
+    // is a courtesy to the visitor, not a security control.
     const MAX: Record<string, number> = { name: 100, company: 120, email: 254, phone: 30, challenge: 2000 }
-    const body = new URLSearchParams()
+    const payload: Record<string, string> = {}
     for (const [key, raw] of data.entries()) {
       if (typeof raw !== 'string') continue
       let value = raw.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
       if (key !== 'challenge') value = value.replace(/[\r\n]+/g, ' ')
-      value = value.trim().slice(0, MAX[key] ?? 500)
-      body.set(key, value)
+      payload[key] = value.trim().slice(0, MAX[key] ?? 500)
     }
 
     // Mark the offending fields so the failure is exposed programmatically
     // (aria-invalid), not only through the browser's transient validity bubble.
-    const nameBad = !body.get('name')
-    const emailBad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.get('email') ?? '')
+    const nameBad = !payload.name
+    const emailBad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email ?? '')
     setInvalid({ name: nameBad, email: emailBad })
 
     if (nameBad || emailBad) {
@@ -62,15 +63,15 @@ export default function Contact() {
     setStatus('submitting')
 
     try {
-      const res = await fetch('/', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       })
       // fetch() only rejects on network failure — a 404 or 500 resolves
       // normally, so the status must be checked explicitly or a server-side
       // rejection would render as success.
-      if (!res.ok) throw new Error(`Form endpoint returned ${res.status}`)
+      if (!res.ok) throw new Error(`Contact endpoint returned ${res.status}`)
 
       setStatus('success')
       // The conversion event fires here and nowhere else: a submission that
@@ -150,16 +151,17 @@ export default function Contact() {
                 </div>
               </div>
             ) : (
-              <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                onSubmit={handleSubmit}
-                onFocusCapture={handleFormStart}
-              >
-                <input type="hidden" name="form-name" value="contact" />
-                <input type="hidden" name="bot-field" />
+              <form name="contact" method="POST" onSubmit={handleSubmit} onFocusCapture={handleFormStart}>
+                {/* Honeypot. Hidden from people, irresistible to bots; anything
+                    that arrives with it filled is dropped by api/contact.ts. */}
+                <input
+                  type="text"
+                  name="bot-field"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>

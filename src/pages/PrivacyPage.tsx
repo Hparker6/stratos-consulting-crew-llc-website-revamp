@@ -87,10 +87,11 @@ export default function PrivacyPage() {
                 Third parties
               </h2>
               <p className="text-muted font-medium text-body">
-                This site is hosted by Netlify, which processes contact form submissions and keeps standard
-                server logs. Google Analytics runs only with your consent, as described above. If you book
-                through our scheduling link, that booking is handled by our scheduling provider under their
-                own privacy policy.
+                This site is hosted by Vercel, which keeps standard server logs. What you send through the
+                contact form is emailed straight to us through Google Workspace and is not stored anywhere
+                else or handed to any other company. Google Analytics runs only with your consent, as
+                described above. If you book through our scheduling link, that booking is handled by our
+                scheduling provider under their own privacy policy.
               </p>
             </div>
 

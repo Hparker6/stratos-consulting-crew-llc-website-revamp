@@ -135,8 +135,8 @@ try {
   }
 
   // ---- 404 page -------------------------------------------------------
-  // Netlify's catch-all now serves /404.html with a real 404 status (see
-  // netlify.toml). Previously EVERY unknown URL returned 200 with the SPA shell,
+  // Vercel serves /404.html with a real 404 status for any path that isn't a
+  // prerendered file. Previously EVERY unknown URL returned 200 with the SPA shell,
   // so typo'd and stale links were indexable soft-404s. Rendering the React
   // NotFoundPage here means the 404 is a real, styled page rather than a bare
   // Netlify default — and it carries noindex.
