@@ -295,13 +295,18 @@
   /* despite .card existing. One base, three modifiers.                */
   /* ================================================================ */
 
+  /* A whisper of top-edge light on every card so surfaces catch the light and
+     read as raised panels, not flat cut-outs. The gradient sits over the solid
+     surface colour; at 3% white it is felt as depth, not seen as a gradient. */
   .card {
     @apply bg-surface rounded-lg;
     border: 1px solid var(--line);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 42%);
   }
   .card-lg {
     @apply bg-surface rounded-xl;
     border: 1px solid var(--line);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, transparent 42%);
   }
   /* Translucent panel over the page background (contact, CTA band). */
   .panel {
@@ -563,6 +568,320 @@
   }
 
   /* ================================================================ */
+  /* 8a. LIGHTING & PRODUCT MOCKS                                      */
+  /*                                                                  */
+  /* The flat navy plane is what read as "template". These classes     */
+  /* introduce a single implied light source, real depth under the     */
+  /* product shots, and glass realism on the dashboard chrome — the    */
+  /* difference between "pasted on the wall" and "sitting in a lit      */
+  /* room". Decorative only; nothing here carries information.          */
+  /* ================================================================ */
+
+  /* Overhead directional light for the hero: a soft cool spotlight from
+     top-centre plus a warmer secondary fill, so the scene has a direction. */
+  .hero-spotlight {
+    background:
+      radial-gradient(115% 80% at 50% -12%, rgba(47, 143, 255, 0.20) 0%, transparent 55%),
+      radial-gradient(80% 55% at 82% 8%, rgba(39, 224, 160, 0.10) 0%, transparent 60%),
+      radial-gradient(90% 70% at 12% 95%, rgba(47, 143, 255, 0.06) 0%, transparent 60%);
+  }
+
+  /* Underglow "floor" that lifts a product shot off the background so it
+     reads as floating in lit space. Sits behind the mock (z-0); mock is z-10. */
+  .dash-underglow {
+    position: absolute;
+    inset: -6% -4% -10% -4%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(58% 52% at 54% 46%, rgba(47, 143, 255, 0.24) 0%, transparent 72%);
+    filter: blur(34px);
+  }
+
+  /* Glass window realism for dashboard frames: a top-edge highlight, an
+     inner hairline, and a layered depth+glow shadow. Replaces the flat
+     single-shadow inline styles the mocks used to carry. */
+  .dash-glass {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 20%),
+      theme('colors.sunken');
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.55),
+      0 0 60px rgba(47, 143, 255, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  }
+
+  /* Glassy inner tile: top-lit gradient + inner highlight so KPI cards and
+     chart panels catch the light instead of reading as flat cut-outs. */
+  .dash-tile {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.012) 60%),
+      rgba(13, 21, 38, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  /* A quietly pulsing status dot — the site's one "this is alive" signal.
+     `currentColor` lets the glow inherit whatever accent the dot is set to. */
+  .pulse-dot {
+    animation: pulse-dot 2.4s var(--ease) infinite;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* HERO CINEMATIC LAYER                                             */
+  /*                                                                  */
+  /* Scoped to the hero: three stacked light sources (a slow drifting  */
+  /* aurora, the fixed overhead spotlight, and a cursor-follow light), */
+  /* pointer parallax, floating glass metric chips, and chart          */
+  /* entrances. Every piece is additive and reduced-motion-safe — the  */
+  /* prerendered markup and no-JS visitors get the composed, static    */
+  /* frame; motion and interactivity layer on after hydration.         */
+  /* ---------------------------------------------------------------- */
+
+  /* Moving gradient mesh — the ambient light "breathes" behind the hero. */
+  .hero-aurora {
+    background:
+      radial-gradient(38% 55% at 22% 28%, rgba(47, 143, 255, 0.24), transparent 60%),
+      radial-gradient(32% 48% at 82% 22%, rgba(39, 224, 160, 0.16), transparent 60%),
+      radial-gradient(46% 60% at 62% 88%, rgba(47, 143, 255, 0.12), transparent 65%);
+    filter: blur(24px);
+    animation: aurora-drift 26s var(--ease) infinite alternate;
+  }
+
+  /* Light that follows the cursor across the hero — driven by --mx/--my (JS). */
+  .hero-cursor-light {
+    background: radial-gradient(
+      460px circle at var(--mx, 50%) var(--my, 32%),
+      rgba(47, 143, 255, 0.14),
+      rgba(39, 224, 160, 0.05) 42%,
+      transparent 68%
+    );
+  }
+
+  /* Fade the guide-grid out toward the edges so it reads as texture, not a table. */
+  .grid-fade {
+    -webkit-mask-image: radial-gradient(125% 90% at 50% 0%, #000 28%, transparent 78%);
+    mask-image: radial-gradient(125% 90% at 50% 0%, #000 28%, transparent 78%);
+  }
+
+  /* Pointer parallax: descendants translate a fraction of the pointer offset
+     (--px/--py, set on the hero in JS). Foreground chips lead, the dashboard
+     drifts the opposite way — the split is what creates depth. */
+  .parallax-fore {
+    transform: translate3d(calc(var(--px, 0) * 1px), calc(var(--py, 0) * 1px), 0);
+    transition: transform 240ms var(--ease);
+  }
+  .parallax-back {
+    transform: translate3d(calc(var(--px, 0) * -0.45px), calc(var(--py, 0) * -0.45px), 0);
+    transition: transform 300ms var(--ease);
+  }
+
+  /* Small glass kicker above the headline. */
+  .hero-kicker {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Floating glass metric chip — reads as a card lifted off the dashboard. */
+  .metric-chip {
+    background: linear-gradient(180deg, rgba(16, 26, 46, 0.94), rgba(11, 18, 32, 0.94));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .float-a { animation: float-a 7s ease-in-out infinite; }
+  .float-b { animation: float-b 9s ease-in-out infinite; }
+
+  /* Headline accent: a slow gradient flow across the emphasised words. */
+  .gradient-text-flow {
+    background: linear-gradient(100deg, #2f8fff, #27e0a0, #2f8fff);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-flow 9s linear infinite;
+  }
+
+  /* Chart entrances used inside the hero dashboard. */
+  .bar-grow { transform-origin: bottom; animation: bar-grow 900ms var(--ease) both; }
+  .draw-line {
+    stroke-dasharray: var(--len, 90);
+    stroke-dashoffset: var(--len, 90);
+    animation: draw-line 1.3s var(--ease) 250ms forwards;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* SERVICES — feature cards                                          */
+  /*                                                                  */
+  /* Each service is a small product surface: a bespoke graphic on a   */
+  /* nested screen, accent lighting that blooms on hover, flowing data  */
+  /* motion, and a progressive-disclosure caption that lifts in. The    */
+  /* per-card accent (--glow) lets blue and green services light apart. */
+  /* ---------------------------------------------------------------- */
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 75% at 50% 0%, var(--glow, rgba(47, 143, 255, 0.16)), transparent 62%);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+  }
+  .feature-card:hover::after { opacity: 1; }
+
+  /* The nested "screen" a graphic sits on — reads as product, not decoration. */
+  .feature-media {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(13, 21, 38, 0.72), rgba(10, 15, 28, 0.72));
+    border: 1px solid var(--line-soft);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Progressive disclosure: a caption that lifts in when the card is hovered. */
+  .feature-reveal {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .group:hover .feature-reveal { opacity: 1; transform: none; }
+
+  /* One-shot light sweep across a graphic on hover. */
+  .feature-scan {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -45%;
+    width: 45%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(108, 182, 255, 0.14), transparent);
+  }
+  .group:hover .feature-scan { animation: feature-scan 1.1s var(--ease); }
+
+  /* Flowing data: travelling dashes on a wire, and a moving highlight band. */
+  .flow-dash { animation: flow-dash 1.1s linear infinite; }
+  .wire-flow {
+    background-image: linear-gradient(
+      90deg,
+      rgba(47, 143, 255, 0.12) 0 42%,
+      rgba(108, 182, 255, 0.8) 50%,
+      rgba(47, 143, 255, 0.12) 58% 100%
+    );
+    background-size: 200% 100%;
+    animation: wire-flow 1.9s linear infinite;
+  }
+
+  /* A forecast confidence ping and a ring that fills further on hover. */
+  .fc-ping { transform-box: fill-box; transform-origin: center; animation: fc-ping 2.4s var(--ease) infinite; }
+  .fc-band { opacity: 0.5; transition: opacity var(--dur) var(--ease); }
+  .group:hover .fc-band { opacity: 1; }
+  .ring-progress {
+    stroke-dashoffset: var(--off);
+    transition: stroke-dashoffset var(--dur-slow) var(--ease);
+  }
+  .group:hover .ring-progress { stroke-dashoffset: var(--offh, var(--off)); }
+
+  /* Inventory bars: excess stock retracts to the reorder line on hover. */
+  .inv-bar { width: var(--w); background: var(--bar); transition: width var(--dur-slow) var(--ease); }
+  .group:hover .inv-excess { width: var(--wh, var(--w)); }
+
+  /* A pulse that travels the partnership timeline. */
+  .timeline-pulse { animation: timeline-pulse 5s var(--ease) infinite; }
+
+  /* ---------------------------------------------------------------- */
+  /* PROCESS — the engagement journey                                  */
+  /*                                                                  */
+  /* The process is not five paragraphs; it is one screen with data    */
+  /* moving through it. A live wire carries packets between five       */
+  /* stations, and the station currently running holds the screen —    */
+  /* whose interior re-mounts per phase, so each visual replays its    */
+  /* story (a call is heard, data is ranked, a dashboard assembles,    */
+  /* outputs route into the week, the loop keeps running).             */
+  /* ---------------------------------------------------------------- */
+
+  /* A station on the rail: upcoming → running → done. */
+  .journey-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 9999px;
+    font-family: theme('fontFamily.mono');
+    font-size: 13px;
+    font-weight: 700;
+    color: theme('colors.faint');
+    background: theme('colors.bg');
+    border: 1px solid var(--line-strong);
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+  .journey-node.is-done {
+    color: theme('colors.secondary');
+    border-color: var(--secondary-line);
+    background: linear-gradient(180deg, rgba(39, 224, 160, 0.12), theme('colors.bg'));
+  }
+  .journey-node.is-active {
+    color: theme('colors.text-base');
+    border-color: theme('colors.primary');
+    background: linear-gradient(180deg, rgba(47, 143, 255, 0.28), rgba(47, 143, 255, 0.08));
+    box-shadow:
+      0 0 0 4px rgba(47, 143, 255, 0.12),
+      0 0 26px rgba(47, 143, 255, 0.4);
+    transform: scale(1.1);
+  }
+  @media (hover: hover) {
+    .group:hover .journey-node:not(.is-active) {
+      border-color: var(--primary-line);
+      color: theme('colors.muted');
+    }
+  }
+
+  /* A packet of data running the length of the engagement, always. */
+  .journey-packet {
+    background: #3ff0c0;
+    box-shadow: 0 0 12px 2px rgba(63, 240, 192, 0.7);
+    animation: journey-packet 4.4s var(--ease) infinite;
+  }
+
+  /* How long the current station holds the screen before it advances. */
+  .journey-dwell {
+    width: 0;
+    background: theme('colors.primary');
+    animation: journey-dwell var(--dwell, 5600ms) linear forwards;
+  }
+
+  /* The screen itself lifts in when a new phase takes it over. */
+  .stage-screen { animation: stage-screen 550ms var(--ease) both; }
+
+  /* Anything inside a stage that should arrive on cue. */
+  .stage-in { animation: stage-in 520ms var(--ease) var(--d, 0ms) both; }
+  .tick-in { animation: tick-in 420ms var(--ease) var(--d, 0ms) both; }
+  .area-in { animation: area-in 700ms var(--ease) var(--d, 0ms) both; }
+  .grow-x {
+    transform-origin: left center;
+    animation: grow-x 800ms var(--ease) var(--d, 0ms) both;
+  }
+
+  /* Speech, seen: a waveform that never sits still. */
+  .wave-bar {
+    transform-origin: center;
+    animation: wave-bar 1.05s ease-in-out var(--d, 0ms) infinite alternate;
+  }
+
+  /* ================================================================ */
   /* 8b. CHROME — header, logo, consent, light section                 */
   /*                                                                  */
   /* These were the last holdouts: five inline style objects in Nav    */
@@ -674,7 +993,8 @@
      imperceptible 22-second drift stops. */
   @media (max-width: 1024px) {
     .drift-a,
-    .drift-b {
+    .drift-b,
+    .hero-aurora {
       animation: none;
     }
   }
@@ -794,8 +1114,96 @@
   to { background-position: -200% 0; }
 }
 
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 7px currentColor; }
+  50% { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
+}
+
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1.06); opacity: 0.9; }
+  50%  { transform: translate3d(2%, 1.5%, 0) scale(1.14); opacity: 1; }
+  100% { transform: translate3d(-1%, 2%, 0) scale(1.08); opacity: 0.92; }
+}
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(9px); }
+}
+
+@keyframes text-flow {
+  to { background-position: 200% 0; }
+}
+
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes feature-scan {
+  from { left: -45%; }
+  to { left: 130%; }
+}
+@keyframes flow-dash {
+  to { stroke-dashoffset: -18; }
+}
+@keyframes wire-flow {
+  to { background-position: -200% 0; }
+}
+@keyframes fc-ping {
+  0% { transform: scale(0.6); opacity: 0.5; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes timeline-pulse {
+  0% { left: 0; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
 @keyframes ring-spin {
   to { --ring-angle: 360deg; }
+}
+
+/* Process journey */
+@keyframes journey-packet {
+  0%   { left: 0; opacity: 0; }
+  10%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+@keyframes journey-dwell {
+  to { width: 100%; }
+}
+@keyframes stage-screen {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes stage-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes tick-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes area-in {
+  from { opacity: 0; }
+}
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes wave-bar {
+  from { transform: scaleY(0.35); }
+  to   { transform: scaleY(1); }
 }
 
 /* Reduced motion: kill every decorative animation and reveal instantly */
@@ -806,8 +1214,67 @@
   .drift-b,
   .divider-shimmer,
   .gradient-ring,
+  .pulse-dot,
+  .hero-aurora,
+  .float-a,
+  .float-b,
+  .gradient-text-flow,
+  .bar-grow,
+  .draw-line,
   .animate-float {
     animation: none !important;
+  }
+  /* Parallax is pointer-driven, but neutralise any residual transform too. */
+  .parallax-fore,
+  .parallax-back {
+    transform: none !important;
+    transition: none !important;
+  }
+  /* A drawn-in line must not stay hidden when its animation is cancelled. */
+  .draw-line {
+    stroke-dashoffset: 0 !important;
+  }
+  /* A grown bar must not stay collapsed when its animation is cancelled. */
+  .bar-grow {
+    transform: none !important;
+  }
+  /* Services feature cards: silence continuous motion, keep captions shown. */
+  .feature-scan,
+  .flow-dash,
+  .wire-flow,
+  .timeline-pulse,
+  .fc-ping {
+    animation: none !important;
+  }
+  .feature-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .feature-reveal,
+  .fc-band,
+  .ring-progress,
+  .inv-bar,
+  .feature-card::after {
+    transition: none !important;
+  }
+  /* Process journey: the phase still changes, it just doesn't animate into
+     place — and the journey never auto-advances (see ProcessJourney.tsx), so
+     nothing moves unless the visitor moves it. */
+  .journey-packet,
+  .journey-dwell,
+  .stage-screen,
+  .stage-in,
+  .tick-in,
+  .area-in,
+  .grow-x,
+  .wave-bar {
+    animation: none !important;
+  }
+  .journey-packet {
+    display: none;
+  }
+  .journey-node {
+    transition: none !important;
   }
   .rise,
   .rise-solid {
@@ -845,10 +1312,12 @@
      every gradient headline — half of every <h1> on this site — rendered as
      invisible. Restore real glyphs. */
   .gradient-text,
+  .gradient-text-flow,
   .gradient-num {
     background: none;
     -webkit-text-fill-color: currentColor;
     color: LinkText;
+    animation: none;
   }
 
   /* Buttons are distinguished only by background colour, which forced-colors

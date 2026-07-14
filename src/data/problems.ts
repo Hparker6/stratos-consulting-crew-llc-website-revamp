@@ -1,7 +1,7 @@
 /**
  * "Business Problems We Solve" content. Each entry describes a common
  * supplier challenge, our analytics approach, the questions it answers, and
- * what the work is designed to unlock. No prior engagements are claimed.
+ * what the work is designed to change. No prior engagements are claimed.
  */
 
 export interface Problem {
@@ -48,7 +48,7 @@ export const problems: Problem[] = [
       'What should we be worried about this week that we can still do something about?',
     ],
     outcomes: [
-      'One trusted, automatically refreshed view of the business. The end of dueling spreadsheets.',
+      'One view of the business that refreshes on its own and nobody has to rebuild.',
       'Hours of manual report assembly removed from every week.',
       'Problems surfaced while they are still cheap to fix, not at month-end.',
       'A shared set of numbers that sales, purchasing, and finance all agree on.',
@@ -147,8 +147,8 @@ export const problems: Problem[] = [
         body: 'Statistical forecasts built on your sales history that capture trend, seasonality, and promotions, at the level purchasing actually buys: SKU, product line, or vendor.',
       },
       {
-        title: 'Right-size the sophistication',
-        body: 'Simple, explainable models that beat gut feel and that your team can interrogate. Not a black box. Forecast accuracy is measured and reported every cycle, so trust is earned with evidence.',
+        title: 'Keep the model simple enough to argue with',
+        body: 'Your buyer should be able to question the forecast and get a straight answer. No black box. We measure accuracy every cycle and publish it, including the months we get it wrong.',
       },
       {
         title: 'Feed it into purchasing',
@@ -202,8 +202,8 @@ export const problems: Problem[] = [
     outcomes: [
       'Vendor negotiations backed by your own delivery and pricing data.',
       'Supply problems visible while they’re still avoidable.',
-      'A fact base for consolidating the vendor tail and leveraging volume.',
-      'Purchasing conversations that move from anecdote to evidence.',
+      'A case for consolidating the vendor tail and buying on your real volume.',
+      'Purchasing decisions made on the record, not on what someone remembers.',
     ],
     dashboardId: 'purchasing-analytics',
   },
