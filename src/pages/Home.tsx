@@ -18,7 +18,7 @@ function GradientDivider() {
 export default function Home() {
   usePageMeta(
     '',
-    'Dashboards, forecasting, and inventory work for small distributors and manufacturers. See which product lines make money, buy what will actually sell, and free the cash sitting on your shelves. Book a free discovery call.',
+    'Dashboards, forecasting, and inventory work for small distributors and manufacturers. See which product lines make money and free the cash sitting on your shelves.',
     // FAQPage belongs ONLY here — this is the one page that renders the FAQ.
     // It is generated from the same array the accordion renders (src/data/faqs.ts),
     // so the markup can never describe questions the page doesn't show.

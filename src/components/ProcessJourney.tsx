@@ -519,10 +519,23 @@ export default function ProcessJourney() {
     return () => io.disconnect()
   }, [])
 
+  // The dwell has to *resume*, not restart. The progress bar under the active
+  // station is a CSS animation that genuinely freezes in place when held, so a
+  // timer that started over on unpause would let the bar sit at 100% for a full
+  // extra dwell — promising a move that wasn't coming. We carry the remaining
+  // time across pauses, and reset it only when the phase itself changes.
+  const dwell = useRef({ phase: 0, remaining: DWELL })
+
   useEffect(() => {
+    if (dwell.current.phase !== active) dwell.current = { phase: active, remaining: DWELL }
     if (!auto || held || !inView || reduced) return
-    const t = window.setTimeout(() => setActive((i) => (i + 1) % phases.length), DWELL)
-    return () => window.clearTimeout(t)
+
+    const startedAt = Date.now()
+    const t = window.setTimeout(() => setActive((i) => (i + 1) % phases.length), dwell.current.remaining)
+    return () => {
+      window.clearTimeout(t)
+      dwell.current.remaining = Math.max(0, dwell.current.remaining - (Date.now() - startedAt))
+    }
   }, [auto, held, inView, reduced, active])
 
   const go = (i: number) => {
@@ -608,9 +621,13 @@ export default function ProcessJourney() {
                     <span
                       key={active}
                       className="journey-dwell block h-full rounded-full"
-                      // Held (hover/focus) freezes the timer where it stands, so
-                      // the bar never promises a move that isn't coming.
-                      style={vars({ '--dwell': `${DWELL}ms`, animationPlayState: held ? 'paused' : 'running' })}
+                      // Freezes wherever the advance timer freezes — on hover or
+                      // focus, and when the section scrolls out of view — so the
+                      // bar never promises a move that isn't coming.
+                      style={vars({
+                        '--dwell': `${DWELL}ms`,
+                        animationPlayState: held || !inView ? 'paused' : 'running',
+                      })}
                     />
                   )}
                 </span>

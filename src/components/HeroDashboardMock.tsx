@@ -142,7 +142,7 @@ export default function HeroDashboardMock() {
                           className="absolute -top-[18px] left-1/2 -translate-x-1/2 font-mono text-[11px] font-bold whitespace-nowrap"
                           style={{ color: '#3ff0c0' }}
                         >
-                          72%
+                          {`${b.v}%`}
                         </span>
                       )}
                     </div>
