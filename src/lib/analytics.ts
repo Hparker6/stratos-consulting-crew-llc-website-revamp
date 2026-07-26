@@ -13,10 +13,11 @@
  *  - With no GTM container, gtag.js loads directly with the GA4 ID and track()
  *    sends gtag('event', ...) instead, so reporting is identical either way.
  *    Both are never loaded at once, so no event is ever counted twice.
- *  - Nothing loads before consent. Google Consent Mode v2 defaults are pushed
- *    from index.html before any tag can execute; granting consent updates them
- *    and injects the scripts. Declining keeps the site entirely tag-free.
- *  - Microsoft Clarity loads only when an ID is set AND consent is granted.
+ *  - Analytics is on by default (no consent banner). Consent Mode v2 defaults
+ *    are pushed from index.html as `denied` before any tag can execute; on load
+ *    initAnalytics() updates them to `granted` and injects the scripts. Global
+ *    Privacy Control is the one exception, honoured as a silent decline.
+ *  - Microsoft Clarity loads only when an ID is set.
  *
  * IDs come from build-time env vars (see .env.example) so the same code can run
  * against a staging property without a commit.
@@ -35,10 +36,6 @@ export const ANALYTICS_CONFIG = {
   /** Microsoft Clarity project ID. Optional. */
   CLARITY_ID: env(import.meta.env.VITE_CLARITY_ID),
 }
-
-const CONSENT_KEY = 'stratos-consent-v1'
-
-type ConsentState = 'granted' | 'denied' | null
 
 declare global {
   interface Window {
@@ -64,60 +61,20 @@ function gtag(..._args: unknown[]) {
   dl().push(arguments)
 }
 
-export function getConsent(): ConsentState {
-  try {
-    const v = localStorage.getItem(CONSENT_KEY)
-    return v === 'granted' || v === 'denied' ? v : null
-  } catch {
-    return null
-  }
-}
-
 /** Honor Global Privacy Control: treat as an explicit, silent decline. */
 export function gpcActive(): boolean {
   return navigator.globalPrivacyControl === true
 }
 
-export function grantConsent() {
-  try {
-    localStorage.setItem(CONSENT_KEY, 'granted')
-  } catch {
-    /* private mode — session-only consent */
-  }
-  gtag('consent', 'update', {
-    analytics_storage: 'granted',
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-  })
-  window.clarity?.('consent')
-  loadTags()
-  track('consent_granted')
-}
-
-export function denyConsent() {
-  try {
-    localStorage.setItem(CONSENT_KEY, 'denied')
-  } catch {
-    /* ignore */
-  }
-  // Withdrawal must actually take effect, not just be recorded. Consent Mode is
-  // told to deny analytics storage, which stops GA4 writing or reading cookies
-  // from this point on, and track() refuses to emit anything further.
+/** GPC visitors: keep Consent Mode's analytics storage denied, so no tags load
+ *  and track() stays silent for them (see initAnalytics / track). */
+function denyConsent() {
   gtag('consent', 'update', {
     analytics_storage: 'denied',
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
   })
-}
-
-/** Name of the event that asks the consent banner to re-open. */
-export const CONSENT_SETTINGS_EVENT = 'stratos:open-consent'
-
-/** Lets a visitor revisit their choice after the banner is gone (footer link). */
-export function openConsentSettings() {
-  window.dispatchEvent(new Event(CONSENT_SETTINGS_EVENT))
 }
 
 function injectScript(src: string) {

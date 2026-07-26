@@ -35,7 +35,6 @@ export const EVENTS = {
   FILE_DOWNLOAD: 'file_download',
   SECTION_VIEW: 'section_view',
   DASHBOARD_INTERACTION: 'dashboard_interaction',
-  CONSENT_GRANTED: 'consent_granted',
 } as const
 
 export type AnalyticsEvent = (typeof EVENTS)[keyof typeof EVENTS]
@@ -110,10 +109,6 @@ export const EVENT_CATALOG: Record<
   dashboard_interaction: {
     fires: 'A click on a sample-dashboard preview or its "see the solutions" link — a strong intent signal, since it means the visitor engaged with the actual work product.',
     params: ['label', 'link_path', 'page_path'],
-  },
-  consent_granted: {
-    fires: 'Visitor pressed "Allow" on the consent banner.',
-    params: [],
   },
 }
 
@@ -196,10 +191,6 @@ export function trackFileDownload(url: string) {
 
 export function trackSectionView(section: string) {
   track(EVENTS.SECTION_VIEW, { section, page_path: page() })
-}
-
-export function trackConsentGranted() {
-  track(EVENTS.CONSENT_GRANTED)
 }
 
 function safeHost(url: string): string {

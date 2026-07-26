@@ -107,7 +107,7 @@ const services: Service[] = [
     icon: IconOrbit, accent: GOLD, glow: 'rgba(245,181,68,0.14)', num: '06',
     title: 'Ongoing Analytics Partnership',
     body: 'The dashboard answers the questions you had in March. By June you have new ones — rent the analyst instead of hiring one.',
-    tag: 'Fractional', metric: '$500–$1.5k / mo · month-to-month', wide: true,
+    tag: 'Fractional', metric: '$1.5k–$4k / mo · month-to-month', wide: true,
   },
 ]
 
