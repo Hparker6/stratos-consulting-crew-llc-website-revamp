@@ -26,9 +26,9 @@ export interface PricingTier {
 export const tiers: PricingTier[] = [
   {
     name: 'Discovery Assessment',
-    price: '$299–$499',
-    priceLow: 299,
-    priceHigh: 499,
+    price: '$750–$1,500',
+    priceLow: 750,
+    priceHigh: 1500,
     unit: 'project',
     outcome: 'Know exactly where the money is hiding.',
     features: [
@@ -41,9 +41,9 @@ export const tiers: PricingTier[] = [
   },
   {
     name: 'Dashboard Package',
-    price: '$1k–$2.5k',
-    priceLow: 1000,
-    priceHigh: 2500,
+    price: '$4k–$8k',
+    priceLow: 4000,
+    priceHigh: 8000,
     unit: 'project',
     outcome: 'One trusted view of the business, updated automatically.',
     features: [
@@ -56,9 +56,9 @@ export const tiers: PricingTier[] = [
   },
   {
     name: 'Forecasting Project',
-    price: '$2.5k–$5k',
-    priceLow: 2500,
-    priceHigh: 5000,
+    price: '$6k–$12k',
+    priceLow: 6000,
+    priceHigh: 12000,
     unit: 'project',
     outcome: 'Buy what will sell. Stock what moves. Free the rest.',
     features: [
@@ -71,9 +71,9 @@ export const tiers: PricingTier[] = [
   },
   {
     name: 'Monthly Retainer',
-    price: '$500–$1.5k/mo',
-    priceLow: 500,
-    priceHigh: 1500,
+    price: '$1.5k–$4k/mo',
+    priceLow: 1500,
+    priceHigh: 4000,
     unit: 'month',
     outcome: 'An analytics team, without the headcount.',
     features: [
@@ -97,6 +97,6 @@ export const guarantees = [
   },
   {
     title: 'Start tiny',
-    body: 'The first call is free and the assessment is a few hundred dollars. You risk a conversation, not a budget.',
+    body: 'The first call is free and the assessment is a small fixed fee. You risk a conversation, not a budget.',
   },
 ]
