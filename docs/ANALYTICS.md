@@ -40,8 +40,8 @@ defaults are set to `denied` in `index.html` before any tag can run, then
 `initAnalytics()` updates analytics storage to `granted` on load and injects the
 tags. The one exception is **Global Privacy Control**: a browser sending GPC is
 treated as a silent, permanent decline — it is never tagged and `track()` stays
-silent for it. (The old allow/deny banner and `CookieConsent` component were
-removed, so the `consent_granted` event below no longer fires.)
+silent for it. (The old allow/deny banner and `CookieConsent` component — and the
+now-unused grant/deny/settings consent helpers — have been removed.)
 
 ---
 
@@ -65,7 +65,6 @@ removed, so the `consent_granted` event below no longer fires.)
 | `file_download` | | Link to pdf/doc/xls/csv/ppt/zip. | `link_url`, `file_extension`, `page_path` |
 | `section_view` | | A key section scrolls ~40% into view. Once per section. | `section`, `page_path` |
 | `dashboard_interaction` | | Click on a sample-dashboard preview or its link. Strong intent signal. | `label`, `link_path`, `page_path` |
-| `consent_granted` | | Visitor pressed "Allow". | — |
 
 ### `label` values for CTAs
 
