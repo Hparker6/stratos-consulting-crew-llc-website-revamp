@@ -159,16 +159,27 @@ function loadTags() {
   }
 }
 
-/** Boot: apply stored consent (or GPC) — called once from main.tsx. */
+/**
+ * Boot — called once from main.tsx.
+ *
+ * Analytics is on by default so navigation is measured for every visitor: there
+ * is no banner and no allow/deny gate. The single exception is a browser sending
+ * Global Privacy Control, a legally recognized opt-out we continue to honor —
+ * those visitors are never tagged and track() stays silent for them.
+ */
 export function initAnalytics() {
-  if (gpcActive() && getConsent() === null) {
+  if (gpcActive()) {
     denyConsent()
     return
   }
-  if (getConsent() === 'granted') {
-    gtag('consent', 'update', { analytics_storage: 'granted' })
-    loadTags()
-  }
+  gtag('consent', 'update', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  })
+  window.clarity?.('consent')
+  loadTags()
 }
 
 /**
@@ -179,7 +190,9 @@ export function initAnalytics() {
  * GA4), never both, so a single call can never produce two hits.
  */
 export function track(event: string, params: Record<string, unknown> = {}) {
-  if (getConsent() !== 'granted') return
+  // Tracking is default-on; the only visitors we stay silent for are those whose
+  // browser sends Global Privacy Control (mirrors initAnalytics()).
+  if (gpcActive()) return
   if (ANALYTICS_CONFIG.GTM_ID) {
     dl().push({ event, ...params })
   } else {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { faqs } from '../data/faqs'
+import SectionHeader from './SectionHeader'
 
 export default function FAQ() {
   const [open, setOpen] = useState<number>(0)
@@ -7,12 +8,22 @@ export default function FAQ() {
   return (
     <section id="faq" className="section bg-surface border-t-hairline border-b-hairline">
       <div className="container-prose text-center">
-        <p className="eyebrow text-primary mb-3">FAQ</p>
-        <h2 className="t-h2">
-          Questions distributors ask us.
-        </h2>
+        <SectionHeader
+          index="07"
+          eyebrow="FAQ"
+          accent="blue"
+          align="center"
+          title={
+            <>
+              Questions distributors{' '}
+              <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>
+                ask us.
+              </em>
+            </>
+          }
+        />
 
-        <div className="mt-8 space-y-3 text-left">
+        <div className="mt-10 space-y-3 text-left">
           {faqs.map((item, i) => (
             <div
               key={i}

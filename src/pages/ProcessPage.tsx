@@ -16,15 +16,13 @@ export default function ProcessPage() {
         eyebrow="Our Process"
         title={
           <>
-            Low risk by design, <span className="gradient-text">every step of the way.</span>
+            Low risk by design, <span className="gradient-text italic">every step of the way.</span>
           </>
         }
         lede="Each phase is scoped and priced before it starts, ends with something you own, and earns the next one. You can stop after any step and keep everything produced so far."
       />
 
       <section className="relative overflow-hidden section-sm bg-bg">
-        <div className="pointer-events-none absolute inset-0 dot-grid" aria-hidden="true" />
-
         <div className="relative container-page">
           <ProcessJourney />
 

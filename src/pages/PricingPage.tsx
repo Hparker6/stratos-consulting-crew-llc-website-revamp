@@ -34,7 +34,7 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title={
           <>
-            No mystery quotes. <span className="gradient-text">No runaway invoices.</span>
+            No mystery quotes. <span className="gradient-text italic">No runaway invoices.</span>
           </>
         }
         lede="You shouldn't have to book a call just to learn whether this costs $2,000 or $50,000. Here are the real ranges, what moves you within them, and the terms that keep every engagement low-risk."

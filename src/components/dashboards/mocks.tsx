@@ -145,12 +145,12 @@ export function DemandForecastingMock() {
 
       <Panel
         title="Units sold, actual vs forecast, next quarter projected"
-        right={<LegendKey items={[{ label: 'actual', color: CHART.blue }, { label: 'forecast', color: CHART.green, dashed: true }]} />}
+        right={<LegendKey items={[{ label: 'actual', color: CHART.blue }, { label: 'forecast', color: CHART.gold, dashed: true }]} />}
       >
         <MiniLine
           series={[
             { label: 'actual', color: CHART.blue, points: [38, 42, 35, 48, 44, 52, 56, 50, 60, 65, 58, 70] },
-            { label: 'forecast', color: CHART.green, dashed: true, points: [40, 43, 38, 46, 46, 51, 55, 52, 61, 63, 60, 72] },
+            { label: 'forecast', color: CHART.gold, dashed: true, points: [40, 43, 38, 46, 46, 51, 55, 52, 61, 63, 60, 72] },
           ]}
           height={92}
         />
@@ -239,7 +239,7 @@ export function SalesReportingMock() {
 
       <Panel
         title="Revenue mix, repeat vs new customers ($K)"
-        right={<LegendKey items={[{ label: 'repeat', color: CHART.blue }, { label: 'new', color: CHART.green }]} />}
+        right={<LegendKey items={[{ label: 'repeat', color: CHART.blue }, { label: 'new', color: CHART.gold }]} />}
       >
         <div className="flex items-end gap-[6px]" style={{ height: 72 }}>
           {months.map((m, i) => (
@@ -249,7 +249,7 @@ export function SalesReportingMock() {
               style={{ maxWidth: 34, gap: 2 }}
               title={`${m}: $${repeat[i]}K repeat · $${fresh[i]}K new`}
             >
-              <div style={{ height: `${(fresh[i] / maxTotal) * 100}%`, background: CHART.green, borderRadius: '4px 4px 2px 2px' }} />
+              <div style={{ height: `${(fresh[i] / maxTotal) * 100}%`, background: CHART.gold, borderRadius: '4px 4px 2px 2px' }} />
               <div style={{ height: `${(repeat[i] / maxTotal) * 100}%`, background: CHART.blue, borderRadius: '2px' }} />
             </div>
           ))}

@@ -1,199 +1,105 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import HeroDashboard, { type DashView } from './HeroDashboard'
 
-function PreviewMock() {
-  const actualPoints = [38, 42, 35, 48, 44, 52, 56, 50, 60, 65, 58, 70]
-  const forecastPoints = [40, 44, 42, 46, 50, 54, 58, 56, 62, 68, 65, 72]
-  const w = 280
-  const h = 70
-  const pad = 6
-
-  function toPath(pts: number[]): string {
-    return pts
-      .map((v, i) => {
-        const x = pad + (i / (pts.length - 1)) * (w - pad * 2)
-        const y = h - pad - ((v - 30) / 50) * (h - pad * 2)
-        return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
-      })
-      .join(' ')
-  }
-
-  function toAreaPath(pts: number[]): string {
-    const linePart = toPath(pts)
-    const lastX = (pad + (w - pad * 2)).toFixed(1)
-    const firstX = pad.toFixed(1)
-    return `${linePart} L ${lastX} ${h} L ${firstX} ${h} Z`
-  }
-
-  const inventoryBars = [
-    { h: 65, label: 'A', good: false },
-    { h: 80, label: 'B', good: true },
-    { h: 50, label: 'C', good: false },
-    { h: 70, label: 'D', good: true },
-    { h: 58, label: 'E', good: false },
-  ]
-
-  return (
-    <div className="dash-glass rounded-[16px] overflow-hidden w-full" style={{ maxWidth: 420 }}>
-      <div
-        className="flex items-center justify-between px-4 py-3"
-        style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(0,0,0,0.2)' }}
-      >
-        <span className="font-heading font-semibold text-[13px] text-text-base">Distributor KPIs</span>
-        <div className="flex gap-1">
-          {['Week', 'MTD', 'YTD'].map((tab) => (
-            <button
-              key={tab}
-              className="font-mono text-[9px] px-2 py-[3px] rounded-[4px] tracking-wide uppercase"
-              style={
-                tab === 'YTD'
-                  ? { background: '#2f8fff', color: '#04102a', fontWeight: 700 }
-                  : { color: '#7f8ba0', background: 'transparent' }
-              }
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="p-4 space-y-3">
-        <div className="grid grid-cols-2 gap-3">
-          {[
-            { label: 'INVENTORY TURNS', value: '6.4', delta: '▲0.8' },
-            { label: 'FILL RATE', value: '97.2%', delta: '▲1.4%' },
-          ].map((k) => (
-            <div
-              key={k.label}
-              className="dash-tile rounded-[10px] p-3"
-            >
-              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-faint mb-1">{k.label}</p>
-              <div className="flex items-end gap-2">
-                <span className="font-heading font-bold text-[20px] leading-none text-text-base">{k.value}</span>
-                <span className="font-mono text-[10px] font-bold mb-[1px]" style={{ color: '#27e0a0' }}>
-                  {k.delta}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div
-          className="rounded-[10px] p-3"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-        >
-          <div className="flex items-center justify-between mb-2">
-            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-faint">Demand forecast vs actual</p>
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1 font-mono text-[8px] text-faint">
-                <span className="inline-block w-3 h-[2px] bg-primary rounded" /> actual
-              </span>
-              <span className="flex items-center gap-1 font-mono text-[8px] text-faint">
-                <span className="inline-block w-3 h-[2px] rounded" style={{ background: '#27e0a0' }} /> forecast
-              </span>
-            </div>
-          </div>
-          <svg width="100%" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" style={{ height: 64 }}>
-            <defs>
-              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#2f8fff" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#2f8fff" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            {[0.25, 0.5, 0.75].map((f) => (
-              <line key={f} x1={pad} y1={pad + f * (h - pad * 2)} x2={w - pad} y2={pad + f * (h - pad * 2)} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-            ))}
-            <path d={toAreaPath(actualPoints)} fill="url(#areaGrad)" />
-            <path d={toPath(actualPoints)} fill="none" stroke="#2f8fff" strokeWidth="1.8" strokeLinecap="round" />
-            <path
-              d={toPath(forecastPoints)}
-              fill="none"
-              stroke="#27e0a0"
-              strokeWidth="1.5"
-              strokeDasharray="4 3"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-
-        <div
-          className="rounded-[10px] p-3"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-        >
-          <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-faint mb-3">
-            Inventory health by category
-          </p>
-          <div className="flex items-end gap-2 h-12">
-            {inventoryBars.map((b, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-t-[4px]"
-                style={{
-                  height: `${b.h}%`,
-                  background: b.good
-                    ? 'linear-gradient(180deg, #3ff0c0 0%, #0fa96f 100%)'
-                    : 'linear-gradient(180deg, rgba(47,143,255,0.9) 0%, rgba(47,143,255,0.28) 100%)',
-                  boxShadow: b.good ? '0 0 12px rgba(47,224,160,0.35)' : 'none',
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+const tabs: { id: DashView; label: string; caption: string; icon: JSX.Element }[] = [
+  {
+    id: 'overview',
+    label: 'Executive Overview',
+    caption: 'Every number that runs the business on one screen — revenue, margin, turns, fill rate — refreshed overnight, drillable to a single SKU.',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+      </svg>
+    ),
+  },
+  {
+    id: 'forecast',
+    label: 'Forecasting',
+    caption: 'Statistical demand forecasts, tracked openly for accuracy, that tell purchasing exactly what to buy and when the seasonal window closes.',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 17l6-6 4 4 8-9" /><path d="M17 6h4v4" />
+      </svg>
+    ),
+  },
+  {
+    id: 'inventory',
+    label: 'Inventory',
+    caption: 'The cash trapped in slow-moving stock, the dead inventory to clear, and the reorder points that keep the fast movers on the shelf.',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" /><path d="M12 3v18M4 7.5l8 4.5 8-4.5" />
+      </svg>
+    ),
+  },
+]
 
 export default function DashboardPreview() {
+  const [active, setActive] = useState<DashView>('overview')
+  const current = tabs.find((t) => t.id === active) ?? tabs[0]
+
   return (
-    <section id="dashboard" className="section bg-bg">
+    <section id="dashboard" className="section bg-bg border-t-hairline">
       <div className="container-page">
-        <div
-          className="rounded-[24px] p-8 lg:p-10 flex flex-col lg:flex-row gap-10 lg:items-center"
-          style={{
-            background: '#101a2e',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: '0 0 80px rgba(47,143,255,0.06)',
-          }}
-        >
-          <div className="flex-1 max-w-md" data-reveal>
-            <p className="eyebrow text-primary mb-3">What you get</p>
-            <h2 className="t-h3">
-              One screen to run the week from.
-            </h2>
-            <p className="mt-4 text-muted font-medium text-body-lg">
-              Today those numbers live in the ERP, the accounting system, and a spreadsheet only one person
-              knows how to update. By the time someone pulls them together, the week is over. This refreshes
-              overnight, on its own.
-            </p>
-            <ul className="mt-5 space-y-3">
-              {[
-                'Connects to your ERP, accounting & inventory',
-                'Weekly reports land in your inbox automatically',
-                'Drill from company-wide down to a single SKU',
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="text-secondary mt-[2px] font-bold text-sm flex-shrink-0">✓</span>
-                  <span className="text-muted font-medium text-body leading-snug">{item}</span>
-                </li>
-              ))}
-            </ul>
+        <header className="max-w-2xl" data-reveal>
+          <div className="chapter">
+            <span className="chapter-index">◇</span>
+            <span className="eyebrow text-primary">What you get</span>
+          </div>
+          <h2 className="t-h2 mt-6 max-w-[18ch]">
+            The same screens we'd{' '}
+            <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>build for you.</em>
+          </h2>
+          <p className="mt-5 text-muted font-medium text-body-lg leading-relaxed max-w-[54ch]">
+            Not a template. Every view is built on your ERP, accounting, and inventory data — one place
+            your team already trusts, refreshed while you sleep.
+          </p>
+        </header>
+
+        {/* Tab bar — switch product views, Ashby-style. */}
+        <div className="mt-10 flex flex-wrap gap-2" role="tablist" aria-label="Dashboard views">
+          {tabs.map((t) => {
+            const on = t.id === active
+            return (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                onClick={() => setActive(t.id)}
+                className={`tab-pill inline-flex items-center gap-2 rounded-full px-4 py-2 font-heading font-semibold text-[14px] ${on ? 'is-active' : ''}`}
+              >
+                <span className={on ? 'text-btn-dark' : 'text-primary'}>{t.icon}</span>
+                {t.label}
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="mt-8 grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-10 lg:gap-14 items-center">
+          {/* Product view — re-keyed so entrance motion replays on tab change. */}
+          <div className="relative flex justify-center lg:justify-start" data-reveal>
+            <div className="relative w-full max-w-[680px]">
+              <div className="dash-underglow" aria-hidden="true" />
+              <div key={active} className="relative z-10 dash-swap">
+                <HeroDashboard view={active} />
+              </div>
+            </div>
+          </div>
+
+          {/* Caption for the active view. */}
+          <div className="lg:pl-6 lg:border-l border-[var(--line)]">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-secondary mb-3">{current.label}</p>
+            <p className="text-text-base font-medium text-body-lg leading-relaxed">{current.caption}</p>
             <Link
               to="/solutions"
-              className="inline-flex mt-6 text-primary font-bold text-[15px] hover:underline"
+              className="inline-flex mt-6 font-bold text-[15px] text-text-base border-b-2 border-secondary pb-[3px] hover:opacity-80 transition-opacity"
               data-track="dashboard_interaction"
               data-track-label="home_preview_to_solutions"
             >
-              See six sample dashboards, problem by problem →
+              See six sample dashboards →
             </Link>
-          </div>
-
-          <div className="flex-1 flex justify-center lg:justify-end" data-reveal data-reveal-delay={120}>
-            <div className="relative w-full max-w-[420px]">
-              <div className="dash-underglow" aria-hidden="true" />
-              <div className="relative z-10">
-                <PreviewMock />
-              </div>
-            </div>
           </div>
         </div>
       </div>

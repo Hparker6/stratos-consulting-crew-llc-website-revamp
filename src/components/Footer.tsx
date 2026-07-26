@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom'
 import { Logo } from './Nav'
 import BookCallLink from './BookCallLink'
-import { openConsentSettings } from '../lib/analytics'
 import { CONTACT_EMAIL, CONTACT_MAILTO, HAS_LINKEDIN, LINKEDIN_URL } from '../lib/site'
 
 const exploreLinks = [
-  { label: 'Services', to: '/services' },
   { label: 'Solutions', to: '/solutions' },
   { label: 'Our Process', to: '/process' },
   { label: 'Pricing', to: '/pricing' },
@@ -130,16 +128,6 @@ export default function Footer() {
                 {l.label}
               </Link>
             ))}
-            {/* Re-opens the consent banner. Without this, a visitor who pressed
-                "Allow" had no way to change their mind — a stated right in the
-                privacy policy needs an actual control behind it. */}
-            <button
-              type="button"
-              onClick={openConsentSettings}
-              className="font-mono text-[10px] text-faint hover:text-muted tracking-wide transition-colors"
-            >
-              Cookie settings
-            </button>
           </div>
           <p className="font-mono text-[14px] text-muted tracking-wide">Built on your data.</p>
         </div>

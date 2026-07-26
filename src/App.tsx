@@ -3,7 +3,6 @@ import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-do
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
-import CookieConsent from './components/CookieConsent'
 import SiteSchema from './components/SiteSchema'
 import { resetPageTracking } from './lib/autoTrack'
 import { trackPageView } from './lib/events'
@@ -19,7 +18,6 @@ import {
   PricingPage,
   PrivacyPage,
   ProcessPage,
-  ServicesPage,
   SolutionsPage,
   TermsPage,
 } from './routes'
@@ -56,6 +54,10 @@ export default function App() {
       <a href="#main" className="skip-link btn-primary">
         Skip to content
       </a>
+      {/* Filmic grain over the entire viewport (decorative, non-interactive).
+          Gives the flat navy plane a physical, lit-photograph surface — the
+          difference between "screen" and "print". Removed under forced-colors. */}
+      <div className="grain-overlay" aria-hidden="true" />
       <ScrollToTop />
       <SiteSchema />
       <PageViewTracker />
@@ -65,7 +67,8 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<ServicesPage />} />
+          {/* Services merged into the problem-led Solutions page (2026-07). */}
+          <Route path="/services" element={<Navigate to="/solutions" replace />} />
           <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/pricing" element={<PricingPage />} />
@@ -81,7 +84,6 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-      <CookieConsent />
     </div>
   )
 }

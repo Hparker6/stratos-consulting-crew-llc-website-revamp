@@ -36,7 +36,7 @@ export default function AboutPage() {
         eyebrow="About"
         title={
           <>
-            Small on purpose. <span className="gradient-text">Technical by training.</span>
+            Small on purpose. <span className="gradient-text italic">Technical by training.</span>
           </>
         }
         lede="A $5–50M supplier has the same questions a Fortune 500 does. What it doesn't have is a six-figure budget, a team of juniors to manage, or any interest in replacing the systems it just finished paying for. That gap is why Stratos exists."

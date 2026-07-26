@@ -73,7 +73,6 @@ function createRoute(loader: () => Promise<RouteModule>): RouteComponent {
 }
 
 export const Home = createRoute(() => import('./pages/Home'))
-export const ServicesPage = createRoute(() => import('./pages/ServicesPage'))
 export const SolutionsPage = createRoute(() => import('./pages/SolutionsPage'))
 export const ProcessPage = createRoute(() => import('./pages/ProcessPage'))
 export const PricingPage = createRoute(() => import('./pages/PricingPage'))
@@ -86,7 +85,6 @@ export const NotFoundPage = createRoute(() => import('./pages/NotFoundPage'))
 /** Path → route, for preloading the entry route and prefetching on hover. */
 export const routeByPath: Record<string, RouteComponent> = {
   '/': Home,
-  '/services': ServicesPage,
   '/solutions': SolutionsPage,
   '/process': ProcessPage,
   '/pricing': PricingPage,

@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join, extname } from 'node:path'
 
 const ROUTES = [
-  '/', '/services', '/solutions', '/process', '/pricing', '/about',
+  '/', '/solutions', '/process', '/pricing', '/about',
   '/contact', '/privacy', '/terms',
 ]
 const PORT = 4917

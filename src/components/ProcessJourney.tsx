@@ -63,7 +63,7 @@ function StageDiscovery() {
           className="stage-in mt-3 pt-3"
           style={vars({ '--d': '1600ms', borderTop: '1px solid var(--line-soft)' })}
         >
-          <span className="font-mono text-[9px]" style={{ color: CHART.green }}>
+          <span className="font-mono text-[9px]" style={{ color: CHART.gold }}>
             ✓ analytics can move two of these
           </span>
         </div>
@@ -126,7 +126,7 @@ function StageAssess() {
                 <span className="font-mono text-[9px] text-muted truncate">{r.l}</span>
                 <span
                   className="font-mono text-[10px] font-bold flex-shrink-0"
-                  style={{ color: r.top ? CHART.green : CHART.textMuted }}
+                  style={{ color: r.top ? CHART.gold : CHART.textMuted }}
                 >
                   {r.v}
                 </span>
@@ -139,16 +139,16 @@ function StageAssess() {
                     width: `${r.pct}%`,
                     borderRadius: '0 4px 4px 0',
                     background: r.top
-                      ? 'linear-gradient(90deg, rgba(15,169,111,0.45), #3ff0c0)'
+                      ? 'linear-gradient(90deg, rgba(15,169,111,0.45), #ffca5c)'
                       : 'linear-gradient(90deg, rgba(47,143,255,0.35), rgba(47,143,255,0.9))',
-                    boxShadow: r.top ? '0 0 14px rgba(63,240,192,0.35)' : 'none',
+                    boxShadow: r.top ? '0 0 14px rgba(255, 202, 92,0.35)' : 'none',
                   })}
                 />
               </div>
             </div>
           ))}
         </div>
-        <p className="stage-in mt-3 font-mono text-[9px]" style={vars({ '--d': '2000ms', color: CHART.green })}>
+        <p className="stage-in mt-3 font-mono text-[9px]" style={vars({ '--d': '2000ms', color: CHART.gold })}>
           ▲ biggest win first · yours to act on, with us or without us
         </p>
       </Panel>
@@ -186,7 +186,7 @@ function StageBuild() {
             <span className="font-mono text-[8px] tracking-[0.12em] text-faint">{k.l}</span>
             <div className="flex items-end gap-[6px] mt-1">
               <span className="font-heading font-bold text-[18px] leading-none text-text-base">{k.v}</span>
-              <span className="font-mono text-[10px] font-bold mb-[1px]" style={{ color: CHART.green }}>
+              <span className="font-mono text-[10px] font-bold mb-[1px]" style={{ color: CHART.gold }}>
                 {k.delta}
               </span>
             </div>
@@ -227,15 +227,15 @@ function StageBuild() {
             strokeLinejoin="round"
             style={vars({ '--len': 360 })}
           />
-          <circle className="fc-ping" cx={X(pts.length - 1)} cy={Y(pts[pts.length - 1])} r="6" fill="none" stroke="#3ff0c0" strokeWidth="1" />
-          <circle cx={X(pts.length - 1)} cy={Y(pts[pts.length - 1])} r="3.4" fill="#3ff0c0" />
+          <circle className="fc-ping" cx={X(pts.length - 1)} cy={Y(pts[pts.length - 1])} r="6" fill="none" stroke="#ffca5c" strokeWidth="1" />
+          <circle cx={X(pts.length - 1)} cy={Y(pts[pts.length - 1])} r="3.4" fill="#ffca5c" />
         </svg>
       </Panel>
 
       <div className="space-y-[7px]">
         {checks.map((c) => (
           <p key={c.t} className="stage-in flex items-center gap-2 font-mono text-[9px] text-muted" style={vars({ '--d': `${c.d}ms` })}>
-            <span style={{ color: CHART.green }}>✓</span>
+            <span style={{ color: CHART.gold }}>✓</span>
             {c.t}
           </p>
         ))}
@@ -267,7 +267,7 @@ function StageImplement() {
               className="flow-dash"
               d={`M 92 56 C 128 56, 140 ${dst.y}, 172 ${dst.y}`}
               fill="none"
-              stroke="#3ff0c0"
+              stroke="#ffca5c"
               strokeWidth="1.5"
               strokeDasharray="4 5"
               opacity="0.75"
@@ -282,8 +282,8 @@ function StageImplement() {
           </text>
           {dests.map((dst) => (
             <g key={dst.t} className="tick-in" style={vars({ '--d': `${dst.d}ms` })}>
-              <rect x="172" y={dst.y - 11} width="116" height="22" rx="6" fill="rgba(39,224,160,0.10)" stroke="rgba(39,224,160,0.32)" />
-              <circle cx="185" cy={dst.y} r="5" fill="rgba(39,224,160,0.9)" />
+              <rect x="172" y={dst.y - 11} width="116" height="22" rx="6" fill="rgba(245, 181, 68,0.10)" stroke="rgba(245, 181, 68,0.32)" />
+              <circle cx="185" cy={dst.y} r="5" fill="rgba(245, 181, 68,0.9)" />
               <path
                 d={`M 182.6 ${dst.y} l 1.8 1.9 l 3.6 -3.9`}
                 fill="none"
@@ -306,7 +306,7 @@ function StageImplement() {
           { t: 'documented', s: 'every definition, written down', d: 1800 },
         ].map((c) => (
           <div key={c.t} className="stage-in dash-tile rounded-[10px] px-3 py-[10px]" style={vars({ '--d': `${c.d}ms` })}>
-            <p className="font-mono text-[9px] font-bold" style={{ color: CHART.green }}>
+            <p className="font-mono text-[9px] font-bold" style={{ color: CHART.gold }}>
               ✓ {c.t}
             </p>
             <p className="font-mono text-[8px] text-faint mt-[3px]">{c.s}</p>
@@ -332,8 +332,8 @@ function StageOngoing() {
       <Panel
         title="Monthly cadence"
         right={
-          <span className="flex items-center gap-[5px] font-mono text-[8px]" style={{ color: '#3ff0c0' }}>
-            <span className="pulse-dot w-[6px] h-[6px] rounded-full" style={{ background: '#3ff0c0', color: '#3ff0c0' }} />
+          <span className="flex items-center gap-[5px] font-mono text-[8px]" style={{ color: '#ffca5c' }}>
+            <span className="pulse-dot w-[6px] h-[6px] rounded-full" style={{ background: '#ffca5c', color: '#ffca5c' }} />
             active
           </span>
         }
@@ -341,7 +341,7 @@ function StageOngoing() {
         <div className="relative pt-2 pb-1">
           <div className="absolute left-0 right-0 top-[13px] h-[2px] rounded wire-flow" />
           <div className="absolute top-[9px] left-0 right-0 timeline-pulse">
-            <span className="block w-[10px] h-[10px] rounded-full" style={{ background: '#3ff0c0', boxShadow: '0 0 10px #3ff0c0' }} />
+            <span className="block w-[10px] h-[10px] rounded-full" style={{ background: '#ffca5c', boxShadow: '0 0 10px #ffca5c' }} />
           </div>
           <div className="relative flex justify-between">
             {months.map((m, i) => (
@@ -349,10 +349,10 @@ function StageOngoing() {
                 <span
                   className="w-[12px] h-[12px] rounded-full"
                   style={{
-                    background: i === 3 ? '#3ff0c0' : 'rgba(255,255,255,0.10)',
+                    background: i === 3 ? '#ffca5c' : 'rgba(255,255,255,0.10)',
                     border: '2px solid',
-                    borderColor: i === 3 ? '#3ff0c0' : 'rgba(255,255,255,0.22)',
-                    boxShadow: i === 3 ? '0 0 12px rgba(63,240,192,0.6)' : 'none',
+                    borderColor: i === 3 ? '#ffca5c' : 'rgba(255,255,255,0.22)',
+                    boxShadow: i === 3 ? '0 0 12px rgba(255, 202, 92,0.6)' : 'none',
                   }}
                 />
                 <span className="font-mono text-[8px] text-faint">{m}</span>
@@ -384,13 +384,13 @@ function StageOngoing() {
                 style={{
                   height: `${b}%`,
                   borderRadius: '3px 3px 0 0',
-                  background: i === a.length - 1 ? 'linear-gradient(180deg, #3ff0c0, #2f8fff)' : 'rgba(47,143,255,0.4)',
+                  background: i === a.length - 1 ? 'linear-gradient(180deg, #ffca5c, #2f8fff)' : 'rgba(47,143,255,0.4)',
                   animationDelay: `${i * 70}ms`,
                 }}
               />
             ))}
           </div>
-          <p className="stage-in mt-2 font-mono text-[9px]" style={vars({ '--d': '900ms', color: CHART.green })}>
+          <p className="stage-in mt-2 font-mono text-[9px]" style={vars({ '--d': '900ms', color: CHART.gold })}>
             ▲ compounding, month over month
           </p>
         </Panel>

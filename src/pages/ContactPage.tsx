@@ -22,7 +22,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={
           <>
-            Tell us where it hurts. <span className="gradient-text">We'll tell you the truth.</span>
+            Tell us where it hurts. <span className="gradient-text italic">We'll tell you the truth.</span>
           </>
         }
         lede={

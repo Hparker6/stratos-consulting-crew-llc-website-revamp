@@ -17,7 +17,7 @@ export default function TermsPage() {
         eyebrow="Terms"
         title={
           <>
-            The rules of this website. <span className="gradient-text">Short version.</span>
+            The rules of this website. <span className="gradient-text italic">Short version.</span>
           </>
         }
         lede="These terms cover the use of this website. The work itself is governed by the written, fixed-scope agreement we sign before an engagement starts."

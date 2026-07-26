@@ -3,9 +3,11 @@ import { ReactNode } from 'react'
 /**
  * Chart palette — validated for the dark surface (#0d1526): lightness band,
  * chroma floor, CVD adjacent-pair separation, and 3:1 contrast all pass.
- * Brand green #27e0a0 is intentionally NOT used for marks (too light on this
- * surface); #0fa96f is its chart-safe step. Status colors are reserved for
- * state (healthy/watch/serious) and never double as series colors.
+ * The second series is the brand gold, stepped to #eab24d so thin marks keep
+ * enough contrast on this surface. Blue + gold is a blue–yellow pair, which is
+ * the safest possible pairing for red–green colour blindness — better than the
+ * blue–green it replaces. Status colours are reserved for state
+ * (healthy/watch/serious) and never double as series colours.
  */
 export const CHART = {
   surface: '#0d1526',
@@ -13,7 +15,7 @@ export const CHART = {
   panelBorder: 'rgba(255,255,255,0.09)',
   grid: 'rgba(255,255,255,0.07)',
   blue: '#2f8fff',
-  green: '#0fa96f',
+  gold: '#eab24d',
   violet: '#8b5cf6',
   amber: '#d97706',
   status: { good: '#0fa96f', warn: '#d97706', serious: '#e0504f' },
@@ -249,7 +251,7 @@ export function MiniCols({
               style={{
                 height: `${(v / maxV) * 100}%`,
                 background:
-                  colors?.[i] ?? (highlightLast && i === values.length - 1 ? CHART.green : CHART.blue),
+                  colors?.[i] ?? (highlightLast && i === values.length - 1 ? CHART.gold : CHART.blue),
                 borderRadius: '4px 4px 0 0',
                 maxWidth: 24,
               }}

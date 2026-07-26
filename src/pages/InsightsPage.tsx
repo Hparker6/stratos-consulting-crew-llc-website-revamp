@@ -17,7 +17,7 @@ export default function InsightsPage() {
         eyebrow="Insights"
         title={
           <>
-            Practical analytics thinking, <span className="gradient-text">in plain English.</span>
+            Practical analytics thinking, <span className="gradient-text italic">in plain English.</span>
           </>
         }
         lede="How we think about inventory, forecasting, profitability, and reporting for mid-size suppliers. New pieces publish here and on LinkedIn, and this page is their permanent home."
