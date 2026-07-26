@@ -1,1 +1,1 @@
-spa-rewrite-v2-marker
+spa-rewrite-v3-nocleanurls
