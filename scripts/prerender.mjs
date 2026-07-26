@@ -54,15 +54,31 @@ function findSystemBrowser() {
 }
 
 try {
-  const { default: puppeteer } = await import('puppeteer')
   await new Promise((resolve) => server.listen(PORT, resolve))
 
-  const executablePath = findSystemBrowser()
-  const browser = await puppeteer.launch({
-    executablePath, // undefined → puppeteer's own chromium (CI)
-    headless: true,
-    args: ['--no-sandbox', '--disable-gpu'],
-  })
+  const { default: puppeteer } = await import('puppeteer-core')
+
+  // Vercel's build image has no system Chrome, so there we drive a
+  // serverless-compatible Chromium (@sparticuz/chromium). Locally/CI we point
+  // puppeteer-core at a system browser (Chrome/Edge). Either way, if the launch
+  // or a render fails, the catch below writes plain SPA shells per route so the
+  // deploy still works.
+  let launchOptions
+  if (process.env.VERCEL) {
+    const { default: chromium } = await import('@sparticuz/chromium')
+    launchOptions = {
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    }
+  } else {
+    launchOptions = {
+      executablePath: findSystemBrowser(),
+      headless: true,
+      args: ['--no-sandbox', '--disable-gpu'],
+    }
+  }
+  const browser = await puppeteer.launch(launchOptions)
 
   const page = await browser.newPage()
   await page.setViewport({ width: 1440, height: 1080 })
