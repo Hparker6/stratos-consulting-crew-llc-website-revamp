@@ -270,6 +270,30 @@
     color: theme('colors.secondary');
   }
 
+  /* The signature emphasis: an italic-gold Fraunces phrase inside a heading.
+     One definition so the weight and colour never drift across the ~7 section
+     headers that use it (they had hand-typed font-weights of 460/500/540). */
+  .emph {
+    font-family: theme('fontFamily.display');
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 500;
+    color: theme('colors.secondary');
+  }
+
+  /* Gold-underlined text CTA — the repeated "See … →" link. Compose with layout
+     utilities (inline-flex, mt-*) at the call site; this owns only the look. */
+  .link-underline {
+    @apply font-bold text-text-base;
+    font-size: 0.9375rem; /* 15 */
+    border-bottom: 2px solid theme('colors.secondary');
+    padding-bottom: 3px;
+    transition: opacity var(--dur-fast) var(--ease);
+  }
+  .link-underline:hover {
+    opacity: 0.8;
+  }
+
   /* ================================================================ */
   /* 2. SPACING — one vertical rhythm                                  */
   /*                                                                  */

@@ -88,7 +88,9 @@ export function setJsonLd(id: string, data: object): () => void {
   const script = document.createElement('script')
   script.type = 'application/ld+json'
   script.id = domId
-  script.text = JSON.stringify(data)
+  // Escape "<" so a value that ever contains "</script>" cannot break out of the
+  // tag when the DOM is serialized to static HTML during prerender.
+  script.text = JSON.stringify(data).replace(/</g, '\\u003c')
   document.head.appendChild(script)
   return () => document.getElementById(domId)?.remove()
 }

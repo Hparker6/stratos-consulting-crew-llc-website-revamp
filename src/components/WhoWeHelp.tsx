@@ -111,7 +111,7 @@ export default function WhoWeHelp({ variant = 'section' }: Props) {
           title={
             <>
               Built for the businesses that{' '}
-              <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>
+              <em className="emph">
                 move product.
               </em>
             </>

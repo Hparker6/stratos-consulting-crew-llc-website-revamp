@@ -122,7 +122,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // then writes to them rather than to yourself.
       from: `"Stratos website" <${SMTP_USER}>`,
       to,
-      replyTo: headerSafe(`"${name}" <${email}>`),
+      // Structured form so nodemailer encodes the display name itself — a name
+      // containing a quote or angle bracket can't malform the Reply-To header
+      // (sanitize() has already stripped control chars and newlines).
+      replyTo: { name, address: email },
       subject,
       text,
     })

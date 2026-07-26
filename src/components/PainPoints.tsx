@@ -66,7 +66,7 @@ export default function PainPoints() {
               title={
                 <>
                   You're running a real business on{' '}
-                  <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>
+                  <em className="emph">
                     gut feel
                   </em>{' '}
                   and spreadsheets.

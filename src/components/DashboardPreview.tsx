@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import HeroDashboard, { type DashView } from './HeroDashboard'
 
@@ -39,6 +39,21 @@ export default function DashboardPreview() {
   const [active, setActive] = useState<DashView>('overview')
   const current = tabs.find((t) => t.id === active) ?? tabs[0]
 
+  // ARIA tabs keyboard support: arrows/Home/End move between tabs and activate.
+  function onTabKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    const ids = tabs.map((t) => t.id)
+    const cur = ids.indexOf(active)
+    let next = cur
+    if (e.key === 'ArrowRight') next = (cur + 1) % ids.length
+    else if (e.key === 'ArrowLeft') next = (cur - 1 + ids.length) % ids.length
+    else if (e.key === 'Home') next = 0
+    else if (e.key === 'End') next = ids.length - 1
+    else return
+    e.preventDefault()
+    setActive(ids[next])
+    e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus()
+  }
+
   return (
     <section id="dashboard" className="section bg-bg border-t-hairline">
       <div className="container-page">
@@ -49,7 +64,7 @@ export default function DashboardPreview() {
           </div>
           <h2 className="t-h2 mt-6 max-w-[18ch]">
             The same screens we'd{' '}
-            <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>build for you.</em>
+            <em className="emph">build for you.</em>
           </h2>
           <p className="mt-5 text-muted font-medium text-body-lg leading-relaxed max-w-[54ch]">
             Not a template. Every view is built on your ERP, accounting, and inventory data — one place
@@ -58,7 +73,7 @@ export default function DashboardPreview() {
         </header>
 
         {/* Tab bar — switch product views, Ashby-style. */}
-        <div className="mt-10 flex flex-wrap gap-2" role="tablist" aria-label="Dashboard views">
+        <div className="mt-10 flex flex-wrap gap-2" role="tablist" aria-label="Dashboard views" onKeyDown={onTabKeyDown}>
           {tabs.map((t) => {
             const on = t.id === active
             return (
@@ -66,7 +81,10 @@ export default function DashboardPreview() {
                 key={t.id}
                 type="button"
                 role="tab"
+                id={`tab-${t.id}`}
                 aria-selected={on}
+                aria-controls="dashboard-panel"
+                tabIndex={on ? 0 : -1}
                 onClick={() => setActive(t.id)}
                 className={`tab-pill inline-flex items-center gap-2 rounded-full px-4 py-2 font-heading font-semibold text-[14px] ${on ? 'is-active' : ''}`}
               >
@@ -77,7 +95,12 @@ export default function DashboardPreview() {
           })}
         </div>
 
-        <div className="mt-8 grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-10 lg:gap-14 items-center">
+        <div
+          id="dashboard-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${active}`}
+          className="mt-8 grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-10 lg:gap-14 items-center"
+        >
           {/* Product view — re-keyed so entrance motion replays on tab change. */}
           <div className="relative flex justify-center lg:justify-start" data-reveal>
             <div className="relative w-full max-w-[680px]">
@@ -94,7 +117,7 @@ export default function DashboardPreview() {
             <p className="text-text-base font-medium text-body-lg leading-relaxed">{current.caption}</p>
             <Link
               to="/solutions"
-              className="inline-flex mt-6 font-bold text-[15px] text-text-base border-b-2 border-secondary pb-[3px] hover:opacity-80 transition-opacity"
+              className="inline-flex mt-6 link-underline"
               data-track="dashboard_interaction"
               data-track-label="home_preview_to_solutions"
             >

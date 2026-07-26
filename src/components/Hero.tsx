@@ -127,7 +127,7 @@ export default function Hero() {
               </BookCallLink>
               <a
                 href="#dashboard"
-                className="font-bold text-[15px] text-text-base border-b-2 border-secondary pb-[3px] hover:opacity-80 transition-opacity"
+                className="link-underline"
                 data-track="cta_click"
                 data-track-label="hero_see_sample_dashboard"
                 data-track-destination="dashboard_section"

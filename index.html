@@ -7,14 +7,16 @@
     <title>Stratos Consulting Crew | Analytics &amp; Dashboards for Distributors</title>
     <meta name="description" content="We help small distributors and manufacturers cut costs, optimize inventory, and make smarter decisions with Power BI dashboards, forecasting, and automation. Book a free discovery call." />
     <link rel="canonical" href="https://www.stratosconsultingcrew.com" />
-    <!-- Self-hosted fonts. Preloading these two measured CLS 0.000 (vs ~0.039
-         without). JetBrains Mono is not preloaded: eyebrow labels only. -->
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk-latin-wght-normal.woff2" crossorigin />
+    <!-- Self-hosted fonts. Fraunces (the display face carrying the LCP headline)
+         and Manrope (body) are preloaded; JetBrains Mono is not — eyebrow labels
+         only. Preloading the two critical faces measured CLS 0.000. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-latin-opsz-normal.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/manrope-latin-wght-normal.woff2" crossorigin />
     <!--
-      Consent Mode v2 defaults — pushed before any tag can load. No analytics
-      script (GA4/GTM/Clarity) is injected until the visitor grants consent;
-      see src/lib/analytics.ts for the loader and configuration.
+      Consent Mode v2 defaults — pushed before any tag can load, so nothing is
+      read or written until consent is resolved. Analytics is then granted on
+      load for every visitor EXCEPT those whose browser sends Global Privacy
+      Control (there is no banner); see src/lib/analytics.ts for the loader.
     -->
     <script>
       window.dataLayer = window.dataLayer || [];

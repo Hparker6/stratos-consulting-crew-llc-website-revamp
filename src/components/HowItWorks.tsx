@@ -37,7 +37,7 @@ export default function HowItWorks() {
           title={
             <>
               Three steps.{' '}
-              <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>
+              <em className="emph">
                 No jargon.
               </em>
             </>
@@ -90,7 +90,7 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        <Link to="/process" className="inline-flex mt-10 font-bold text-[15px] text-text-base border-b-2 border-secondary pb-[3px] hover:opacity-80 transition-opacity">
+        <Link to="/process" className="inline-flex mt-10 link-underline">
           Watch the full engagement, phase by phase →
         </Link>
       </div>

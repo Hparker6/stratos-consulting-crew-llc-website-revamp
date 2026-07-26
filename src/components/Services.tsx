@@ -159,7 +159,7 @@ export default function Services() {
           title={
             <>
               Six things owners ask us{' '}
-              <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>
+              <em className="emph">
                 for most.
               </em>
             </>
@@ -175,7 +175,7 @@ export default function Services() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 items-center">
-          <Link to="/solutions" className="font-bold text-[15px] text-text-base border-b-2 border-secondary pb-[3px] hover:opacity-80 transition-opacity">
+          <Link to="/solutions" className="link-underline">
             See each one solved, with a sample dashboard →
           </Link>
         </div>

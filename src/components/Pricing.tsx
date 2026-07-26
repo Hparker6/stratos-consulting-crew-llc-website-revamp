@@ -36,7 +36,7 @@ export default function Pricing() {
           title={
             <>
               Start small. Spend more{' '}
-              <em className="font-display italic text-secondary" style={{ fontWeight: 500 }}>
+              <em className="emph">
                 only if it pays.
               </em>
             </>

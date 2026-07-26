@@ -101,8 +101,14 @@ function onDocumentClick(e: MouseEvent) {
     trackFileDownload(href)
     return
   }
-  if (/^https?:\/\//i.test(href) && !href.includes(window.location.hostname)) {
-    trackOutboundClick(href)
+  // Compare parsed hostnames, not a substring: `.includes(hostname)` would treat
+  // `evil-<hostname>.com` (and `?ref=<hostname>`) as internal and miss the click.
+  if (/^https?:\/\//i.test(href)) {
+    try {
+      if (new URL(href).hostname !== window.location.hostname) trackOutboundClick(href)
+    } catch {
+      /* malformed URL — ignore */
+    }
   }
 }
 

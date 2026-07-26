@@ -5,6 +5,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
+    { "source": "/services", "destination": "/solutions", "permanent": true },
     { "source": "/dashboards", "destination": "/solutions", "permanent": true },
     { "source": "/problems", "destination": "/solutions", "permanent": true },
     { "source": "/problems/:path*", "destination": "/solutions", "permanent": true }
