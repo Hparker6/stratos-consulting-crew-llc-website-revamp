@@ -35,10 +35,13 @@ twice. This is asserted by the verification suite.
 
 ### Consent
 
-No tag script is injected and no event is emitted until the visitor presses
-**Allow**. Google Consent Mode v2 defaults are set to `denied` before any tag can
-run. Global Privacy Control is honoured as a silent decline. Consent can be
-withdrawn at any time via **Cookie settings** in the footer.
+Analytics is **on by default** — there is no banner. Google Consent Mode v2
+defaults are set to `denied` in `index.html` before any tag can run, then
+`initAnalytics()` updates analytics storage to `granted` on load and injects the
+tags. The one exception is **Global Privacy Control**: a browser sending GPC is
+treated as a silent, permanent decline — it is never tagged and `track()` stays
+silent for it. (The old allow/deny banner and `CookieConsent` component were
+removed, so the `consent_granted` event below no longer fires.)
 
 ---
 
@@ -70,6 +73,30 @@ withdrawn at any time via **Cookie settings** in the footer.
 `footer_book_call`, `cta_band_book_call`, `contact_pick_a_time`,
 `pricing_discovery_assessment`, `pricing_dashboard_package`,
 `pricing_forecasting_project`, `pricing_monthly_retainer`.
+
+### GA4 dashboard setup — do this once
+
+Two things live in the GA4 web UI, not in code:
+
+**1. Stop double-counted page views.** This site sends `page_view` **manually** on
+every route change (GA4 can't see SPA navigations on its own), and `gtag config`
+runs with `send_page_view: false`. If GA4's Enhanced Measurement *also* generates
+a page view on each SPA navigation, every navigation is counted twice.
+
+> GA4 → **Admin → Data streams →** *(your web stream)* **→ Enhanced measurement**
+> (the ⚙ icon) → open **Page views** → turn **OFF** *"Page changes based on
+> browser history events."* Leave the rest of Enhanced Measurement on.
+
+**2. Mark the Key Events (Conversions).** The ★ rows in the catalog above:
+`cta_click`, `booking_click`, `contact_form_submit`, `email_click`, `phone_click`.
+
+> GA4 → **Admin → Key events → New key event**, type the exact event name, save.
+> (An event also becomes markable from **Admin → Events** once it has been
+> received at least once — so fire it on the live site first, or use **DebugView**
+> with `?gtm_debug=1`.)
+
+`contact_form_submit` is the one that matters most — it only fires on a real 2xx
+from `/api/contact`, so it's a clean lead signal.
 
 ---
 
@@ -133,10 +160,11 @@ homepage's description.
   `?ref=` variants collapse into one indexed page.
 - **robots meta**: indexable pages get `index, follow, max-image-preview:large`.
   The 404 gets `noindex, follow`.
-- **404**: `netlify.toml` serves a prerendered `/404.html` with a real **HTTP 404**.
+- **404**: `vercel.json` serves a prerendered `/404.html` with a real **HTTP 404**.
   Previously the SPA fallback returned **HTTP 200** for every unknown URL, so
   typo'd and stale links were indexable soft-404s.
-- **Legacy URLs**: `/dashboards`, `/problems`, `/problems/*` are **301**s to
-  `/solutions`, server-side, so link equity transfers.
+- **Legacy URLs**: `/services`, `/dashboards`, `/problems`, `/problems/*` are
+  **301**s to `/solutions`, server-side (`vercel.json`), so link equity transfers.
+  (`/services` merged into the problem-led Solutions page.)
 - **sitemap.xml**: generated at build (`scripts/generate-sitemap.mjs`). Add a route
   there when you add a page.
