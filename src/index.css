@@ -301,14 +301,17 @@
   /* 12/16, 10/14, 16/24, 24/32). Three densities replace them.       */
   /* ================================================================ */
 
+  /* Vertical rhythm is tighter on phones/tablets and opens up on desktop, so a
+     content-rich page doesn't turn into an endless mobile scroll. Desktop (lg)
+     values are unchanged. */
   .section {
-    @apply py-16 lg:py-20;
+    @apply py-12 lg:py-20;
   }
   .section-sm {
-    @apply py-12 lg:py-16;
+    @apply py-10 lg:py-16;
   }
   .section-lg {
-    @apply py-24 lg:py-32;
+    @apply py-16 lg:py-32;
   }
   /* Every section shares one content column. */
   .container-page {
