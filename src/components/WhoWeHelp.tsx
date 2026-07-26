@@ -74,9 +74,11 @@ const audiences = [
 interface Props {
   /** 'section' renders with its own heading band; 'embedded' renders just the cards. */
   variant?: 'section' | 'embedded'
+  /** Homepage chapter number ("02"); standalone pages pass "◇" to avoid an orphan number. */
+  index?: string
 }
 
-export default function WhoWeHelp({ variant = 'section' }: Props) {
+export default function WhoWeHelp({ variant = 'section', index = '02' }: Props) {
   const cards = (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
       {audiences.map((a, i) => (
@@ -105,7 +107,7 @@ export default function WhoWeHelp({ variant = 'section' }: Props) {
     >
       <div className="container-page">
         <SectionHeader
-          index="02"
+          index={index}
           eyebrow="Who we help"
           accent="blue"
           title={

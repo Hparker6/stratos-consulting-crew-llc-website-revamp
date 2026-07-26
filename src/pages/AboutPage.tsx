@@ -42,8 +42,9 @@ export default function AboutPage() {
         lede="A $5–50M supplier has the same questions a Fortune 500 does. What it doesn't have is a six-figure budget, a team of juniors to manage, or any interest in replacing the systems it just finished paying for. That gap is why Stratos exists."
       />
 
-      {/* Founder bio — reuses the light-section treatment from the homepage */}
-      <About />
+      {/* Founder bio — reuses the light-section treatment from the homepage.
+          "◇" instead of a chapter number, since this isn't the homepage sequence. */}
+      <About index="◇" />
 
       {/* The honest pitch */}
       <section className="section bg-bg">
@@ -78,7 +79,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <WhoWeHelp />
+      <WhoWeHelp index="◇" />
       <CTABand
         title="Meet us before you commit to anything."
         body="The discovery call is 30 minutes with the person who'd actually do the work. Free, no pitch, and an honest read on whether we can help."

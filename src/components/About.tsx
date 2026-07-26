@@ -10,7 +10,9 @@ import SectionHeader from './SectionHeader'
  * bg-light / text-light-ink / text-light-body / text-light-link, all declared
  * once in tailwind.config.js.
  */
-export default function About() {
+/** `index` is the chapter number on the homepage sequence ("05"); the standalone
+ *  /about page passes the neutral "◇" marker so no orphan number appears. */
+export default function About({ index = '05' }: { index?: string }) {
   return (
     <section id="about" className="section section-light">
       <div className="container-page">
@@ -34,7 +36,7 @@ export default function About() {
           {/* Bio */}
           <div className="flex-1">
             <SectionHeader
-              index="05"
+              index={index}
               eyebrow="Who you'll work with"
               tone="light"
               title={

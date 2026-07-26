@@ -24,27 +24,31 @@ const guaranteeIcons = [
 ]
 
 
-export default function Pricing() {
+/** `standalone` = rendered as its own /pricing page under a PageHeader, so its
+ *  own chapter header is suppressed to avoid a duplicate "Pricing" intro. */
+export default function Pricing({ standalone = false }: { standalone?: boolean }) {
   return (
     <section id="pricing" className="section bg-bg">
       <div className="container-page text-center">
-        <SectionHeader
-          index="06"
-          eyebrow="Pricing"
-          accent="gold"
-          align="center"
-          title={
-            <>
-              Start small. Spend more{' '}
-              <em className="emph">
-                only if it pays.
-              </em>
-            </>
-          }
-          lede="Fixed prices, quoted before the work starts. Every step has to earn the next one."
-        />
+        {!standalone && (
+          <SectionHeader
+            index="06"
+            eyebrow="Pricing"
+            accent="gold"
+            align="center"
+            title={
+              <>
+                Start small. Spend more{' '}
+                <em className="emph">
+                  only if it pays.
+                </em>
+              </>
+            }
+            lede="Fixed prices, quoted before the work starts. Every step has to earn the next one."
+          />
+        )}
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
+        <div className={`${standalone ? '' : 'mt-12'} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left`}>
           {tiers.map((t, i) => (
             <article
               key={t.name}
