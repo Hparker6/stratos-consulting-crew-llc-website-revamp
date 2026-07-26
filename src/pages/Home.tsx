@@ -6,14 +6,11 @@ import Services from '../components/Services'
 import HowItWorks from '../components/HowItWorks'
 import DashboardPreview from '../components/DashboardPreview'
 import WhoWeHelp from '../components/WhoWeHelp'
+import StatementBand from '../components/StatementBand'
 import About from '../components/About'
 import Pricing from '../components/Pricing'
 import FAQ from '../components/FAQ'
 import Contact from '../components/Contact'
-
-function GradientDivider() {
-  return <div className="divider-shimmer" />
-}
 
 export default function Home() {
   usePageMeta(
@@ -28,13 +25,14 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <GradientDivider />
+      {/* Order follows the buyer's questions: resonate (pain) → confirm fit
+          (who) → what we do → how it works → proof → founder → price. */}
       <PainPoints />
+      <WhoWeHelp />
       <Services />
       <HowItWorks />
       <DashboardPreview />
-      <WhoWeHelp />
-      <GradientDivider />
+      <StatementBand />
       <About />
       <Pricing />
       <FAQ />

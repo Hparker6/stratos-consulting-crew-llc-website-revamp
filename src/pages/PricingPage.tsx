@@ -34,14 +34,16 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title={
           <>
-            No mystery quotes. <span className="gradient-text">No runaway invoices.</span>
+            No mystery quotes. <span className="gradient-text italic">No runaway invoices.</span>
           </>
         }
         lede="You shouldn't have to book a call just to learn whether this costs $2,000 or $50,000. Here are the real ranges, what moves you within them, and the terms that keep every engagement low-risk."
       />
 
-      {/* Reuses the homepage pricing section for a single source of truth */}
-      <Pricing />
+      {/* Reuses the homepage pricing section for a single source of truth. The
+          PageHeader above already introduces the page, so the section's own
+          chapter header is suppressed here to avoid a duplicate "Pricing" intro. */}
+      <Pricing standalone />
 
       <section
         className="section-sm bg-elevated border-t-hairline"

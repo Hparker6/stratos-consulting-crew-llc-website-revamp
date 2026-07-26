@@ -1,10 +1,21 @@
-import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import useSectionView from '../hooks/useSectionView'
 import PageHeader from '../components/PageHeader'
 import CTABand from '../components/CTABand'
+import ERPFamiliarity from '../components/ERPFamiliarity'
 import { problems, Problem } from '../data/problems'
 import { getDashboard } from '../components/dashboards'
+
+/** The stack each engagement is typically built with — the concrete "what tech"
+ *  answer a buyer wants, folded in when Services merged into Solutions. */
+const toolsBySlug: Record<string, string> = {
+  'executive-visibility': 'Power BI · SQL · your ERP',
+  'customer-profitability': 'SQL · Power BI · Excel',
+  'inventory-optimization': 'Python · SQL · Power BI',
+  'demand-forecasting': 'Python · SQL · Power BI',
+  'purchasing-analytics': 'SQL · Power BI',
+  'sales-reporting': 'Python · SQL · Power Automate',
+}
 
 /**
  * Solutions — the pain-point marketing hub. Each section pairs a common
@@ -25,10 +36,10 @@ export default function SolutionsPage() {
         eyebrow="Solutions"
         title={
           <>
-            The problems are common. <span className="gradient-text">The fix is your data.</span>
+            The problems are common. <span className="gradient-text italic">The fix is your data.</span>
           </>
         }
-        lede="Six challenges we see across distributors, manufacturers, and wholesalers. For each one: what it costs you, how we attack it analytically, and a sample of what you'd see on screen."
+        lede="Six challenges we see across distributors, manufacturers, and wholesalers. For each one: what it costs you, how we attack it, the tools we build it with, and a sample of what you'd see on screen."
       />
 
       {/* Jump links */}
@@ -58,25 +69,9 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      {/* Bridge to services */}
-      <section className="py-12 bg-bg">
-        <div className="container-page">
-          <div className="card-lg p-7 lg:p-9 flex flex-col md:flex-row md:items-center gap-6">
-            <div className="flex-1">
-              <h2 className="t-h4 text-text-base">
-                Want the service-by-service breakdown?
-              </h2>
-              <p className="mt-2 text-muted font-medium text-body-sm">
-                Deliverables, tools, and what's included in each engagement: dashboards, forecasting,
-                inventory optimization, profitability, and automation.
-              </p>
-            </div>
-            <Link to="/services" className="btn-secondary flex-shrink-0" data-track="nav_click" data-track-label="solutions_to_services">
-              View Services →
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* We meet your systems where they are — the ERP-familiarity trust band,
+          folded in from the old Services page. */}
+      <ERPFamiliarity />
 
       <CTABand
         title="Recognize your business in one of these?"
@@ -139,6 +134,12 @@ function SolutionSection({ problem: p, index: i }: { problem: Problem; index: nu
                       </li>
                     ))}
                   </ul>
+
+                  {toolsBySlug[p.slug] && (
+                    <p className="mt-6 pt-5 border-t border-[var(--line-soft)] font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+                      Built with <span className="text-muted">{toolsBySlug[p.slug]}</span>
+                    </p>
+                  )}
                 </div>
 
                 {/* Dashboard column */}

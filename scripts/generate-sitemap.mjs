@@ -26,7 +26,6 @@ const SHARED = ['src/components', 'src/data', 'src/index.css']
 
 const routes = [
   { path: '/', priority: '1.0', changefreq: 'monthly', sources: ['src/pages/Home.tsx', ...SHARED] },
-  { path: '/services', priority: '0.9', changefreq: 'monthly', sources: ['src/pages/ServicesPage.tsx', ...SHARED] },
   { path: '/solutions', priority: '0.9', changefreq: 'monthly', sources: ['src/pages/SolutionsPage.tsx', ...SHARED] },
   { path: '/process', priority: '0.8', changefreq: 'monthly', sources: ['src/pages/ProcessPage.tsx', ...SHARED] },
   { path: '/pricing', priority: '0.9', changefreq: 'monthly', sources: ['src/pages/PricingPage.tsx', ...SHARED] },

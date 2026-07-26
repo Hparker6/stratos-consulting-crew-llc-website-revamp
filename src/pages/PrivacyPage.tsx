@@ -17,7 +17,7 @@ export default function PrivacyPage() {
         eyebrow="Privacy"
         title={
           <>
-            What we collect. <span className="gradient-text">And what we don't.</span>
+            What we collect. <span className="gradient-text italic">And what we don't.</span>
           </>
         }
         lede="We ask you to trust us with your business data, so we will not be vague about our own. This is the whole policy, in plain English."
@@ -58,9 +58,9 @@ export default function PrivacyPage() {
                 <li className="flex items-start gap-2 text-[16px] text-muted font-medium leading-relaxed">
                   <span className="text-secondary font-bold mt-[1px] flex-shrink-0">✓</span>
                   <span>
-                    <strong className="text-text-base">Anonymous usage analytics — only if you allow
-                    them.</strong> Which pages were viewed, how far they were scrolled, and which buttons
-                    were clicked. We use Google Analytics 4 for this.
+                    <strong className="text-text-base">Anonymous usage analytics.</strong> Which pages
+                    were viewed, how far they were scrolled, and which buttons were clicked. We use Google
+                    Analytics 4 for this. It runs by default, with one exception you control — see below.
                   </span>
                 </li>
               </ul>
@@ -72,13 +72,15 @@ export default function PrivacyPage() {
 
             <div>
               <h2 className="t-h4 mb-3">
-                Cookies and consent
+                Cookies and opting out
               </h2>
               <p className="text-muted font-medium text-body">
-                No analytics script loads until you press "Allow" on the consent banner. If you decline, or
-                if your browser sends a Global Privacy Control signal, no analytics tag is ever loaded and
-                the site stays completely tag-free. Your choice is stored in your browser's local storage
-                so we don't ask again. Clearing your browser data resets it.
+                Privacy-respecting analytics load for every visitor by default — there is no banner to
+                click through. We run no advertising, retargeting, or ad-personalization tags in any case.
+                We honor the Global Privacy Control (GPC): if your browser sends a GPC signal, no analytics
+                tag is ever loaded and the site stays completely tag-free for you. Most browsers and
+                privacy extensions can enable GPC in a single setting; that is the switch that turns our
+                analytics off for you, automatically and on every visit.
               </p>
             </div>
 
@@ -89,9 +91,9 @@ export default function PrivacyPage() {
               <p className="text-muted font-medium text-body">
                 This site is hosted by Vercel, which keeps standard server logs. What you send through the
                 contact form is emailed straight to us through Google Workspace and is not stored anywhere
-                else or handed to any other company. Google Analytics runs only with your consent, as
-                described above. If you book through our scheduling link, that booking is handled by our
-                scheduling provider under their own privacy policy.
+                else or handed to any other company. Google Analytics runs as described above, and never
+                when your browser sends a Global Privacy Control signal. If you book through our scheduling
+                link, that booking is handled by our scheduling provider under their own privacy policy.
               </p>
             </div>
 
@@ -102,9 +104,8 @@ export default function PrivacyPage() {
               <p className="text-muted font-medium text-body">
                 Contact form submissions are kept only as long as needed to follow up on your inquiry and
                 for our business records. You may ask us to access, correct, or delete anything you have
-                sent us. You can change or withdraw your analytics consent at any time using the{' '}
-                <strong className="text-text-base">Cookie settings</strong> link at the bottom of any page.
-                Email{' '}
+                sent us. You can turn off analytics for yourself at any time by enabling Global Privacy
+                Control in your browser, which we honor automatically. Email{' '}
                 <a href={CONTACT_MAILTO} className="text-primary font-bold hover:underline">
                   {CONTACT_EMAIL}
                 </a>{' '}

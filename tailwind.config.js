@@ -18,17 +18,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Dark surfaces — lowest to highest elevation */
-        bg: '#0a0f1c', // page background
-        sunken: '#0d1526', // insets, dashboard chrome
-        surface: '#101a2e', // default card / raised panel
-        elevated: '#0c1a30', // tinted band sections
-        footer: '#080c16', // deepest surface
-        ring: '#0c182c', // gradient-ring card interior
+        /* Dark surfaces — lowest to highest elevation. Deep atmospheric indigo:
+           the "view from the stratosphere" — cool and near-black at altitude,
+           warming only where the horizon glow reaches it. */
+        bg: '#080b16', // page background
+        sunken: '#0b1120', // insets, dashboard chrome
+        surface: '#0f1626', // default card / raised panel
+        elevated: '#0b1426', // tinted band sections
+        footer: '#06080f', // deepest surface
+        ring: '#0a1424', // gradient-ring card interior
 
-        /* Brand */
-        primary: '#2f8fff',
-        secondary: '#27e0a0',
+        /* Brand — navy + gold. Blue carries data & trust; gold is the signature
+           accent and the colour every call-to-action is painted in. */
+        primary: '#2f8fff', // luminous sky-blue — charts, links, data
+        secondary: '#f5b544', // warm horizon gold — the signature accent
+        'gold-deep': '#e09a2b', // pressed / dense gold
         focus: '#6cb6ff', // focus ring — brand blue lifted for AA on dark
 
         /* Text on dark */
@@ -50,9 +54,12 @@ export default {
       },
 
       fontFamily: {
-        // Each stack falls back to a metric-matched face (see index.css) so the
-        // webfont swap reflows nothing.
-        heading: ['"Space Grotesk"', '"Space Grotesk Fallback"', 'system-ui', 'sans-serif'],
+        // Three deliberate roles: an elegant high-contrast serif for the big
+        // display moments, a clean grotesque for UI and structural headings, and
+        // a technical mono for data labels. Each stack falls back to a
+        // metric-matched face (see index.css) so the webfont swap reflows little.
+        display: ['"Fraunces"', '"Fraunces Fallback"', 'Georgia', 'serif'],
+        heading: ['"Manrope"', '"Manrope Fallback"', 'system-ui', 'sans-serif'],
         body: ['"Manrope"', '"Manrope Fallback"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', '"JetBrains Mono Fallback"', 'monospace'],
       },
@@ -94,8 +101,9 @@ export default {
         md: '0 8px 32px rgba(0,0,0,0.35)', // sticky header
         lg: '0 18px 44px rgba(0,0,0,0.45)', // card hover
         xl: '0 24px 60px rgba(0,0,0,0.4)', // dashboard chrome
-        'glow-primary': '0 12px 30px rgba(47,143,255,0.4)', // primary button
-        'glow-featured': '0 0 44px rgba(47,143,255,0.2)', // featured pricing card
+        'glow-primary': '0 12px 30px rgba(47,143,255,0.4)', // blue data accents
+        'glow-gold': '0 14px 34px rgba(245,181,68,0.34)', // primary CTA (gold)
+        'glow-featured': '0 0 44px rgba(245,181,68,0.22)', // featured pricing card
         'glow-ambient': '0 0 100px rgba(47,143,255,0.08), 0 0 60px rgba(39,224,160,0.04)',
         'light-lift': '0 20px 60px rgba(10,22,40,0.15)', // headshot on light bg
       },

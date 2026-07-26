@@ -122,10 +122,12 @@ export default function Contact() {
                 { label: 'Serving distributors nationwide' },
                 { label: 'Replies within one business day' },
               ].map((item) => (
-                <li key={item.label} className="flex items-center gap-2 text-[15px] text-muted font-medium">
+                <li key={item.label} className="flex items-start gap-2 text-[15px] text-muted font-medium">
                   <span className="text-primary font-bold">✦</span>
                   {item.href ? (
-                    <a href={item.href} className="text-primary hover:underline" rel="noopener noreferrer">
+                    // break-all + min-w-0 so the long email address wraps instead
+                    // of pushing past the viewport on ~320px phones.
+                    <a href={item.href} className="text-primary hover:underline break-all min-w-0" rel="noopener noreferrer">
                       {item.label}
                     </a>
                   ) : (

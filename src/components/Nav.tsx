@@ -18,7 +18,7 @@ function Logo({ size = 44 }: { size?: number }) {
           <defs>
             <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#2f8fff" />
-              <stop offset="100%" stopColor="#27e0a0" />
+              <stop offset="100%" stopColor="#f5b544" />
             </linearGradient>
           </defs>
           <path d="M7.5 16.5L5 19M12.5 16.5L15 19" stroke="#04102a" strokeWidth="1.2" strokeLinecap="round" />
@@ -37,7 +37,6 @@ function Logo({ size = 44 }: { size?: number }) {
 export { Logo }
 
 const navLinks = [
-  { label: 'Services', to: '/services' },
   { label: 'Solutions', to: '/solutions' },
   { label: 'Process', to: '/process' },
   { label: 'Pricing', to: '/pricing' },

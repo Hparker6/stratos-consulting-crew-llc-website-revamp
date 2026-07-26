@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import SectionHeader from './SectionHeader'
 
 /**
  * The one light section on the site (warm off-white, dark navy text).
@@ -9,7 +10,9 @@ import { Link } from 'react-router-dom'
  * bg-light / text-light-ink / text-light-body / text-light-link, all declared
  * once in tailwind.config.js.
  */
-export default function About() {
+/** `index` is the chapter number on the homepage sequence ("05"); the standalone
+ *  /about page passes the neutral "◇" marker so no orphan number appears. */
+export default function About({ index = '05' }: { index?: string }) {
   return (
     <section id="about" className="section section-light">
       <div className="container-page">
@@ -32,8 +35,19 @@ export default function About() {
 
           {/* Bio */}
           <div className="flex-1">
-            <p className="eyebrow text-light-link mb-3">Who you'll work with</p>
-            <h2 className="t-h2 text-light-ink">A data scientist who speaks distributor.</h2>
+            <SectionHeader
+              index={index}
+              eyebrow="Who you'll work with"
+              tone="light"
+              title={
+                <>
+                  A data scientist who{' '}
+                  <em className="font-display italic" style={{ fontWeight: 500 }}>
+                    speaks distributor.
+                  </em>
+                </>
+              }
+            />
 
             <p className="mt-5 font-medium text-body-lg text-light-body">
               I'm Houston Parker. I've spent years inside supply-chain data, building the dashboards,
@@ -41,8 +55,11 @@ export default function About() {
             </p>
             <p className="mt-4 font-medium text-body-lg text-light-body">
               I started Stratos because a $10M distributor asks the same questions a $10B one does, and
-              nobody was answering them at a price that made sense. You work with me directly, not a junior
-              who inherited your account.
+              nobody was answering them at a price that made sense.
+            </p>
+            <p className="mt-4 text-body-lg text-light-ink font-semibold">
+              You work with me directly — not a junior who inherited your account, not a rotating
+              offshore team. The person on the discovery call is the person who builds it.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">

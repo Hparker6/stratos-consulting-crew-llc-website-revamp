@@ -1,3 +1,5 @@
+import SectionHeader from './SectionHeader'
+
 /* Faint abstract line-chart ghost */
 function DataGhost() {
   const points = [60, 120, 80, 170, 100, 200, 140, 240, 110, 280, 160, 300]
@@ -12,7 +14,7 @@ function DataGhost() {
       >
         <path d={`${path} L ${11 * 28} 300 L 0 300 Z`} fill="#2f8fff" />
         <path d={path} fill="none" stroke="#2f8fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        {points.map((y, i) => <circle key={i} cx={i * 28} cy={300 - y} r="4" fill="#27e0a0" />)}
+        {points.map((y, i) => <circle key={i} cx={i * 28} cy={300 - y} r="4" fill="#f5b544" />)}
         {[60, 120, 180, 240].map((y) => (
           <line key={y} x1="0" y1={y} x2="320" y2={y} stroke="#2f8fff" strokeWidth="1" strokeDasharray="6 4" />
         ))}
@@ -49,39 +51,52 @@ const pains = [
   },
 ]
 
-function PainCard({ p, delay }: { p: typeof pains[0]; delay: number }) {
-  return (
-    <article
-      className="card card-lift p-6 hover:border-white/[0.14]"
-      data-reveal
-      data-reveal-delay={delay}
-    >
-      <p className="font-mono text-[13px] font-bold text-primary mb-3 tracking-[0.1em]">{p.num}</p>
-      <h3 className="t-h5 text-text-base mb-2">{p.title}</h3>
-      <p className="text-muted font-medium text-body">{p.body}</p>
-    </article>
-  )
-}
-
 export default function PainPoints() {
   return (
-    <section id="pain" className="relative overflow-hidden section bg-bg">
+    <section id="pain" className="relative overflow-hidden section-lg bg-bg">
       <DataGhost />
       <div className="relative container-page">
-        <p className="eyebrow text-primary mb-3">Sound familiar?</p>
-        <h2 className="t-h2 max-w-[620px]">
-          You're running a real business on gut feel and spreadsheets.
-        </h2>
+        <div className="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-14 lg:gap-24">
+          {/* Left column — the chapter opener, held near the top as the list scrolls. */}
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHeader
+              index="01"
+              eyebrow="Sound familiar?"
+              accent="blue"
+              title={
+                <>
+                  You're running a real business on{' '}
+                  <em className="emph">
+                    gut feel
+                  </em>{' '}
+                  and spreadsheets.
+                </>
+              }
+              lede="The numbers to run it already exist — they're just scattered across systems that don't talk. So every real decision waits on a report nobody has time to rebuild."
+            />
+          </div>
 
-        <div className="mt-10">
-          {/* Top row: 3 cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {pains.slice(0, 3).map((p, i) => <PainCard key={p.num} p={p} delay={i * 70} />)}
-          </div>
-          {/* Bottom row: 2 cards at ~45% each — no centering constraint */}
-          <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5 md:max-w-[90%] mx-auto">
-            {pains.slice(3).map((p, i) => <PainCard key={p.num} p={p} delay={i * 70} />)}
-          </div>
+          {/* Right column — the leaks, as an editorial ledger. Hairlines, not boxes. */}
+          <ol className="border-t border-[var(--line)]">
+            {pains.map((p, i) => (
+              <li
+                key={p.num}
+                className="edge-row group grid grid-cols-[3.25rem_1fr] sm:grid-cols-[5rem_1fr] items-baseline gap-4 sm:gap-6 py-6 sm:py-7"
+                data-reveal
+                data-reveal-delay={i * 70}
+              >
+                <span className="edge-index text-[2.75rem] sm:text-[3.25rem] tracking-[-0.02em]" aria-hidden="true">
+                  {p.num}
+                </span>
+                <div>
+                  <h3 className="font-heading font-semibold text-[1.2rem] leading-snug text-text-base tracking-[-0.01em]">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-muted font-medium text-body">{p.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
