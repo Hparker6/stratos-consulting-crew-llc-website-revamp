@@ -2,15 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
     { "source": "/services", "destination": "/solutions", "permanent": true },
     { "source": "/dashboards", "destination": "/solutions", "permanent": true },
     { "source": "/problems", "destination": "/solutions", "permanent": true },
     { "source": "/problems/:path*", "destination": "/solutions", "permanent": true }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {

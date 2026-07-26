@@ -165,7 +165,19 @@ try {
   await browser.close()
   console.log(`Prerender complete: ${ROUTES.length} routes + 404`)
 } catch (err) {
-  console.warn(`Prerender skipped (${err.message}) — deploying as plain SPA.`)
+  // No headless browser in the build image (e.g. Vercel) — we can't prerender
+  // content, but we MUST still emit an HTML file at every route so the host
+  // serves the SPA shell for deep links and refreshes instead of a hard 404.
+  // The client then renders the route. This makes the site work without relying
+  // on host-specific rewrite rules.
+  console.warn(`Prerender skipped (${err.message}) — writing plain SPA shells per route.`)
+  for (const route of ROUTES) {
+    if (route === '/') continue
+    const outDir = join(DIST, route.slice(1))
+    mkdirSync(outDir, { recursive: true })
+    writeFileSync(join(outDir, 'index.html'), template)
+  }
+  writeFileSync(join(DIST, '404.html'), template)
 } finally {
   server.close()
 }
